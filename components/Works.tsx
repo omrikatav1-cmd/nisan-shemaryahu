@@ -138,15 +138,15 @@ const container: Variants = {
 
 export default function Works() {
   return (
-    <section id="works" className="py-24 px-4 sm:px-6">
+    <section id="works" className="py-32 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
+        {/* Header -- left-aligned for alternating asymmetry */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: EASE }}
-          className="text-center mb-6"
+          className="text-right sm:text-left mb-6 sm:max-w-xl sm:mr-auto"
         >
           <p className="text-[#3B82F6] text-xs font-black tracking-[0.25em] uppercase mb-3">
             גלריה
@@ -160,10 +160,10 @@ export default function Works() {
         </motion.div>
 
         {/* Scroll-reveal tagline */}
-        <div className="text-center mb-14">
+        <div className="text-right sm:text-left mb-16 sm:max-w-xl sm:mr-auto">
           <ScrollRevealText
             text="עבודה שמדברת בעד עצמה. תוצאות אמיתיות, לקוחות מרוצים."
-            className="text-[#94A3B8] text-lg max-w-md mx-auto"
+            className="text-[#94A3B8] text-lg max-w-md"
             colorFrom="#2d3f55"
             colorTo="#94A3B8"
           />
@@ -175,7 +175,7 @@ export default function Works() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[200px]"
+          className="grid grid-cols-2 lg:grid-cols-3 gap-5 auto-rows-[200px]"
         >
           {works.map((w) => {
             const Icon = w.icon;
@@ -247,6 +247,7 @@ export default function Works() {
                     style={{
                       background: `${w.tagColor}20`,
                       border: `1px solid ${w.tagColor}30`,
+                      boxShadow: `0 4px 12px ${w.tagColor}25`,
                     }}
                   >
                     <Icon size={16} style={{ color: w.tagColor }} />
@@ -288,7 +289,7 @@ export default function Works() {
           className="text-center mt-12"
         >
           <motion.a
-            href="https://wa.me/972509911241?text=היי ניסן, אני מעוניין לראות עוד עבודות שלך"
+            href={`https://wa.me/972509911241?text=${encodeURIComponent("היי ניסן, אני מעוניין לראות עוד עבודות שלך")}`}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.04, y: -2 }}

@@ -117,16 +117,16 @@ function ResponseTimer({ color }: { color: string }) {
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 px-4 sm:px-6">
+    <section id="services" className="py-32 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
 
-        {/* Header */}
+        {/* Header -- right-aligned for asymmetry */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: EASE }}
-          className="text-center mb-6"
+          className="text-right mb-6 max-w-2xl"
         >
           <p className="text-[#3B82F6] text-xs font-black tracking-[0.25em] uppercase mb-3">
             מה אני עושה
@@ -140,10 +140,10 @@ export default function Services() {
         </motion.div>
 
         {/* Scroll-reveal tagline */}
-        <div className="text-center mb-14">
+        <div className="text-right mb-16 max-w-2xl">
           <ScrollRevealText
             text="עבודה נקייה, חומרים איכותיים, ואחריות בכתב. כל פעם."
-            className="text-xl sm:text-2xl font-black max-w-xl mx-auto"
+            className="text-xl sm:text-2xl font-black max-w-xl"
             style={{ fontFamily: "var(--font-heading)" } as React.CSSProperties}
             colorFrom="#1a2d44"
             colorTo="#CBD5E1"
@@ -158,12 +158,13 @@ export default function Services() {
           viewport={{ once: true, margin: "-80px" }}
           className="bento-grid"
         >
-          {services.map((svc) => (
+          {services.map((svc, idx) => (
             <motion.div
               key={svc.id}
               variants={cardVariants}
-              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
               className={`${svc.bento} glass-bright rounded-2xl p-6 sm:p-8 relative overflow-hidden group cursor-default noise`}
+              style={{ marginTop: idx % 2 === 1 ? "2rem" : "0" }}
             >
               {/* Hover glow */}
               <div
@@ -222,8 +223,13 @@ export default function Services() {
                     href="#diagnostic"
                     whileHover={{ scale: 1.12, rotate: -8 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-9 h-9 rounded-lg flex items-center justify-center cursor-pointer"
-                    style={{ background: `${svc.accentColor}18`, border: `1px solid ${svc.accentColor}30`, color: svc.accentColor }}
+                    className="w-9 h-9 rounded-lg flex items-center justify-center cursor-pointer transition-shadow duration-200"
+                    style={{
+                      background: `${svc.accentColor}18`,
+                      border: `1px solid ${svc.accentColor}30`,
+                      color: svc.accentColor,
+                      boxShadow: `0 4px 16px ${svc.accentColor}20`,
+                    }}
                     aria-label={`הצעת מחיר עבור ${svc.title}`}
                   >
                     <ArrowUpLeft size={16} />

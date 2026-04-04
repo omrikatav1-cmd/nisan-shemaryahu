@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Droplets, Wrench, Layers, HelpCircle,
@@ -30,6 +30,12 @@ const SLIDE = {
   transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
 };
 
+const ISRAELI_PHONE_REGEX = /^0[2-9]\d{7,8}$/;
+
+function validatePhone(raw: string): boolean {
+  return ISRAELI_PHONE_REGEX.test(raw.replace(/\D/g, ""));
+}
+
 function StepDots({ current }: { current: Step }) {
   return (
     <div className="flex items-center gap-2 justify-center mb-8">
@@ -44,6 +50,150 @@ function StepDots({ current }: { current: Step }) {
         />
       ))}
     </div>
+  );
+}
+
+type FieldErrors = { name?: string; phone?: string };
+
+function ContactStep({
+  name, setName, phone, setPhone,
+  issueLabel, urgencyLabel,
+  status, errorMsg, onSubmit, onBack,
+}: {
+  name: string; setName: (v: string) => void;
+  phone: string; setPhone: (v: string) => void;
+  issueLabel: string; urgencyLabel: string;
+  status: "idle" | "loading" | "error";
+  errorMsg: string;
+  onSubmit: () => void;
+  onBack: () => void;
+}) {
+  const nameRef = useRef<HTMLInputElement>(null);
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const isSubmitting = status === "loading";
+
+  useEffect(() => {
+    nameRef.current?.focus();
+  }, []);
+
+  const handleBlur = (field: keyof FieldErrors) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    if (field === "name" && !name.trim()) setFieldErrors((p) => ({ ...p, name: "שדה חובה" }));
+    else if (field === "name") setFieldErrors((p) => ({ ...p, name: undefined }));
+    if (field === "phone") {
+      if (!phone.trim()) setFieldErrors((p) => ({ ...p, phone: "שדה חובה" }));
+      else if (!validatePhone(phone)) setFieldErrors((p) => ({ ...p, phone: "מספר טלפון לא תקין (לדוגמה: 050-1234567)" }));
+      else setFieldErrors((p) => ({ ...p, phone: undefined }));
+    }
+  };
+
+  const handleSubmit = () => {
+    const errors: FieldErrors = {};
+    if (!name.trim()) errors.name = "שדה חובה";
+    if (!phone.trim()) errors.phone = "שדה חובה";
+    else if (!validatePhone(phone)) errors.phone = "מספר טלפון לא תקין (לדוגמה: 050-1234567)";
+    setFieldErrors(errors);
+    setTouched({ name: true, phone: true });
+    if (errors.name || errors.phone) return;
+    onSubmit();
+  };
+
+  const inputClass = (field: keyof FieldErrors) =>
+    cn(
+      "w-full bg-[#020617]/80 border rounded-xl px-4 py-3.5 text-white placeholder:text-[#64748B] text-sm",
+      "focus:outline-none focus:border-[#3B82F6]/60 focus:ring-1 focus:ring-[#3B82F6]/30 transition-colors min-h-[48px]",
+      touched[field] && fieldErrors[field] ? "border-[#EF4444]/60" : "border-white/10"
+    );
+
+  return (
+    <motion.div key="s3" {...SLIDE} className="flex-1 flex flex-col">
+      <h3 className="text-xl font-black text-white mb-1 text-center" style={{ fontFamily: "var(--font-heading)" }}>
+        השאר פרטים
+      </h3>
+      <p className="text-[#64748B] text-sm text-center mb-6">{issueLabel} · {urgencyLabel}</p>
+      <div className="flex flex-col gap-4 flex-1">
+        <div>
+          <label htmlFor="wiz-name" className="text-sm font-semibold text-[#F1F5F9] block mb-1.5">
+            שם <span className="text-[#EF4444]" aria-hidden>*</span>
+          </label>
+          <input
+            ref={nameRef}
+            id="wiz-name" type="text" autoComplete="name"
+            disabled={isSubmitting}
+            value={name} onChange={(e) => { setName(e.target.value); if (touched.name) setFieldErrors((p) => ({ ...p, name: e.target.value.trim() ? undefined : "שדה חובה" })); }}
+            onBlur={() => handleBlur("name")}
+            placeholder="ישראל ישראלי"
+            aria-invalid={touched.name && !!fieldErrors.name}
+            aria-describedby={fieldErrors.name ? "wiz-name-err" : undefined}
+            className={inputClass("name")}
+          />
+          {touched.name && fieldErrors.name && (
+            <p id="wiz-name-err" className="text-[#EF4444] text-xs mt-1" role="alert">{fieldErrors.name}</p>
+          )}
+        </div>
+        <div>
+          <label htmlFor="wiz-phone" className="text-sm font-semibold text-[#F1F5F9] block mb-1.5">
+            טלפון <span className="text-[#EF4444]" aria-hidden>*</span>
+          </label>
+          <input
+            id="wiz-phone" type="tel" autoComplete="tel" inputMode="tel"
+            disabled={isSubmitting}
+            value={phone}
+            onChange={(e) => {
+              const val = e.target.value;
+              if (/^[\d\s\-]*$/.test(val)) {
+                setPhone(val);
+                if (touched.phone) {
+                  const digits = val.replace(/\D/g, "");
+                  if (!digits) setFieldErrors((p) => ({ ...p, phone: "שדה חובה" }));
+                  else if (!ISRAELI_PHONE_REGEX.test(digits)) setFieldErrors((p) => ({ ...p, phone: "מספר טלפון לא תקין (לדוגמה: 050-1234567)" }));
+                  else setFieldErrors((p) => ({ ...p, phone: undefined }));
+                }
+              }
+            }}
+            onBlur={() => handleBlur("phone")}
+            placeholder="050-1234567" dir="ltr"
+            aria-invalid={touched.phone && !!fieldErrors.phone}
+            aria-describedby={fieldErrors.phone ? "wiz-phone-err" : undefined}
+            className={inputClass("phone")}
+          />
+          {touched.phone && fieldErrors.phone && (
+            <p id="wiz-phone-err" className="text-[#EF4444] text-xs mt-1" role="alert">{fieldErrors.phone}</p>
+          )}
+        </div>
+
+        {status === "error" && (
+          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-2 bg-[#EF4444]/10 border border-[#EF4444]/30 rounded-xl px-4 py-3" role="alert">
+            <AlertCircle size={15} className="text-[#EF4444] flex-shrink-0" />
+            <p className="text-[#EF4444] text-sm">{errorMsg}</p>
+          </motion.div>
+        )}
+
+        <motion.button
+          type="button" onClick={handleSubmit}
+          disabled={isSubmitting}
+          whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+          whileTap={!isSubmitting ? { scale: 0.97 } : {}}
+          aria-busy={isSubmitting}
+          aria-live="polite"
+          className={cn(
+            "flex items-center justify-center gap-2.5 w-full font-black text-base px-6 py-4 rounded-xl transition-all duration-200 cursor-pointer min-h-[52px]",
+            isSubmitting
+              ? "bg-[#3B82F6]/35 text-white/40 cursor-not-allowed"
+              : "bg-[#3B82F6] hover:bg-[#2563EB] text-white hover:shadow-[0_0_32px_rgba(59,130,246,0.45)]"
+          )}
+        >
+          {isSubmitting
+            ? <><Loader2 size={18} className="animate-spin" /><span>שולח...</span></>
+            : <><Send size={17} /> שלח לניסן</>}
+        </motion.button>
+      </div>
+      <button onClick={onBack} disabled={isSubmitting} className="mt-3 text-sm text-[#64748B] hover:text-white transition-colors cursor-pointer text-center disabled:opacity-40">
+        ← חזור
+      </button>
+    </motion.div>
   );
 }
 
@@ -64,20 +214,29 @@ export default function DiagnosticWizard() {
   )}`;
 
   const handleSubmit = async () => {
-    if (!name.trim() || !phone.trim()) return;
     setStatus("loading");
     try {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), phone: phone.trim(), issue: `${issueLabel} | ${urgencyLabel}` }),
+        body: JSON.stringify({ name: name.trim(), phone: phone.replace(/\D/g, ""), issue: `${issueLabel} | ${urgencyLabel}` }),
       });
-      if (!res.ok) throw new Error((await res.json()).error ?? "שגיאה");
+      if (!res.ok) { const errData = await res.json(); throw new Error(errData.message ?? "שגיאה"); }
       setStatus("success");
     } catch (e) {
       setStatus("error");
       setErrorMsg(e instanceof Error ? e.message : "שגיאה בשליחה");
     }
+  };
+
+  const resetWizard = () => {
+    setStep(1);
+    setIssue("");
+    setUrgency("");
+    setName("");
+    setPhone("");
+    setStatus("idle");
+    setErrorMsg("");
   };
 
   return (
@@ -111,7 +270,7 @@ export default function DiagnosticWizard() {
         >
           <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#3B82F6]/60 to-transparent" />
 
-          {/* ── Success ── */}
+          {/* Success */}
           {status === "success" ? (
             <motion.div
               initial={{ opacity: 0, scale: 0.88 }}
@@ -119,17 +278,24 @@ export default function DiagnosticWizard() {
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="flex-1 flex flex-col items-center justify-center gap-5 text-center"
             >
-              <AnimatedCheckmark size={88} color="#22C55E" />
-              <div>
+              <AnimatedCheckmark size={88} color="#22C55E" delay={0.15} />
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.4 }}
+              >
                 <h3 className="text-2xl font-black text-white mb-1" style={{ fontFamily: "var(--font-heading)" }}>
                   קיבלנו!
                 </h3>
                 <p className="text-[#94A3B8]">ניסן יחזור אליך בהקדם.</p>
-              </div>
+              </motion.div>
               <motion.a
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.0, duration: 0.4 }}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
                 className="flex items-center gap-2.5 bg-[#25D366]/15 border border-[#25D366]/35 text-[#25D366] font-bold px-7 py-3.5 rounded-xl hover:bg-[#25D366]/25 transition-all cursor-pointer"
@@ -141,6 +307,15 @@ export default function DiagnosticWizard() {
                 פתח וואטסאפ
                 <ArrowRight size={15} />
               </motion.a>
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.3, duration: 0.3 }}
+                onClick={resetWizard}
+                className="text-[#3B82F6] hover:underline text-sm cursor-pointer"
+              >
+                שלח פנייה נוספת
+              </motion.button>
             </motion.div>
           ) : (
             <>
@@ -219,64 +394,15 @@ export default function DiagnosticWizard() {
 
                 {/* Step 3 – Contact */}
                 {step === 3 && (
-                  <motion.div key="s3" {...SLIDE} className="flex-1 flex flex-col">
-                    <h3 className="text-xl font-black text-white mb-1 text-center" style={{ fontFamily: "var(--font-heading)" }}>
-                      השאר פרטים
-                    </h3>
-                    <p className="text-[#64748B] text-sm text-center mb-6">{issueLabel} · {urgencyLabel}</p>
-                    <div className="flex flex-col gap-4 flex-1">
-                      <div>
-                        <label htmlFor="wiz-name" className="text-sm font-semibold text-[#F1F5F9] block mb-1.5">
-                          שם <span className="text-[#EF4444]" aria-hidden>*</span>
-                        </label>
-                        <input
-                          id="wiz-name" type="text" autoComplete="name"
-                          value={name} onChange={(e) => setName(e.target.value)}
-                          placeholder="ישראל ישראלי"
-                          className="w-full bg-[#020617]/80 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-[#64748B] text-sm focus:outline-none focus:border-[#3B82F6]/60 focus:ring-1 focus:ring-[#3B82F6]/30 transition-colors min-h-[48px]"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="wiz-phone" className="text-sm font-semibold text-[#F1F5F9] block mb-1.5">
-                          טלפון <span className="text-[#EF4444]" aria-hidden>*</span>
-                        </label>
-                        <input
-                          id="wiz-phone" type="tel" autoComplete="tel" inputMode="tel"
-                          value={phone} onChange={(e) => setPhone(e.target.value)}
-                          placeholder="050-0000000" dir="ltr"
-                          className="w-full bg-[#020617]/80 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-[#64748B] text-sm focus:outline-none focus:border-[#3B82F6]/60 focus:ring-1 focus:ring-[#3B82F6]/30 transition-colors min-h-[48px]"
-                        />
-                      </div>
-
-                      {status === "error" && (
-                        <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-                          className="flex items-center gap-2 bg-[#EF4444]/10 border border-[#EF4444]/30 rounded-xl px-4 py-3" role="alert">
-                          <AlertCircle size={15} className="text-[#EF4444] flex-shrink-0" />
-                          <p className="text-[#EF4444] text-sm">{errorMsg}</p>
-                        </motion.div>
-                      )}
-
-                      <motion.button
-                        type="button" onClick={handleSubmit}
-                        disabled={!name.trim() || !phone.trim() || status === "loading"}
-                        whileHover={name.trim() && phone.trim() ? { scale: 1.02 } : {}}
-                        whileTap={name.trim() && phone.trim() ? { scale: 0.97 } : {}}
-                        className={cn(
-                          "flex items-center justify-center gap-2.5 w-full font-black text-base px-6 py-4 rounded-xl transition-all duration-200 cursor-pointer min-h-[52px]",
-                          !name.trim() || !phone.trim() || status === "loading"
-                            ? "bg-[#3B82F6]/35 text-white/40 cursor-not-allowed"
-                            : "bg-[#3B82F6] hover:bg-[#2563EB] text-white hover:shadow-[0_0_32px_rgba(59,130,246,0.45)]"
-                        )}
-                      >
-                        {status === "loading"
-                          ? <><Loader2 size={18} className="animate-spin" /> שולח...</>
-                          : <><Send size={17} /> שלח לניסן</>}
-                      </motion.button>
-                    </div>
-                    <button onClick={() => setStep(2)} className="mt-3 text-sm text-[#64748B] hover:text-white transition-colors cursor-pointer text-center">
-                      ← חזור
-                    </button>
-                  </motion.div>
+                  <ContactStep
+                    name={name} setName={setName}
+                    phone={phone} setPhone={setPhone}
+                    issueLabel={issueLabel} urgencyLabel={urgencyLabel}
+                    status={status as "idle" | "loading" | "error"}
+                    errorMsg={errorMsg}
+                    onSubmit={handleSubmit}
+                    onBack={() => setStep(2)}
+                  />
                 )}
               </AnimatePresence>
 

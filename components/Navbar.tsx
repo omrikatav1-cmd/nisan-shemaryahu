@@ -53,14 +53,17 @@ export default function Navbar() {
 
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center gap-7" aria-label="תפריט ראשי">
-              {navLinks.map((l) => (
-                <a
+              {navLinks.map((l, i) => (
+                <motion.a
                   key={l.href}
                   href={l.href}
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
                   className="text-sm text-[#94A3B8] hover:text-white transition-colors duration-200 font-medium"
                 >
                   {l.label}
-                </a>
+                </motion.a>
               ))}
             </nav>
 
@@ -77,7 +80,7 @@ export default function Navbar() {
                 href={getSosWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sos-pulse flex items-center gap-2 bg-gradient-to-r from-[#EF4444] to-[#DC2626] text-white text-sm font-black px-4 py-2 rounded-xl cursor-pointer select-none"
+                className="sos-pulse flex items-center gap-2 bg-gradient-to-r from-[#EF4444] to-[#DC2626] text-white text-sm font-black px-4 py-2 rounded-xl cursor-pointer select-none shadow-[0_4px_20px_rgba(239,68,68,0.35)]"
                 aria-label="חירום – שלח הודעת וואטסאפ"
               >
                 <Zap size={14} fill="currentColor" />
@@ -140,7 +143,7 @@ export default function Navbar() {
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.2, type: "spring", stiffness: 260, damping: 20 }}
-        className="md:hidden fixed bottom-6 left-4 z-50 sos-pulse flex items-center gap-2 bg-gradient-to-r from-[#EF4444] to-[#DC2626] text-white font-black text-sm px-5 py-3 rounded-full cursor-pointer"
+        className="md:hidden fixed bottom-6 left-4 z-50 sos-pulse flex items-center gap-2 bg-gradient-to-r from-[#EF4444] to-[#DC2626] text-white font-black text-sm px-5 py-3 rounded-full cursor-pointer shadow-[0_6px_24px_rgba(239,68,68,0.4)]"
         aria-label="חירום"
       >
         <Zap size={16} fill="currentColor" />
