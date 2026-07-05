@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ניסן שמריהו — סטטוס ומשימות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --space:#020617; --surface:#0d1a2d;
+    --primary:#3B82F6; --primary-glow:rgba(59,130,246,.25);
+    --accent:#D4AF37; --accent-glow:rgba(212,175,55,.2);
+    --danger:#EF4444; --success:#22C55E;
+    --text:#F1F5F9; --text-2:#CBD5E1; --text-muted:#8b98ac;
+    --border:rgba(255,255,255,.08); --border-bright:rgba(255,255,255,.16);
+    --font-heading:'Rubik',sans-serif; --font-body:'Assistant',sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  body{margin:0; background:var(--space); color:var(--text); font-family:var(--font-body); font-weight:300;
+    direction:rtl; -webkit-font-smoothing:antialiased; line-height:1.65;}
+  h1,h2,h3{font-family:var(--font-heading); font-weight:800; margin:0;}
+  .ltr{direction:ltr; unicode-bidi:isolate; display:inline-block;}
+  main{max-width:920px; margin:0 auto; padding:3rem 1.5rem 5rem;}
+  header{max-width:920px; margin:0 auto; padding:3rem 1.5rem 1.5rem;}
+  .eyebrow{display:inline-flex; font-size:.78rem; font-weight:700; color:var(--accent);
+    background:rgba(212,175,55,.08); border:1px solid rgba(212,175,55,.3); padding:.4rem 1rem;
+    border-radius:999px; margin-bottom:1.2rem;}
+  h1{font-size:clamp(1.9rem,4vw,2.6rem); margin-bottom:.6rem;}
+  .sub{color:var(--text-2); font-size:1.05rem; max-width:640px;}
+  section{margin-top:3rem;}
+  .sec-head{display:flex; align-items:center; gap:.8rem; margin-bottom:1.2rem;}
+  .sec-num{width:2.4rem; height:2.4rem; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-heading); font-weight:800; font-size:1.05rem; flex-shrink:0;}
+  section h2{font-size:1.5rem;}
+  .card{background:rgba(13,26,45,.55); border:1px solid var(--border); border-radius:1.1rem; padding:1.5rem; backdrop-filter:blur(14px);}
+  .card + .card{margin-top:1rem;}
+  .card-success{border-color:rgba(34,197,94,.28); box-shadow:0 8px 28px rgba(34,197,94,.12);}
+  .card-danger{border-color:rgba(239,68,68,.3); box-shadow:0 8px 28px rgba(239,68,68,.14);}
+  .card-primary{border-color:rgba(59,130,246,.25); box-shadow:0 8px 28px var(--primary-glow);}
+  .card ul{margin:0; padding-inline-start:1.2rem; color:var(--text-2); font-size:.94rem;}
+  .card li{margin-bottom:.5rem;}
+  .task{display:flex; align-items:flex-start; gap:.7rem; padding:.7rem 0; border-top:1px solid var(--border);}
+  .task:first-child{border-top:none;}
+  .task input{width:1.15rem; height:1.15rem; accent-color:var(--danger); margin-top:.2rem; flex-shrink:0;}
+  .task b{color:var(--text); display:block; margin-bottom:.15rem;}
+  .task span{color:var(--text-2); font-size:.88rem;}
+  .badge{display:inline-block; font-size:.72rem; font-weight:700; padding:.25rem .65rem; border-radius:999px; margin-inline-start:.4rem;}
+  .b-done{color:var(--success); background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.3);}
+  .b-open{color:var(--text-muted); background:rgba(255,255,255,.04); border:1px solid var(--border-bright);}
+  a.link{color:var(--accent); text-decoration:underline;}
+  footer{max-width:920px; margin:0 auto; padding:2rem 1.5rem 3rem; color:var(--text-muted); font-size:.85rem; text-align:center; border-top:1px solid var(--border);}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">סיכום פעולה · עומרי כתב · 6.7.2026</span>
+  <h1>ניסן שמריהו — איפה אנחנו עומדים</h1>
+  <p class="sub">גרסה תמציתית וממוקדת פעולה. לפירוט המלא (שאלון + ניתוח מתחרה + תכנית רכש) — <span class="ltr">docs/nisan-full-brief.html</span> באותו ריפו.</p>
+</header>
+
+<main>
+
+  <section>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(34,197,94,.15); color:var(--success);">✓</div><h2>מה בוצע עד כה</h2></div>
+    <div class="card card-success">
+      <ul>
+        <li><b style="color:var(--text);">שאלון איפיון מלא הושלם</b> — 14 סקציות, כל התשובות של ניסן נקלטו ותועדו</li>
+        <li><b style="color:var(--text);">ניתוח עומק של ביו ישראל</b> (המדביר) — ארכיטקטורת האתר, אנטומיית עמוד, SEO טכני — כבסיס לשכפול-השראה</li>
+        <li><b style="color:var(--text);">תכנית רכש ראשונית</b> — מבנה 3 קמפיינים מקבילים (מנעולנות/אינסטלציה/הנדימן), מילות מפתח, תקציב, ארכיטקטורת עמודי SEO</li>
+        <li><b style="color:var(--text);">שני דגלים משפטיים/אמינות נבדקו ונחסמו מראש</b> — לא יופיע "אינסטלטור מוסמך" עד שהתעודה בפועל תגיע, ולא יופיעו ביקורות מזויפות בפורמט של ביקורת גוגל אמיתית</li>
+        <li>כל זה נדחף ל-<span class="ltr">GitHub</span> ונפתח כ-<span class="ltr">Pull Request</span>: <a class="link" href="https://github.com/omrikatav1-cmd/nisan-shemaryahu/pull/1">PR #1</a></li>
+      </ul>
+    </div>
+    <div class="card card-danger" style="margin-top:1rem;">
+      <span class="badge b-open" style="margin-inline-start:0;">חשוב לדעת</span>
+      <p style="color:var(--text-2); font-size:.92rem; margin-top:.6rem;">מה שנעשה עד עכשיו הוא <b style="color:var(--text);">תכנון ותיעוד בלבד</b>. הקוד של האתר עצמו — עיצוב בהיר חדש, עמודי שירות×עיר, לוגו — <b style="color:var(--text);">עדיין לא נבנה</b>. האתר החי כרגע הוא עדיין הגרסה הישנה (כהה, אינסטלציה בלבד). זה השלב הבא.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(239,68,68,.15); color:var(--danger);">!</div><h2>משימות שניסן חייב לבצע</h2></div>
+    <div class="card card-danger">
+      <div class="task"><input type="checkbox" disabled><div><b>לפתוח וואטסאפ עסקי</b><span>יהיה המספר הראשי של כל הקמפיין — בלי זה לא ניתן להשלים את חיבור הלידים</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>למסור רשימת 10–15 לקוחות עבר (שם + טלפון)</b><span>כדי להתחיל לבקש מהם ביקורת אמיתית בגוגל — בלי זה אין ביקורות אמיתיות באתר</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>לתאם יום צילום עם ללב מדיה</b><span>תמונות פנים, רכב, ציוד, וידאו קצר — בלי זה נשארים עם תמונות זמניות בלבד</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>לשלוח תעודת מנעולן + אישור משטרה</b><span>לאימות בכרטיס גוגל ובאתר</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>לעדכן ברגע שתעודת האינסטלטור מגיעה</b><span>עד אז — לא מוצג "מוסמך" ליד אינסטלציה, בשום מקום</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>לאשר את שם המותג / רעיון הלוגו / הדומיין הסופיים</b><span>לפני שרוכשים דומיין ומעלים לוגו לאוויר</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>למסור מספר שנות ותק מדויק</b><span>לא יוצג מספר עד שיימסר</span></div></div>
+    </div>
+  </section>
+
+  <section id="vercel">
+    <div class="sec-head"><div class="sec-num" style="background:var(--primary-glow); color:var(--primary);">▲</div><h2>דחוף — להשלמה לפני העלאה ל-Vercel</h2></div>
+    <div class="card card-primary">
+      <div class="task"><input type="checkbox" disabled><div><b>רכישת דומיין אמיתי</b><span>המלצה: <span class="ltr">nisan-shemaryahu.co.il</span>. חובה — לא ניתן לחבר Vercel לדומיין מקצועי בלי זה. מי רוכש: לניסן/עומרי להחליט.</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>הגדרת משתני סביבה בפרויקט Vercel עצמו</b><span><span class="ltr">NEXT_PUBLIC_SUPABASE_URL</span> ו-<span class="ltr">NEXT_PUBLIC_SUPABASE_ANON_KEY</span> — קיימים מקומית ב-<span class="ltr">.env.local</span> בלבד. בלי שהם מוגדרים גם ב-Vercel (Settings → Environment Variables), טופס הלידים ייפול בפרודקשן.</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>וידוא שטבלת leads קיימת בפרויקט ה-Supabase האמיתי</b><span>ה-SQL ליצירת הטבלה מתועד ב-<span class="ltr">lib/supabase.ts</span> — צריך להריץ אותו בפועל בפרויקט Supabase שמחובר ל-Vercel, לא רק בסביבת פיתוח</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>מספר וואטסאפ עסקי סופי</b><span>ברגע שנפתח (משימה למעלה) — מתעדכן בקוד לפני שהאתר עולה, אחרת לידים ימשיכו לזרום למספר האישי</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>אישור תוכן סופי לפני עלייה לאוויר</b><span>שם עסק, כתובת, שעות, מחירים כפי שמופיעים בבריף המלא — לוודא עם ניסן שהכל מדויק לפני שהדף החדש מתפרסם ומקבל תנועה מקמפיין בתשלום</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>בניית האתר החדש עצמו</b><span>עיצוב בהיר, 3 שירותים, עמודי שירות×עיר, לוגו — עדיין לא בוצע. זו העבודה הבאה בתור אחרי שהמשימות למעלה נסגרות</span></div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  מסמך עבודה פנימי · עומרי כתב · מבוסס docs/nisan-full-brief.html באותו ריפו · 6.7.2026
+</footer>
+
+</body>
+</html>
