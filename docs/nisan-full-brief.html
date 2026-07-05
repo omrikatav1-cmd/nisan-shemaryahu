@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ניסן שמריהו — תיק איפיון מלא</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --space:#020617; --space-1:#0a1628; --space-2:#0f1f3d;
+    --surface:#0d1a2d; --surface-1:#112038;
+    --primary:#3B82F6; --primary-dim:#1d4ed8; --primary-glow:rgba(59,130,246,.25);
+    --accent:#D4AF37; --accent-dim:#a8882a; --accent-glow:rgba(212,175,55,.2);
+    --danger:#EF4444; --success:#22C55E;
+    --text:#F1F5F9; --text-2:#CBD5E1; --text-muted:#8b98ac;
+    --border:rgba(255,255,255,.08); --border-bright:rgba(255,255,255,.16);
+    --radius-sm:.5rem; --radius-md:.875rem; --radius-lg:1.25rem; --radius-xl:1.75rem;
+    --font-heading:'Rubik',sans-serif; --font-body:'Assistant',sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--space); color:var(--text);
+    font-family:var(--font-body); font-weight:300; direction:rtl;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden; line-height:1.65;
+  }
+  h1,h2,h3,h4{font-family:var(--font-heading); font-weight:800; margin:0;}
+  p{margin:0;}
+  a{color:inherit;}
+  .ltr{direction:ltr; unicode-bidi:isolate; display:inline-block;}
+
+  /* ── progress bar ─────────────────────────── */
+  #progressBar{position:fixed; top:0; right:0; left:0; height:3px; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--primary)); width:0%; transition:width .1s linear;}
+
+  /* ── top nav ──────────────────────────────── */
+  .topnav{position:sticky; top:3px; z-index:90; backdrop-filter:blur(20px) saturate(180%);
+    background:rgba(13,26,45,.72); border-bottom:1px solid var(--border);}
+  .topnav-inner{max-width:1180px; margin:0 auto; padding:.85rem 1.5rem; display:flex;
+    align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.75rem;}
+  .brand{font-family:var(--font-heading); font-weight:700; font-size:.95rem; color:var(--text-2);}
+  .nav-links{display:flex; gap:1.6rem; font-size:.85rem; font-weight:600;}
+  .nav-links a{color:var(--text-2); text-decoration:none; position:relative; padding-bottom:2px; transition:color .2s;}
+  .nav-links a:hover{color:var(--accent);}
+
+  /* ── hero ─────────────────────────────────── */
+  .hero{position:relative; min-height:78vh; display:flex; align-items:center; overflow:hidden;
+    padding:6rem 1.5rem 4rem;}
+  .orb{position:absolute; border-radius:50%; filter:blur(140px); pointer-events:none;}
+  .orb-1{width:640px; height:640px; top:-8%; left:-6%; background:var(--primary); opacity:.10;}
+  .orb-2{width:420px; height:420px; bottom:-12%; right:8%; background:var(--accent); opacity:.09;}
+  .hero-grid{position:absolute; inset:0; opacity:.035;
+    background-image:linear-gradient(rgba(59,130,246,.7) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.7) 1px,transparent 1px);
+    background-size:60px 60px;}
+  .hero-inner{position:relative; z-index:2; max-width:820px; margin-inline-end:auto; margin-inline-start:0; text-align:right;}
+  .eyebrow{display:inline-flex; align-items:center; gap:.5rem; font-size:.78rem; font-weight:700;
+    color:var(--accent); background:rgba(212,175,55,.08); border:1px solid rgba(212,175,55,.3);
+    padding:.4rem 1rem; border-radius:999px; margin-bottom:1.75rem;}
+  .hero-inner h1{font-size:clamp(2.4rem,5.2vw,4rem); line-height:1.08; margin-bottom:1.4rem;}
+  .grad-gold{background:linear-gradient(135deg,#D4AF37 0%,#F5E68A 45%,#D4AF37 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+  .hero-sub{font-size:1.15rem; color:var(--text-2); max-width:620px; margin-inline-start:auto; margin-bottom:2rem;}
+  .hero-badges{display:flex; gap:.7rem; flex-wrap:wrap;}
+  .badge{font-size:.8rem; font-weight:600; color:var(--text-2); background:rgba(255,255,255,.04);
+    border:1px solid var(--border-bright); padding:.5rem 1rem; border-radius:999px;}
+
+  /* ── layout ───────────────────────────────── */
+  main{max-width:1180px; margin:0 auto; padding:0 1.5rem;}
+  .section{padding:5rem 0; border-top:1px solid var(--border);}
+  .kicker{font-family:var(--font-heading); font-size:5rem; font-weight:900; line-height:1;
+    background:linear-gradient(180deg,var(--accent),transparent 90%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    opacity:.55; margin-bottom:-1.2rem;}
+  .section h2{font-size:clamp(1.7rem,3.4vw,2.5rem); margin-bottom:.6rem;}
+  .section-lede{color:var(--text-2); font-size:1.05rem; max-width:760px; margin-bottom:2.5rem;}
+
+  /* ── cards / grid ─────────────────────────── */
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem;}
+  .grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;}
+  @media(max-width:860px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+
+  .card{background:rgba(13,26,45,.55); border:1px solid var(--border); border-radius:var(--radius-lg);
+    padding:1.75rem; backdrop-filter:blur(14px);}
+  .card-primary{box-shadow:0 8px 32px var(--primary-glow); border-color:rgba(59,130,246,.25);}
+  .card-accent{box-shadow:0 8px 32px var(--accent-glow); border-color:rgba(212,175,55,.28);}
+  .card-danger{box-shadow:0 8px 32px rgba(239,68,68,.16); border-color:rgba(239,68,68,.3);}
+  .card-success{box-shadow:0 8px 32px rgba(34,197,94,.14); border-color:rgba(34,197,94,.28);}
+  .card h3{font-size:1.15rem; margin-bottom:.9rem; color:var(--text);}
+  .card ul{margin:0; padding-inline-start:1.2rem; color:var(--text-2); font-size:.94rem;}
+  .card li{margin-bottom:.5rem;}
+  .card-label{display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.03em;
+    text-transform:uppercase; margin-bottom:.5rem;}
+  .label-copy{color:var(--success);} .label-adapt{color:var(--primary);} .label-fix{color:var(--danger);}
+
+  /* ── stat strip ───────────────────────────── */
+  .stat{background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:1.2rem; text-align:center;}
+  .stat b{display:block; font-family:var(--font-heading); font-size:1.9rem; font-weight:900; color:var(--accent);}
+  .stat span{font-size:.82rem; color:var(--text-muted);}
+
+  /* ── timeline (anatomy) ───────────────────── */
+  .timeline{position:relative; padding-inline-start:0; margin-inline-end:.4rem;}
+  .tl-item{position:relative; padding-inline-end:2.6rem; padding-bottom:1.5rem; border-inline-end:2px solid var(--border-bright);}
+  .tl-item:last-child{border-color:transparent; padding-bottom:0;}
+  .tl-num{position:absolute; right:-.95rem; top:0; width:1.9rem; height:1.9rem; border-radius:50%;
+    background:var(--space-2); border:2px solid var(--accent); color:var(--accent); font-weight:800;
+    font-size:.8rem; display:flex; align-items:center; justify-content:center; font-family:var(--font-heading);}
+  .tl-item b{color:var(--text); font-size:.98rem;}
+  .tl-item p{color:var(--text-2); font-size:.88rem; margin-top:.2rem;}
+
+  /* ── swatches ─────────────────────────────── */
+  .swatch{display:flex; align-items:center; gap:.7rem; background:rgba(255,255,255,.03);
+    border:1px solid var(--border); border-radius:var(--radius-sm); padding:.6rem .9rem;}
+  .swatch-dot{width:1.3rem; height:1.3rem; border-radius:50%; border:1px solid rgba(255,255,255,.2); flex-shrink:0;}
+  .swatch code{font-size:.78rem; color:var(--text-muted);}
+
+  /* ── tables ───────────────────────────────── */
+  table{width:100%; border-collapse:collapse; font-size:.92rem;}
+  th,td{padding:.7rem .9rem; text-align:right; border-bottom:1px solid var(--border);}
+  th{color:var(--accent); font-weight:700; font-size:.82rem; text-transform:uppercase; letter-spacing:.02em;}
+  td{color:var(--text-2);}
+  tr:last-child td{border-bottom:none;}
+  .table-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:var(--radius-md); background:rgba(255,255,255,.02);}
+
+  /* ── chips ────────────────────────────────── */
+  .chip{display:inline-flex; align-items:center; gap:.3rem; font-size:.74rem; font-weight:700;
+    padding:.28rem .7rem; border-radius:999px; white-space:nowrap; text-decoration:none;}
+  .chip-confirm{color:var(--primary); background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.35);}
+  .chip-link{color:var(--accent); background:rgba(212,175,55,.1); border:1px solid rgba(212,175,55,.35); cursor:pointer;}
+  .chip-link:hover{background:rgba(212,175,55,.2);}
+  .chip-open{color:var(--text-muted); background:rgba(255,255,255,.04); border:1px solid var(--border-bright);}
+  .chip-warn{color:var(--danger); background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.35);}
+
+  /* ── questionnaire ────────────────────────── */
+  .jump-row{display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:2.5rem;}
+  .jump-chip{font-size:.8rem; font-weight:600; color:var(--text-2); background:rgba(255,255,255,.03);
+    border:1px solid var(--border-bright); padding:.4rem .9rem; border-radius:999px; text-decoration:none;}
+  .jump-chip:hover{border-color:var(--accent); color:var(--accent);}
+
+  details.qsec{background:rgba(13,26,45,.45); border:1px solid var(--border); border-radius:var(--radius-lg);
+    margin-bottom:1rem; overflow:hidden;}
+  details.qsec[open]{border-color:var(--border-bright);}
+  summary.qsum{cursor:pointer; list-style:none; padding:1.15rem 1.5rem; display:flex; align-items:center;
+    justify-content:space-between; font-family:var(--font-heading); font-weight:700; font-size:1.05rem;}
+  summary.qsum::-webkit-details-marker{display:none;}
+  summary.qsum .qsum-left{display:flex; align-items:center; gap:.9rem;}
+  .qsum-badge{width:2.1rem; height:2.1rem; border-radius:50%; background:var(--space-2); border:1px solid var(--accent);
+    color:var(--accent); font-size:.85rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .qsum-count{font-size:.78rem; font-weight:500; color:var(--text-muted); font-family:var(--font-body);}
+  .qsum-chevron{transition:transform .25s; color:var(--text-muted); font-size:.9rem;}
+  details.qsec[open] summary .qsum-chevron{transform:rotate(180deg);}
+  .qbody{padding:0 1.5rem 1.6rem;}
+
+  .qrow{padding:1rem 0; border-top:1px solid var(--border);}
+  .qrow:first-child{border-top:none;}
+  .qrow-label{display:flex; align-items:baseline; gap:.6rem; margin-bottom:.55rem;}
+  .qnum{font-family:var(--font-heading); font-weight:800; color:var(--accent); font-size:.9rem; flex-shrink:0;}
+  .qtext{color:var(--text); font-size:.96rem;}
+  .answer-line{border-bottom:1.5px dashed var(--border-bright); height:2.1rem; margin-inline-start:1.5rem;}
+  .answer-box{border:1.5px dashed var(--border-bright); border-radius:var(--radius-sm); height:4.4rem;
+    margin-inline-start:1.5rem; background:repeating-linear-gradient(transparent,transparent 1.55rem,var(--border) 1.56rem);}
+  .check-item{display:flex; align-items:center; gap:.6rem; padding:.35rem 0; margin-inline-start:1.5rem; color:var(--text-2); font-size:.93rem;}
+  .check-item input{width:1.05rem; height:1.05rem; accent-color:var(--accent); flex-shrink:0;}
+  .qhint{color:var(--text-muted); font-size:.82rem; margin-top:.3rem; margin-inline-start:1.5rem;}
+  .answer-filled{margin-inline-start:1.5rem; padding:.6rem 1rem; background:rgba(59,130,246,.07);
+    border-inline-start:3px solid var(--primary); border-radius:4px; color:var(--text-2); font-size:.93rem; line-height:1.6;}
+  .answer-filled b{color:var(--text);}
+  .answer-open{margin-inline-start:1.5rem; padding:.5rem 1rem; background:rgba(255,255,255,.02);
+    border-inline-start:3px dashed var(--text-muted); border-radius:4px; color:var(--text-muted); font-size:.88rem; font-style:italic;}
+
+  /* ── task list (section 05) ───────────────── */
+  .task{display:flex; align-items:flex-start; gap:.7rem; padding:.7rem 0; border-top:1px solid var(--border);}
+  .task:first-child{border-top:none;}
+  .task input{width:1.15rem; height:1.15rem; accent-color:var(--danger); margin-top:.15rem; flex-shrink:0;}
+  .task-text b{color:var(--text); display:block; margin-bottom:.15rem;}
+  .task-text span{color:var(--text-2); font-size:.87rem;}
+
+  /* ── plan structure tree ──────────────────── */
+  .tree{font-size:.9rem; color:var(--text-2); line-height:2;}
+  .tree .lvl0{color:var(--accent); font-weight:700;}
+  .tree .lvl1{padding-inline-start:1.6rem; display:block;}
+  .tree .lvl2{padding-inline-start:3.2rem; display:block; color:var(--text-muted);}
+
+  /* ── stepper (timeline horizontal-ish) ───── */
+  .steps{display:flex; flex-direction:column; gap:0;}
+  .step{display:flex; gap:1.1rem; padding:1rem 0; border-top:1px solid var(--border);}
+  .step:first-child{border-top:none;}
+  .step-week{flex-shrink:0; width:5.5rem; font-family:var(--font-heading); font-weight:800; color:var(--primary); font-size:.95rem;}
+  .step-text{color:var(--text-2); font-size:.92rem;}
+
+  footer{padding:3rem 1.5rem 4rem; text-align:center; color:var(--text-muted); font-size:.85rem; border-top:1px solid var(--border);}
+
+  .controls{display:flex; gap:.6rem; margin-bottom:1.5rem;}
+  .btn-ghost{font-size:.8rem; font-weight:600; color:var(--text-2); background:transparent;
+    border:1px solid var(--border-bright); padding:.5rem 1rem; border-radius:999px; cursor:pointer; font-family:var(--font-body);}
+  .btn-ghost:hover{border-color:var(--accent); color:var(--accent);}
+
+  @media(max-width:640px){
+    .nav-links{display:none;}
+    .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
+  }
+
+  @media print{
+    body{background:#fff; color:#111;}
+    #progressBar,.topnav,.orb,.hero-grid,.controls{display:none !important;}
+    .card,details.qsec{border-color:#ccc; box-shadow:none; background:#fafafa;}
+    .kicker{opacity:.25;}
+    a{text-decoration:none;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progressBar"></div>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <span class="brand">ניסן שמריהו · תיק איפיון מלא</span>
+    <div class="nav-links">
+      <a href="#status">תמונת מצב</a>
+      <a href="#teardown">ניתוח מתחרה</a>
+      <a href="#questionnaire">שאלון איפיון</a>
+      <a href="#plan">תכנית רכש</a>
+      <a href="#tasks">משימות לניסן</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">מסמך עבודה פנימי · עומרי כתב · נוצר 5.7.2026 · עודכן 6.7.2026 עם תשובות ניסן</span>
+    <h1>תיק איפיון מלא<br><span class="grad-gold">ניסן שמריהו</span></h1>
+    <p class="hero-sub">הנדימן · אינסטלטור · מנעולן — הכנה מקיפה לדף נחיתה ממיר, קמפיין ממומן ו-SEO חזק, בהשראת מודל ביו ישראל שהצליח בענק.</p>
+    <div class="hero-badges">
+      <span class="badge">שאלון סגור · 14/14 סקציות נענו</span>
+      <span class="badge">עיצוב עובר לבהיר — השראת ביו ישראל</span>
+      <span class="badge">3 קמפיינים מקבילים · A/B/C לפי שירות</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ═══════════════ 01 · תמונת מצב ═══════════════ -->
+  <section id="status" class="section">
+    <div class="kicker">01</div>
+    <h2>תמונת מצב — מה כבר קיים</h2>
+    <p class="section-lede">לפני שבונים משהו חדש, ככה נראה המצב היום.</p>
+
+    <div class="grid-2">
+      <div class="card card-primary">
+        <span class="card-label label-adapt">האתר החי</span>
+        <h3>nisan-shemaryahu.vercel.app</h3>
+        <ul>
+          <li>ממותג <b>אינסטלציה ותשתיות בלבד</b> — "כשמקצועיות פוגשת שקט"</li>
+          <li>USP מרכזי: איתור נזילות במצלמה תרמית <span class="ltr">FLIR</span></li>
+          <li>אזור: אור יהודה ומרכז הארץ (רדיוס 20 ק"מ)</li>
+          <li>טלפון: <span class="ltr">050-9911241</span> · זמינות חירום 24/7 · אחריות בכתב</li>
+          <li>סטאק: <span class="ltr">Next.js + Framer Motion</span>, עיצוב כהה כחול/זהב</li>
+          <li>טופס לידים כבר מחובר ל-<span class="ltr">Supabase</span> (<span class="ltr">app/api/leads/route.ts</span>)</li>
+          <li>קיימים: <span class="ltr">LeadMagnet</span>, <span class="ltr">DiagnosticWizard</span> — נכסים לשימוש חוזר</li>
+        </ul>
+      </div>
+      <div class="card card-accent">
+        <span class="card-label label-copy">מה הוכרע (6.7.2026)</span>
+        <h3>מותג אחד, 3 שירותים, עיצוב בהיר</h3>
+        <ul>
+          <li><b>ניסן שמריהו</b> — המותג נשאר שם אישי, לא שירותי</li>
+          <li>3 שירותים באותו אתר: הנדימן, אינסטלציה, מנעולנות — לא מיצוב צר</li>
+          <li>עיצוב עובר מכהה לבהיר, בהשראת ביו ישראל (לא שכפול צבעים מדויק)</li>
+          <li>אין ניקוד רווחיות מראש — <b>3 קמפיינים מקבילים (A/B/C)</b> באותו תקציב, אופטימיזציה לפי ביצועים בפועל (<a class="chip chip-link" href="#q3-11">3.11</a>)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-danger" style="margin-top:1.5rem;">
+      <span class="card-label label-fix">2 דגלים לפני עלייה לאוויר — לא עוברים בשתיקה</span>
+      <ul>
+        <li><span class="chip chip-warn">משפטי</span> תעודת אינסטלטור מוסמך <b>עוד לא בידיים</b> (מתקבלת בעוד כ-2 חודשים, <a class="chip chip-link" href="#q4-1">4.1</a>). עד אז לא מופיע "מוסמך" צמוד לאינסטלציה באתר או בקמפיינים — מוצג רק מה שכן מאומת: מנעולן מוסמך + אישור משטרה (<a class="chip chip-link" href="#q4-2">4.2</a>).</li>
+        <li><span class="chip chip-warn">אמינות</span> אין ביקורות אמיתיות עדיין. השפה החמה שניסן ביקש ("איש הגון, ידיים של זהב") משמשת כקופי מיתוגי בהירו/אודות — <b>לא</b> ככרטיסי "ביקורת גוגל" מזויפים עם שם ודירוג כוכבים בדוי.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 02 · ניתוח ביו ישראל ═══════════════ -->
+  <section id="teardown" class="section">
+    <div class="kicker">02</div>
+    <h2>ניתוח עומק — ביו ישראל (המדביר)</h2>
+    <p class="section-lede">המודל המוכח שעליו מתבססים. נותח מה-<span class="ltr">sitemap</span>, ה-<span class="ltr">HTML</span> הגולמי, ה-<span class="ltr">CSS</span> וסכמות ה-<span class="ltr">JSON-LD</span> בפועל — לא השערה.</p>
+
+    <h3 style="margin-bottom:1rem;">ארכיטקטורת האתר — 16 עמודים בלבד</h3>
+    <div class="grid-2" style="margin-bottom:2.5rem;">
+      <div class="card">
+        <p style="color:var(--text-2); font-size:.92rem; margin-bottom:1rem;">דף בית אחד (<span class="ltr">Hub</span>) + עמוד עיר נפרד לכל אזור שירות. ה-<span class="ltr">slug</span> בעברית = מילת החיפוש המדויקת.</p>
+        <div class="tree">
+          <span class="lvl0">/ (דף בית)</span>
+          <span class="lvl1">/הדברה-ברחובות/</span>
+          <span class="lvl1">/הדברה-בראשון-לציון/</span>
+          <span class="lvl1">/הדברה-בנס-ציונה/</span>
+          <span class="lvl1">/הדברה-בחולון/</span>
+          <span class="lvl1">/הדברה-בבת-ים/</span>
+          <span class="lvl1">/הדברה-ביבנה/ · /הדברה-באשדוד/ · /הדברה-במודיעין/</span>
+          <span class="lvl1">+ עוד 7 ערים (באר יעקב, קריית עקרון, מזכרת בתיה, גדרה, גן יבנה, שוהם, סביון)</span>
+        </div>
+      </div>
+      <div class="card card-accent">
+        <h3>העיקרון</h3>
+        <p style="color:var(--text-2); font-size:.92rem;">אין עמודי "אודות"/"בלוג"/"שירותים" נפרדים. <b style="color:var(--text);">כל עמוד עיר הוא דף נחיתה שלם וסגור</b> — תעבורת <span class="ltr">SEO</span> ותעבורת <span class="ltr">PPC</span> נוחתות על אותו נכס. כל עמוד עיר מקשר בפוטר לערים השכנות ("אזורי שירות") — מפזר סמכות ובונה רשת פנימית.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:1rem;">אנטומיית עמוד עיר — סדר הסקשנים בפועל</h3>
+    <div class="timeline" style="margin-bottom:2.5rem;">
+      <div class="tl-item"><div class="tl-num">1</div><b>Header</b><p>לוגו, תפריט, טלפון בולט, כפתור "הצעת מחיר"</p></div>
+      <div class="tl-item"><div class="tl-num">2</div><b>Hero</b><p>H1 מקומי: "הדברה בחולון מדביר מורשה ומקצועי" + תת-כותרת + 2 כפתורים (טלפון + וואטסאפ)</p></div>
+      <div class="tl-item"><div class="tl-num">3</div><b>Trust strip</b><p>3 מדדים: 3,000+ לקוחות · 5.0 גוגל · שירות באותו יום</p></div>
+      <div class="tl-item"><div class="tl-num">4</div><b>Local intro</b><p>פסקת עומק מקומית אמיתית — שכונות בשם (ג'סי כהן, קריית שרת, נאות שושנים), לא תבנית <span class="ltr">find&replace</span>. <b style="color:var(--accent);">זה הלב של ה-SEO המקומי.</b></p></div>
+      <div class="tl-item"><div class="tl-num">5</div><b>Services grid</b><p>גריד 6 שירותים עם תמונות</p></div>
+      <div class="tl-item"><div class="tl-num">6</div><b>Why us</b><p>4 יתרונות עם תמונות</p></div>
+      <div class="tl-item"><div class="tl-num">7</div><b>Certificates</b><p>מדביר מורשה משרד הבריאות + עסק של מילואימניק — בידול רגשי</p></div>
+      <div class="tl-item"><div class="tl-num">8</div><b>Stats</b><p>מונים: לקוחות, שנות ותק, % שביעות רצון, דירוג גוגל</p></div>
+      <div class="tl-item"><div class="tl-num">9</div><b>Testimonials</b><p>3 ביקורות גוגל שמיות עם תמונות פרופיל</p></div>
+      <div class="tl-item"><div class="tl-num">10</div><b>FAQ מקומי</b><p>7 שאלות ("כמה מהר מגיעים לחולון?", "בניין ישן בג'סי כהן...") — גם מטפל בהתנגדויות וגם זוכה ל-<span class="ltr">FAQPage schema</span></p></div>
+      <div class="tl-item"><div class="tl-num">11</div><b>CTA סגירה</b><p>כותרת + 3 ערוצי קשר (טלפון / וואטסאפ / מייל)</p></div>
+      <div class="tl-item"><div class="tl-num">12</div><b>טופס לידים</b><p>שם, טלפון, מייל, עיר, הודעה + <span class="ltr">checkbox</span> פרטיות + <span class="ltr">reCAPTCHA</span> + שדה <span class="ltr">honeypot</span> נסתר בשם <span class="ltr">website</span></p></div>
+      <div class="tl-item"><div class="tl-num">13</div><b>אזורי שירות (ירוק)</b><p>קישורי ערים שכנות</p></div>
+      <div class="tl-item"><div class="tl-num">14</div><b>Footer</b><p>פרטי עסק, ניווט, זכויות</p></div>
+      <div class="tl-item"><div class="tl-num">15</div><b>Sticky CTA</b><p>בר צף קבוע במובייל — טלפון + וואטסאפ</p></div>
+    </div>
+
+    <div class="grid-4" style="margin-bottom:2.5rem;">
+      <div class="stat"><b>7</b><span>קישורי טלפון</span></div>
+      <div class="stat"><b>5</b><span>קישורי וואטסאפ</span></div>
+      <div class="stat"><b>5.0</b><span>דירוג גוגל</span></div>
+      <div class="stat"><b>3,000+</b><span>לקוחות מוצגים</span></div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:2.5rem;">
+      <div class="card">
+        <h3>אמון — הסיבה שהקמפיינים ממירים</h3>
+        <ul>
+          <li>מדביר <b style="color:var(--text);">מורשה משרד הבריאות</b> — רישיון שמתחרים לא מציגים</li>
+          <li>אחריות בכתב + החזר כספי אם המזיקים חוזרים</li>
+          <li>תעודת "עסק של מילואימניק" רשמית</li>
+          <li>5.0 בגוגל, ביקורות שמיות אמיתיות, 8+ שנות ותק</li>
+          <li>"בטוח לילדים ולחיות מחמד" — מנטרל את החשש המרכזי של הקהל</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="ltr">SEO</span> טכני — ממה שנחלץ בפועל</h3>
+        <p style="font-size:.88rem; color:var(--text-muted); margin-bottom:.6rem;"><b class="ltr" style="color:var(--text-2);">Title:</b> הדברה ב[עיר] | מדביר מורשה ומקצועי | ביו ישראל</p>
+        <p style="font-size:.88rem; color:var(--text-muted); margin-bottom:.9rem;"><b class="ltr" style="color:var(--text-2);">Meta:</b> מילת מפתח + הסמכה + שירותים + בטיחות + <span class="ltr">CTA</span>, כ-160 תווים</p>
+        <ul>
+          <li>3 בלוקי <span class="ltr">JSON-LD</span> לכל עמוד: <span class="ltr">PestControlService</span> · <span class="ltr">FAQPage</span> · <span class="ltr">BreadcrumbList</span></li>
+          <li><span class="ltr">Canonical</span> לכל עמוד + <span class="ltr">areaServed</span> עם שם העיר</li>
+          <li>מדידה: תג המרות <span class="ltr">Google Ads</span> (<span class="ltr">AW-18130804851</span>) פעיל, אך <span class="ltr">GA4</span> הוא <span class="ltr">placeholder</span> בלבד</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:1rem;">עיצוב וסטאק</h3>
+    <div class="grid-2" style="margin-bottom:2.5rem;">
+      <div class="card">
+        <p style="font-size:.9rem; color:var(--text-2); margin-bottom:1rem;">אתר סטטי <span class="ltr">custom</span> (לא וורדפרס), <span class="ltr">CSS</span> אחד — מהיר מאוד. פונט <span class="ltr">Heebo</span>. רקע בהיר, "ממשלתי-אמין", תמונות אמיתיות של בעל העסק, תפריט נגישות מלא (חובה חוקית).</p>
+        <div style="display:flex; flex-direction:column; gap:.5rem;">
+          <div class="swatch"><span class="swatch-dot" style="background:#1B7A3D;"></span>ירוק ראשי <code class="ltr">#1B7A3D</code></div>
+          <div class="swatch"><span class="swatch-dot" style="background:#F59E0B;"></span>אקסנט ענבר <code class="ltr">#F59E0B</code></div>
+          <div class="swatch"><span class="swatch-dot" style="background:#0F3A8A;"></span>כחול משני <code class="ltr">#0F3A8A</code></div>
+          <div class="swatch"><span class="swatch-dot" style="background:#FAFBFC; border-color:#94a3b8;"></span>רקע <code class="ltr">#FAFBFC</code> (לא לבן טהור)</div>
+        </div>
+      </div>
+      <div class="card card-accent">
+        <h3>Blueprint — מה מעתיקים עבור ניסן</h3>
+        <p style="font-size:.9rem; color:var(--text-2);">שלושה מסלולים ברורים, מפורטים בכרטיסים הבאים.</p>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card card-success">
+        <span class="card-label label-copy">מעתיקים 1:1</span>
+        <ul>
+          <li>ארכיטקטורת <span class="ltr">Hub</span> + עמודי [שירות]-ב[עיר]</li>
+          <li>סדר 15 הסקשנים כפי שהוא</li>
+          <li>3 בלוקי <span class="ltr">schema</span> לכל עמוד</li>
+          <li>טופס עם <span class="ltr">honeypot</span> + <span class="ltr">reCAPTCHA</span></li>
+          <li><span class="ltr">Sticky CTA</span> מובייל + <span class="ltr">FAQ</span> מקומי עם שמות שכונות</li>
+        </ul>
+      </div>
+      <div class="card card-primary">
+        <span class="card-label label-adapt">מתאימים לניסן</span>
+        <ul>
+          <li>3 <span class="ltr">verticals</span> במקום שירות אחד — ארכיטקטורה: [שירות]-ב[עיר]</li>
+          <li>בידול: <span class="ltr">FLIR</span>, אחריות בכתב, 24/7, רישיונות, אולי מילואים</li>
+          <li>עיצוב: כהה (קיים) מול בהיר-אמין (ביו ישראל) — הכרעה בשאלון 14.3</li>
+          <li>דחיפות אמיתית יותר: מנעולן/נזילה = חירום אמיתי</li>
+        </ul>
+      </div>
+      <div class="card card-danger">
+        <span class="card-label label-fix">פערים לתקן — לא לשכפל עיוור</span>
+        <ul>
+          <li><span class="ltr">GA4</span> לא מחובר אצלם — אצל ניסן מחובר מיום ראשון</li>
+          <li>אין עמוד תודה ייעודי למדידת המרות טופס — נוסיף</li>
+          <li>אין וידאו — אם ניסן מוכן לצלם, יתרון מובהק</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ 03 · שאלון איפיון ═══════════════ -->
+  <section id="questionnaire" class="section">
+    <div class="kicker">03</div>
+    <h2>שאלון איפיון מלא — 14 סקציות</h2>
+    <p class="section-lede">נענה במלואו ב-6.7.2026. תשובות מלאות מסומנות בפס כחול. שאלות שנשארו פתוחות מסומנות <span class="chip chip-open">פתוח</span> ועברו לרשימת המשימות בסקשן <a href="#tasks" style="color:var(--accent); text-decoration:underline;">05</a>.</p>
+
+    <div class="controls">
+      <button class="btn-ghost" onclick="document.querySelectorAll('.qsec').forEach(d=>d.open=true)">פתח הכל</button>
+      <button class="btn-ghost" onclick="document.querySelectorAll('.qsec').forEach(d=>d.open=false)">סגור הכל</button>
+    </div>
+
+    <div class="jump-row">
+      <a class="jump-chip" href="#sec1">1 · פרטי עסק</a>
+      <a class="jump-chip" href="#sec2">2 · אזורי שירות</a>
+      <a class="jump-chip" href="#sec3">3 · שירותים ותמחור</a>
+      <a class="jump-chip" href="#sec4">4 · רישיונות</a>
+      <a class="jump-chip" href="#sec5">5 · בידול</a>
+      <a class="jump-chip" href="#sec6">6 · קהלי יעד</a>
+      <a class="jump-chip" href="#sec7">7 · הוכחה חברתית</a>
+      <a class="jump-chip" href="#sec8">8 · מתחרים</a>
+      <a class="jump-chip" href="#sec9">9 · ההצעה</a>
+      <a class="jump-chip" href="#sec10">10 · תקציב ויעדים</a>
+      <a class="jump-chip" href="#sec11">11 · נכסים דיגיטליים</a>
+      <a class="jump-chip" href="#sec12">12 · תפעול לידים</a>
+      <a class="jump-chip" href="#sec13">13 · חומרים ותוכן</a>
+      <a class="jump-chip" href="#sec14">14 · הכרעות אסטרטגיות</a>
+    </div>
+
+    <!-- 1 -->
+    <details class="qsec" id="sec1" open>
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">1</span>פרטי עסק בסיסיים</span><span class="qsum-count">9 שאלות <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">1.1</span><span class="qtext">שם העסק הרשמי (כפי שמופיע בחשבונית)</span></div><div class="answer-filled">ניסן שמריהו — הנדימן ואינסטלטור <span class="chip chip-warn" style="margin-inline-start:.4rem;">ר' דגל 4.1</span></div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">1.2</span><span class="qtext">עוסק מורשה / פטור / חברה? מספר ח.פ / ע.מ</span></div><div class="answer-filled">עוסק מורשה, מספר <span class="ltr">323868786</span></div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">1.3</span><span class="qtext">טלפון ראשי לעסק</span></div><div class="answer-filled"><span class="ltr">050-9911241</span> — זה המספר האישי. יוחלף במספר הוואטסאפ העסקי (1.4) כמספר הקמפיין הראשי ברגע שייפתח.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">1.4</span><span class="qtext">מספר נפרד לוואטסאפ עסקי?</span></div><div class="answer-filled">אין כרגע — <b>ייפתח בקרוב וישמש כמספר הראשי לקמפיין כולו.</b> ר' משימה בסקשן 05.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">1.5</span><span class="qtext">מייל עסקי</span></div><div class="answer-filled">נפתח (הכתובת עצמה טרם נמסרה — לצרף כשתהיה זמינה)</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">1.6</span><span class="qtext">כמה שנים ניסן בתחום?</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא נמסר מספר מדויק — לא נציג ותק מספרי באתר/בקמפיין עד שיימסר. ר' משימות.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">1.7</span><span class="qtext">שעות פעילות רגילות</span></div><div class="answer-filled"><b>08:00–18:00</b> רגיל · <b>18:00–00:00</b> תעריף SOS · <b>00:00–08:00</b> תעריף SOS מיוחד</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">1.8</span><span class="qtext">זמינות חירום</span></div><div class="answer-filled"><b>24/6</b> — לא 24/7. יום מנוחה קבוע בשבוע (לא צוין איזה). חשוב לתזמון המודעות — לא להריץ פרסום חירום ביום המנוחה.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">1.9</span><span class="qtext">עיר מגורים / בסיס יציאה</span></div><div class="answer-filled">אור יהודה — עיר עיקרית, מאושר.</div></div>
+      </div>
+    </details>
+
+    <!-- 2 -->
+    <details class="qsec" id="sec2">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">2</span>אזורי שירות</span><span class="qsum-count">קובע את עמודי ה-SEO והגיאו-טרגוט <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">2.1</span><span class="qtext">רשימת הערים המדויקת</span></div><div class="answer-filled"><b>אור יהודה</b> (בסיס) + יהוד, קרית אונו, סביון, חמד, מזור, יגל, לוד, פתח תקווה, ראשון לציון, חולון ועוד — רדיוס אווירי <b>15 ק"מ</b> מאור יהודה. כל עיר בתוך הרדיוס מתאימה.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">2.2</span><span class="qtext">ערים לחסימה בקמפיין</span></div><div class="answer-filled"><b>תל אביב — לא</b>. לחסום מפורשות בטרגוט הגיאוגרפי ובמילות שלילה גיאוגרפיות.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">2.3</span><span class="qtext">זמן הגעה ממוצע</span></div><div class="answer-filled">עד שעתיים. <b>לא</b> "תוך דקות" — זו התחייבות ריאלית שתשמש גם בקופי (9.2) וגם בעמודי השירות×עיר.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">2.4</span><span class="qtext">שכונות שהוא מכיר מקרוב</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">ניסן לא ציין שכונות ספציפיות ("אתה תכיר"). לא נמציא היכרות אישית עם שכונות שאין לו — נשתמש בשמות אזורים/שכונות ציבוריים וידועים לכל עיר (מקור: מידע גיאוגרפי כללי), בלי אנקדוטות אישיות מזויפות. אם ניסן ירצה לחדד בהמשך — משדרג את הקופי המקומי.</div></div>
+      </div>
+    </details>
+
+    <!-- 3 -->
+    <details class="qsec" id="sec3">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">3</span>שירותים ותמחור</span><span class="qsum-count">לפי תחום <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <h4 style="font-size:.95rem; color:var(--accent); margin:1.2rem 0 .3rem;">3.א אינסטלציה</h4>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">3.1</span><span class="qtext">אילו עבודות אינסטלציה מבצע?</span></div>
+          <div class="check-item"><input type="checkbox" disabled><span>איתור נזילות במצלמה תרמית (<span class="ltr">FLIR</span>) <span class="chip chip-warn">לא אושר מחדש — לוודא שהמצלמה עדיין ברשותו לפני שממשיכים להשתמש בזה כ-USP</span></span></div>
+          <div class="check-item"><input type="checkbox" disabled checked><span>פתיחת סתימות</span></div>
+          <div class="check-item"><input type="checkbox" disabled checked><span>תיקון/החלפת צנרת</span></div>
+          <div class="check-item"><input type="checkbox" disabled checked><span>דודי שמש / חשמל</span></div>
+          <div class="check-item"><input type="checkbox" disabled checked><span>ברזים, ניאגרות, כלים סניטריים</span></div>
+          <div class="check-item"><input type="checkbox" disabled checked><span>הצפות ופיצוצי צנרת (חירום)</span></div>
+        </div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">3.2</span><span class="qtext">העבודה הכי רווחית באינסטלציה? סל עבודה ממוצע?</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">ניסן לא יודע — ביקש שנבדוק. ייכלל כחלק ממחקר המתחרים בחבילת הקמפיין (סקשן 04, שלב 4).</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">3.3</span><span class="qtext">מחיר קריאה / ביקור אבחון?</span></div><div class="answer-filled"><b>350 ש"ח</b>, מתקזז מהעבודה בפועל.</div></div>
+
+        <h4 style="font-size:.95rem; color:var(--accent); margin:1.4rem 0 .3rem;">3.ב מנעולנות</h4>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">3.4</span><span class="qtext">אילו עבודות מנעולנות מבצע?</span></div>
+          <div class="check-item"><input type="checkbox" disabled checked><span>פריצת דלתות (נעילה בחוץ)</span></div>
+          <div class="check-item"><input type="checkbox" disabled checked><span>החלפת צילינדרים / מנעולים</span></div>
+          <div class="check-item"><input type="checkbox" disabled checked><span>מנעולי ביטחון / רב-בריח</span></div>
+          <div class="check-item"><input type="checkbox" disabled checked><span>רכב (פריצה)</span></div>
+          <div class="check-item"><input type="checkbox" disabled><span>כספות — לא צוין</span></div>
+        </div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">3.5</span><span class="qtext">מחיר פריצת דלת סטנדרטית?</span></div><div class="answer-filled">בין <b>250–550 ש"ח</b> (טווח, תלוי מורכבות). בפרסום נציג "החל מ-250 ש"ח" ולא את הטווח המלא — כדי לא ליצור ציפייה למקסימום כמינימום.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">3.6</span><span class="qtext">זמן הגעה בקריאת חירום מנעולן</span></div><div class="answer-filled">עד שעתיים (תואם 2.3).</div></div>
+
+        <h4 style="font-size:.95rem; color:var(--accent); margin:1.4rem 0 .3rem;">3.ג הנדימן</h4>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">3.7</span><span class="qtext">אילו עבודות?</span></div><div class="answer-filled">"עושה הכל, ידיים של זהב" — ללא רשימה סגורה. <b>נציע רשימה מוצעת</b> (הרכבות, תליות, צבע, גבס, תיקונים קטנים, החלפת ברזים) לאישור ניסן לפני פרסום, כדי לא להבטיח שירותים שלא סוכמו איתו במפורש.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">3.8</span><span class="qtext">מינימום הזמנה / מחיר לשעה?</span></div><div class="answer-filled">אין מחירון קבוע בשום שירות — כל עבודה מוערכת לגופה ("עובד הכל"). קופי הדף לא יציג טבלת מחירים קשיחה, רק טווחי דוגמה (3.3, 3.5) והצעת מחיר טלפונית.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">3.9</span><span class="qtext">עסקים/משרדים או רק בתים פרטיים?</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא נענה במפורש — קהל היעד הוצהר כ"כולם" (6.1), כך שנשאיר את הקופי פתוח לשני הקהלים.</div></div>
+
+        <h4 style="font-size:.95rem; color:var(--accent); margin:1.4rem 0 .3rem;">3.ד תעדוף</h4>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">3.10</span><span class="qtext">שירות אחד שהיה מביא הכי הרבה עבודה?</span></div><div class="answer-filled"><b>החלפת ברזים + צבע</b> — צירוף חוצה-vertical (אינסטלציה + הנדימן), לא שירות "מוביל" יחיד.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">3.11</span><span class="qtext">דירוג רווחיות</span></div><div class="answer-filled"><b>"כולם 100% רווח"</b> — ניסן בחר לא לדרג מראש. ההחלטה: <b>3 קמפיינים מקבילים</b>, אחד לכל שירות (A/B/C), ואופטימיזציית תקציב לפי מה שמביא הכי הרבה/הכי טוב בפועל — לא הימור מוקדם.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">3.12</span><span class="qtext">עבודות שהוא דוחה?</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא נמסר — אין עדיין מילות שלילה ספציפיות מעבר לרשימה הגנרית (ר' סקשן 04).</div></div>
+      </div>
+    </details>
+
+    <!-- 4 -->
+    <details class="qsec" id="sec4">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">4</span>רישיונות, הסמכות וביטוח</span><span class="qsum-count">מחסום האמון מול השוק <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">4.1</span><span class="qtext">תעודת אינסטלטור מוסמך?</span><span class="chip chip-warn">קריטי</span></div><div class="answer-filled"><b>עוד לא בידיים — מתקבלת בעוד כחודשיים.</b> עד אז: אין להציג "מוסמך" לצד אינסטלציה בשום נכס פרסומי (אתר, מודעה, GBP). ר' דגל בסקשן 01.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">4.2</span><span class="qtext">רישיון מנעולן מורשה משטרה?</span></div><div class="answer-filled"><b>קיים ומאומת</b> — תעודת מנעולן מוסמך + אישור משטרה. זה הבידול המשפטי/אמון המרכזי שכן ניתן להציג מהיום הראשון.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">4.3</span><span class="qtext">חשמלאי מוסמך?</span></div><div class="answer-filled">אין כרגע — מתוכנן לעתיד. לא להציג הסמכת חשמל.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">4.4</span><span class="qtext">ביטוח אחריות מקצועית?</span></div><div class="answer-filled">כיסוי ביטוחי מלא — ניתן להציג כללית ("מבוטח").</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">4.5</span><span class="qtext">הסמכות נוספות?</span></div><div class="answer-filled">גז — מתוכנן לעתיד, לא כרגע. <b>סיכום ניסן במפורש:</b> "כרגע יש רק מנעולן מוסמך, הדגש יהיה על מנעולן, הנדימן ואינסטלציה [ללא תואר 'מוסמך']".</div></div>
+      </div>
+    </details>
+
+    <!-- 5 -->
+    <details class="qsec" id="sec5">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">5</span>בידול</span><span class="qsum-count">למה ניסן ולא המתחרה <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">5.1</span><span class="qtext">מה לקוחות אומרים עליו?</span></div><div class="answer-filled">"ניסן, איש הגון, מקצוען, בעל ידיים של זהב. כולם מכירים אותו — שמו הטוב הולך לפניו." <span class="chip chip-warn" style="margin-inline-start:.4rem;">ר' דגל 01</span> — משמש כקופי מיתוגי (הירו/אודות), לא ככרטיס ביקורת מזויף.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">5.2</span><span class="qtext">אחריות בכתב</span></div><div class="answer-filled"><b>אין אחריות בכתב.</b> להסיר לחלוטין כל טענת "אחריות בכתב" מהאתר ומהקמפיינים (כולל מהעותקים הקיימים שירשו מהאתר הישן).</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">5.3</span><span class="qtext">מה קורה אם התיקון לא החזיק?</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא הוגדר תהליך פורמלי — נגזר מ-5.2 (אין אחריות בכתב), לא נבטיח החזר/חזרה בקופי.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">5.4</span><span class="qtext">שירות מילואים?</span></div><div class="answer-filled"><b>אין — לא לציין.</b> תג "מילואימניק" (שהיה בהשראת ביו ישראל) יוצא לגמרי מהקונספט.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">5.5</span><span class="qtext">משהו אישי לספר?</span></div><div class="answer-filled">מכוסה חלקית ב-5.1 ("שמו הטוב הולך לפניו" — ותק בקהילה). אין פרטים נוספים.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">5.6</span><span class="qtext">מה מעצבן אצל מתחרים?</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">"אתה תבדוק" — עבר למחקר מתחרים (סקשן 8 + חבילת הקמפיין, סקשן 04 שלב 4).</div></div>
+      </div>
+    </details>
+
+    <!-- 6 -->
+    <details class="qsec" id="sec6">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">6</span>קהלי יעד</span><span class="qsum-count">5 שאלות <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">6.1</span><span class="qtext">מי הלקוח הטיפוסי?</span></div><div class="answer-filled"><b>קהל היעד: כולם.</b> אין סגמנטציה מצומצמת — הקופי יישאר כללי-נגיש ולא ינסה לדבר לפרסונה צרה אחת.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">6.2</span><span class="qtext">ועדי בתים / חברות ניהול</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא צוין — נכלל תחת "כולם", לא ערוץ B2B ייעודי בשלב זה.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">6.3</span><span class="qtext">מתווכים ומשרדי תיווך</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא צוין. תבניות ה-PDF לתיווך שכבר קיימות בריפו לא הוזכרו כערוץ פעיל — לא נבנה עליהן הנחה כרגע.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">6.4</span><span class="qtext">משכירים מרוחקים</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא צוין בנפרד — נכלל תחת "כולם".</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">6.5</span><span class="qtext">עסקים קטנים / משרדים</span></div><div class="answer-filled">לא הוחרג — "כולם" כולל גם עסקים קטנים (ר' גם 3.9).</div></div>
+      </div>
+    </details>
+
+    <!-- 7 -->
+    <details class="qsec" id="sec7">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">7</span>הוכחה חברתית</span><span class="qsum-count">6 שאלות <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">7.1</span><span class="qtext">יש <span class="ltr">Google Business Profile</span>?</span></div><div class="answer-filled">בתהליך פתיחה כעת.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">7.2</span><span class="qtext">לאיזו כתובת ירשם העסק?</span></div><div class="answer-filled"><b>יוסף חיים 15</b>, אור יהודה.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">7.3</span><span class="qtext">רשימת 10–15 לקוחות לביקורות אמיתיות</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">טרם נמסרה — משימה מרכזית לניסן בסקשן 05. בלעדיה מנוע הביקורות לא יכול להתחיל.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">7.4</span><span class="qtext">תמונות לפני/אחרי?</span></div><div class="answer-filled">אין תמונות עבודה אמיתיות עדיין — ייווצרו תמונות לפני/אחרי <b>מודגמות (AI, Higgsfield)</b> כפתרון ביניים, ויוחלפו בתמונות אמיתיות מיום הצילום עם ללב מדיה (13.1–13.3). לסמן כהמחשה, לא כתיעוד עבודה בפועל.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">7.5</span><span class="qtext">המלצות כתובות/מוקלטות?</span></div><div class="answer-filled">ניסן ידאג בעצמו לצילומי מסך מוואטסאפ, הקלטות קול וסרטונים מלקוחות אמיתיים.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">7.6</span><span class="qtext">לקוח/פרויקט מרשים?</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא צוין.</div></div>
+      </div>
+    </details>
+
+    <!-- 8 -->
+    <details class="qsec" id="sec8">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">8</span>מתחרים</span><span class="qsum-count">4 שאלות <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">8.1</span><span class="qtext">3 מתחרים באזור</span></div><div class="answer-filled">ניסן ביקש שהצוות יבצע את המחקר ("אתה תבדוק") — מבוצע כחלק ממחקר המתחרים בחבילת הקמפיין (סקשן 04, שלב 4), לא מידע פנימי מניסן.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">8.2</span><span class="qtext">תמחור מתחרים</span></div><div class="answer-filled">נחקר במסגרת חבילת הקמפיין.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">8.3</span><span class="qtext">תלונות על מתחרים?</span></div><div class="answer-filled">נחקר במסגרת חבילת הקמפיין.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">8.4</span><span class="qtext">מפרסמים בגוגל?</span></div><div class="answer-filled">נחקר במסגרת חבילת הקמפיין.</div></div>
+      </div>
+    </details>
+
+    <!-- 9 -->
+    <details class="qsec" id="sec9">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">9</span>ההצעה בדף (האופר)</span><span class="qsum-count">3 שאלות <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">9.1</span><span class="qtext">ההצעה בדף</span></div>
+          <div class="check-item"><input type="checkbox" disabled checked><span>מחיר קריאה מתקזז מהעבודה — <b>ההצעה שנבחרה</b> (350₪ אינסטלציה, מתקזז)</span></div>
+          <div class="check-item"><input type="checkbox" disabled><span>אבחון חינם — לא צוין</span></div>
+          <div class="check-item"><input type="checkbox" disabled><span>הנחה לקריאה ראשונה — לא צוין</span></div>
+          <div class="check-item"><input type="checkbox" disabled><span>אחריות מורחבת — <b>לא</b> (5.2: אין אחריות בכתב)</span></div>
+          <div class="check-item"><input type="checkbox" disabled><span>הנחת מילואים — <b>לא</b> (5.4: לא לציין)</span></div>
+        </div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">9.2</span><span class="qtext">התחייבות זמן הגעה</span></div><div class="answer-filled"><b>עד שעתיים</b> (תואם 2.3/3.6) — לא "תוך 30 דקות". הבטחה ריאלית שניסן באמת יעמוד בה.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">9.3</span><span class="qtext"><span class="ltr">lead magnet</span></span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא נבחר סופית. הצעה לאישור: PDF "10 בדיקות שכל בעל דירה חייב לבדוק לפני החורף" — משתמש ברכיב <span class="ltr">LeadMagnet</span> הקיים באתר.</div></div>
+      </div>
+    </details>
+
+    <!-- 10 -->
+    <details class="qsec" id="sec10">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">10</span>תקציב ויעדים</span><span class="qsum-count">5 שאלות <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">10.1</span><span class="qtext">תקציב פרסום חודשי</span></div><div class="answer-filled"><b>2,500 ש"ח/חודש</b>, כולל בדיקות A/B/C על פני 3 הקמפיינים (~833 ש"ח לקמפיין). תקציב מבחן — יגדל בהמשך אם עובד.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">10.2</span><span class="qtext">קיבולת קליטת קריאות</span></div><div class="answer-filled"><b>40 קריאות עבודה בשבוע.</b> חשוב: תקציב הבדיקה (2,500₪) לא קרוב לייצר 40/שבוע — הפער בין הקיבולת לתקציב הוא הזדמנות להרחבה בהמשך, לא בעיה עכשיו.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">10.3</span><span class="qtext">שווי לקוח ממוצע?</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא נמסר — ניתן להעריך גס מ-3.3/3.5 (קריאות 250–550 ש"ח) עד שיימסר נתון מדויק.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">10.4</span><span class="qtext">CPL מקסימלי</span></div><div class="answer-filled"><b>60 ש"ח</b> כנקודת פתיחה.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">10.5</span><span class="qtext">יעד 3 חודשים?</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא נמסר יעד מספרי — ברירת מחדל בתכנית: לזהות איזה מבין 3 השירותים מביא הכי הרבה/הכי משתלם, ולהמליץ על הגדלת תקציב לפני חודש 4.</div></div>
+      </div>
+    </details>
+
+    <!-- 11 -->
+    <details class="qsec" id="sec11">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">11</span>נכסים דיגיטליים קיימים</span><span class="qsum-count">5 שאלות <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">11.1</span><span class="qtext">דומיין</span></div><div class="answer-filled">אין עדיין — <b>לרכוש דומיין חדש</b> (המלצה: <span class="ltr">nisan-shemaryahu.co.il</span>). ר' משימה בסקשן 05.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">11.2</span><span class="qtext">חשבונות <span class="ltr">Google Ads</span>/<span class="ltr">Meta</span>?</span></div><div class="answer-filled">אין — <b>נפתחים מאפס.</b> ההקמה בפועל מבוצעת ע"י אדיר.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">11.3</span><span class="qtext">דפי פייסבוק/אינסטגרם?</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא צוין.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">11.4</span><span class="qtext">מפורסם באינדקסים?</span><span class="chip chip-open">פתוח</span></div><div class="answer-open">לא צוין.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">11.5</span><span class="qtext">פרסם בעבר?</span></div><div class="answer-filled">שיווק בפועל (הקמה, ניהול קמפיינים) מבוצע ע"י <b>אדיר</b> — אני מכין את חבילת הקמפיין המלאה (קופי, מילות מפתח, טרגוט, מדידה) שהוא מעלה בפועל.</div></div>
+      </div>
+    </details>
+
+    <!-- 12 -->
+    <details class="qsec" id="sec12">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">12</span>תפעול לידים</span><span class="qsum-count">הנקודה שממיתה קמפיינים <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">12.1</span><span class="qtext">מי עונה כשניסן באמצע עבודה?</span></div><div class="answer-filled"><b>אוטומציה מתוכננת:</b> אם לא עונה לטלפון — הודעת וואטסאפ ראשונית אוטומטית לשימור/חימום הליד. <span class="chip chip-warn">דורש ספק טלפוניה</span> — לא ניתן לבנייה בלי בחירת ספק (ר' משימות סקשן 05); זיהוי "שיחה שלא נענתה" לא אפשרי מהאתר בלבד.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">12.2</span><span class="qtext">מענה תוך 15 דקות?</span></div><div class="answer-filled">כן — מאושר, כולל מענה ראשון ושני.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">12.3</span><span class="qtext">הודעות וואטסאפ</span></div><div class="answer-filled">מכוסה ב-12.1/12.2 — מענה ראשון ושני תוך 15 דקות.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">12.4</span><span class="qtext">לאן מגיעים לידים מהטופס?</span></div><div class="answer-filled"><b>וואטסאפ + CRM.</b> הטופס הקיים כבר שולח ל-Supabase ופותח קישור וואטסאפ — נרחיב עם שדות service/source_page (סקשן 04 שלב 2) ולוח CRM פנימי.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">12.5</span><span class="qtext">ניהול קריאות היום?</span></div><div class="answer-filled"><b>לא מנוהל כלל כרגע.</b> לוח ה-/leads הפנימי החדש (סקשן 04 שלב 2) הוא ה"CRM" הראשון שלו.</div></div>
+      </div>
+    </details>
+
+    <!-- 13 -->
+    <details class="qsec" id="sec13">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">13</span>חומרים ותוכן</span><span class="qsum-count">5 שאלות <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">13.1</span><span class="qtext">תמונות של ניסן עצמו?</span></div><div class="answer-filled">אין עדיין — <b>יום צילום מתוכנן עם ללב מדיה.</b> ניסן מקצוען מול המצלמה ובעל ניסיון בכך. עד אז האתר עולה עם תוכן מותגי כללי, לא תמונות פנים בדויות.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">13.2</span><span class="qtext">תמונות רכב/ציוד?</span></div><div class="answer-filled">חלק מיום הצילום עם ללב מדיה.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">13.3</span><span class="qtext">וידאו קצר?</span></div><div class="answer-filled">כן — חלק מיום הצילום עם ללב מדיה.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">13.4</span><span class="qtext">לוגו קיים?</span></div><div class="answer-filled">אין — <b>ליצור לוגו כללי</b> (נוצר על ידינו, ר' סקשן 04 שלב 1).</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">13.5</span><span class="qtext">ביגוד עבודה ממותג?</span></div><div class="answer-filled">ניסן ידפיס חולצה עם הדפסה על הגב — <b>אנחנו יוצרים את הסקיצה</b> (סקשן 04 שלב 1).</div></div>
+      </div>
+    </details>
+
+    <!-- 14 -->
+    <details class="qsec" id="sec14">
+      <summary class="qsum"><span class="qsum-left"><span class="qsum-badge">14</span>הכרעות אסטרטגיות</span><span class="qsum-count">עומרי + ניסן יחד <span class="qsum-chevron">▾</span></span></summary>
+      <div class="qbody">
+        <div class="qrow"><div class="qrow-label"><span class="qnum">14.1</span><span class="qtext">מיצוב-על</span></div><div class="answer-filled"><b>מותג אחד — ניסן שמריהו.</b> דף נחיתה ייעודי לכל שירות, כל הלידים זורמים לאותו CRM/וואטסאפ.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">14.2</span><span class="qtext">שירות ראשון לקמפיין</span></div><div class="answer-filled"><b>שונה מההמלצה — הוחלט על 3 קמפיינים מקבילים (A/B/C), לא שירות בודד ראשון.</b> אחרי איסוף נתונים, מתמקדים במה שהכי טוב.</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">14.3</span><span class="qtext">עיצוב</span></div><div class="answer-filled"><b>עובר לבהיר — clone מלא של כיוון העיצוב של ביו ישראל</b> (לא צבעים זהים, כיוון דומה: בהיר, אמין, ממשלתי-נקי).</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">14.4</span><span class="qtext">שם דומיין</span></div><div class="answer-filled">אישי — ניסן שמריהו. לרכוש דומיין חדש (ר' 11.1).</div></div>
+        <div class="qrow"><div class="qrow-label"><span class="qnum">14.5</span><span class="qtext">כמה עמודי עיר בשלב ראשון</span></div><div class="answer-filled"><b>אושר: 6–8 צירופים</b> של שירות×עיר לפי 2.1 (ערים) — מרחיבים אחרי חודש לפי מה שעובד.</div></div>
+      </div>
+    </details>
+
+    <p style="margin-top:2rem; color:var(--text-muted); font-size:.88rem;">השאלון סגור. מה שלא נענה עבר לרשימת המשימות בסקשן <a href="#tasks" style="color:var(--accent); text-decoration:underline;">05</a>. הבנייה בפועל — אתר, לוגו, וחבילות קמפיין — ממופה בחלק הבא.</p>
+  </section>
+
+  <!-- ═══════════════ 04 · תכנית רכש ═══════════════ -->
+  <section id="plan" class="section">
+    <div class="kicker">04</div>
+    <h2>תכנית רכש לקוחות — ממומן + SEO</h2>
+    <p class="section-lede">שלד מוכן לפעולה. תגיות <span class="chip chip-link">שאלה X.Y</span> מקפיצות לשאלה המקורית בשאלון למעלה — המסמך הופך לסופי אחרי שהיא נענית.</p>
+
+    <h3 style="margin-bottom:1rem;">חלק א' · קמפיין ממומן</h3>
+
+    <div class="grid-2" style="margin-bottom:2rem;">
+      <div class="card">
+        <h3>1 · אסטרטגיית ערוצים</h3>
+        <div class="table-wrap">
+          <table>
+            <tr><th>ערוץ</th><th>תפקיד</th></tr>
+            <tr><td><span class="ltr">Google Search</span></td><td>ראשי (70–80%) — כוונת חיפוש חמה, חירום אמיתי</td></tr>
+            <tr><td><span class="ltr">Google Business Profile</span></td><td>חינם, קריטי — חלק גדול מהחירום מגיע ישירות מ-<span class="ltr">Maps</span></td></tr>
+            <tr><td><span class="ltr">Meta</span></td><td>משני (20–30%) — הנדימן מתוכנן + רימרקטינג</td></tr>
+          </table>
+        </div>
+        <p style="font-size:.85rem; color:var(--text-muted); margin-top:.8rem;"><b style="color:var(--accent);">הוחלט (<a class="chip chip-link" href="#q3-11">3.11</a>):</b> 3 קמפיינים A/B/C רצים <b>במקביל מהיום הראשון</b>, תקציב שווה (~833₪ כ"א) ← אחרי 2–3 שבועות דאטה, מעבירים תקציב לקמפיין המנצח ← <span class="ltr">Meta</span> רק אחרי ש-<span class="ltr">Search</span> יציב.</p>
+      </div>
+      <div class="card">
+        <h3>2 · מבנה חשבון <span class="ltr">Google Ads</span></h3>
+        <div class="tree">
+          <span class="lvl0">קמפיין A · מנעולן — חירום</span>
+          <span class="lvl1">Ad Group: מנעולן ב[עיר] · לכל עיר מובילה</span>
+          <span class="lvl0">קמפיין B · אינסטלציה — חירום + נזילות</span>
+          <span class="lvl1">Ad Group: אינסטלטור ב[עיר] · פתיחת סתימות, צנרת (בלי "מוסמך")</span>
+          <span class="lvl0">קמפיין C · הנדימן</span>
+          <span class="lvl1">Ad Group: הנדימן ב[עיר] · החלפת ברזים, צבע</span>
+        </div>
+        <p style="font-size:.85rem; color:var(--text-muted); margin-top:.8rem;">3 הקמפיינים רצים <b>בו-זמנית</b> בתקציב שווה — לא היררכיה. כל <span class="ltr">Ad Group</span> נוחת על עמוד [שירות]-ב[עיר] תואם — <span class="ltr">message match</span> מלא.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:2rem;">
+      <h3>3 · מילות מפתח (עברית — כולל הטיות)</h3>
+      <div class="grid-3">
+        <div><b style="color:var(--text); font-size:.9rem;">מנעולן (חירום)</b><p style="color:var(--text-2); font-size:.87rem; margin-top:.4rem;">מנעולן ב[עיר] · מנעולן קרוב אלי · פורץ דלתות · נעלתי את עצמי בחוץ · פריצת דלת · החלפת צילינדר · מנעולן 24 שעות</p></div>
+        <div><b style="color:var(--text); font-size:.9rem;">אינסטלציה</b><p style="color:var(--text-2); font-size:.87rem; margin-top:.4rem;">אינסטלטור ב[עיר] · אינסטלטור 24 שעות · פתיחת סתימה · פיצוץ צנרת · דוד שמש · ברזים וניאגרות. <span class="chip chip-warn">איתור נזילות/מצלמה תרמית — רק אם 4.5 מאשר שהציוד עדיין ברשותו</span></p></div>
+        <div><b style="color:var(--text); font-size:.9rem;">הנדימן</b><p style="color:var(--text-2); font-size:.87rem; margin-top:.4rem;">הנדימן ב[עיר] · איש תחזוקה · הרכבת רהיטים · תיקונים קטנים בבית</p></div>
+      </div>
+      <p style="font-size:.85rem; color:var(--text-muted); margin-top:1rem;"><b style="color:var(--danger);">מילות שלילה מהיום הראשון:</b> חינם · בעצמי · איך ל... · DIY · מדריך · שכר · דרושים · לימודי · קורס + עבודות שהוא דוחה (<a class="chip chip-link" href="#q3-12">שאלה 3.12</a>) + ערים לחסימה (<a class="chip chip-link" href="#q2-2">שאלה 2.2</a>). <span class="ltr">Match types:</span> Phrase + Exact בהתחלה, Broad רק אחרי דאטה.</p>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:2rem;">
+      <div class="card card-accent">
+        <h3>4 · תבניות מודעות</h3>
+        <p style="font-size:.85rem; color:var(--text-muted); margin-bottom:.6rem;">כותרות (עד 30 תווים):</p>
+        <ul style="font-size:.88rem;">
+          <li>מנעולן ב[עיר] — מגיע מהר</li>
+          <li>נעולים בחוץ? [X] דקות ומגיע (<a class="chip chip-link" href="#q3-6">3.6</a>)</li>
+          <li>מחיר סגור מראש בטלפון (<a class="chip chip-link" href="#q3-5">3.5</a>)</li>
+          <li>מנעולן מוסמך + אישור משטרה (<a class="chip chip-link" href="#q4-2">4.2</a> — מאומת, מותר להשתמש)</li>
+          <li>ניסן שמריהו — הנדימן ואינסטלטור מנוסה (<b>בלי</b> המילה "מוסמך" ליד אינסטלציה, <a class="chip chip-link" href="#q4-1">4.1</a>)</li>
+        </ul>
+        <p style="font-size:.82rem; color:var(--danger); margin-top:.8rem;">חובה: כל מחיר כולל מע"מ 18% (חוק הגנת הצרכן). גוף שני יחיד, עברית מדוברת. לא מבטיחים מה שלא עומדים בו. <b>אסור</b> "מוסמך"/"רישיון" ליד אינסטלציה עד <a class="chip chip-link" href="#q4-1">4.1</a> להיסגר. אסור "אחריות בכתב" (<a class="chip chip-link" href="#q5-2">5.2</a>).</p>
+      </div>
+      <div class="card">
+        <h3>5–6 · גיאו, תזמון, מדידה</h3>
+        <ul>
+          <li><b style="color:var(--text);">גיאו:</b> רדיוס 15 ק"מ מאור יהודה (<a class="chip chip-link" href="#q2-1">2.1</a>), <b style="color:var(--danger);">אקסקלוד תל אביב</b> (<a class="chip chip-link" href="#q2-2">2.2</a>) — <span class="ltr">Presence</span>, לא <span class="ltr">Interest</span></li>
+          <li><b style="color:var(--text);">תזמון:</b> <b>24/6</b> (<a class="chip chip-link" href="#q1-8">1.8</a>, לא 24/7) — לכבות מודעות ביום המנוחה השבועי; מדרגי SOS לפי שעה (<a class="chip chip-link" href="#q1-7">1.7</a>)</li>
+          <li><b style="color:var(--text);">מדידה:</b> קליק <span class="ltr">tel:</span> + וואטסאפ + טופס (עם עמוד תודה) + שיחה משלוחה — כולם המרות ראשיות ב-<span class="ltr">GTM + GA4 + Google Ads</span>, מתויגות לפי <span class="ltr">service</span>/<span class="ltr">source_page</span> כדי להשוות בין קמפייני A/B/C</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:2rem;">
+      <h3>7 · תקציב ותחזית — עודכן לנתונים בפועל</h3>
+      <p style="font-size:.85rem; color:var(--text-muted); margin-bottom:1rem;">תקציב מאושר (<a class="chip chip-link" href="#q10-1">10.1</a>): <b style="color:var(--text);">2,500 ש"ח/חודש</b>, מפוצל ל-3 קמפיינים שווים (~833 ש"ח כ"א). זהו תקציב מבחן קטן — הצפי ריאלי, לא ורודה:</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>קמפיין</th><th>תקציב (לפני מע"מ)</th><th>קליקים משוערים</th><th>לידים משוערים</th></tr>
+          <tr><td>A · מנעולן</td><td>~833 ש"ח</td><td>35–100</td><td>4–14</td></tr>
+          <tr><td>B · אינסטלציה</td><td>~833 ש"ח</td><td>35–100</td><td>4–14</td></tr>
+          <tr><td>C · הנדימן</td><td>~833 ש"ח</td><td>35–100</td><td>4–14</td></tr>
+          <tr><td><b>סה"כ</b></td><td><b>2,500 ש"ח</b></td><td><b>~100–300</b></td><td><b>~12–40 לידים/חודש</b></td></tr>
+        </table>
+      </div>
+      <p style="font-size:.82rem; color:var(--text-muted); margin-top:.9rem;"><b style="color:var(--danger);">חשוב לצפות נכון:</b> קיבולת ניסן היא 40 קריאות/<b>שבוע</b> (<a class="chip chip-link" href="#q10-2">10.2</a>) ≈ 160/חודש — התקציב הנוכחי יביא שבריר קטן מזה. זה בסדר לשלב מבחן, אבל אם התוצאות טובות, יש מקום גדול להגדלת תקציב בחודש 2–3. עלות אמיתית = תקציב × 1.18 (מע"מ). <span class="ltr">Bidding:</span> Manual CPC בהתחלה (מדי מעט דאטה ל-Smart Bidding בתקציב הזה), מעבר ל-Target CPA (יעד <a class="chip chip-link" href="#q10-4">60 ש"ח</a>) רק אחרי שכל קמפיין צובר 15+ המרות.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:3rem;">
+      <h3>8 · <span class="ltr">Meta</span> (שלב שני)</h3>
+      <p style="font-size:.9rem; color:var(--text-2);">קהל: רדיוס 15 ק"מ מאור יהודה (לא תל אביב), גיל 28–65, עברית. קריאייטיב עד יום הצילום עם ללב מדיה (<a class="chip chip-link" href="#q13-3">13.1–13.3</a>): לפני/אחרי <b>מודגמים ב-Higgsfield</b> (<a class="chip chip-link" href="#q7-4">7.4</a>) — יסומנו כהמחשה, מוחלפים בתמונות אמיתיות ברגע שקיימות. מטרות: לידים + רימרקטינג. קבוצות פייסבוק מקומיות — פרסום אורגני חינם.</p>
+    </div>
+
+    <h3 style="margin-bottom:1rem;">חלק ב' · תכנית <span class="ltr">SEO</span></h3>
+
+    <div class="grid-2" style="margin-bottom:2rem;">
+      <div class="card card-primary">
+        <h3>9 · <span class="ltr">Google Business Profile</span></h3>
+        <ul>
+          <li>בתהליך פתיחה (<a class="chip chip-link" href="#q7-1">7.1</a>) — כתובת <b style="color:var(--text);">יוסף חיים 15, אור יהודה</b> (<a class="chip chip-link" href="#q7-2">7.2</a>)</li>
+          <li>3 קטגוריות שוות משקל: מנעולן, אינסטלטור, הנדימן — <b>לא</b> "אינסטלטור מוסמך" (<a class="chip chip-link" href="#q4-1">4.1</a>)</li>
+          <li>15+ תמונות אמיתיות אחרי יום הצילום (<a class="chip chip-link" href="#q13-1">13.1–13.2</a>)</li>
+          <li><b style="color:var(--accent);">מנוע ביקורות:</b> חסום כרגע — <b style="color:var(--danger);">חסר רשימת 10–15 לקוחות</b> (<a class="chip chip-link" href="#q7-3">7.3</a>, ר' משימות). ברגע שתגיע: בקשה אוטומטית אחרי כל עבודה, יעד 25 ביקורות ב-90 יום</li>
+          <li>פוסטים בפרופיל פעם בשבוע</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>10 · ארכיטקטורת עמודים</h3>
+        <div class="tree" style="margin-bottom:.8rem;">
+          <span class="lvl0">/ ← דף בית: מותג + כל השירותים והאזורים</span>
+          <span class="lvl1">/מנעולן-ב[עיר]/ ← לכל עיר מובילה</span>
+          <span class="lvl1">/אינסטלטור-ב[עיר]/</span>
+          <span class="lvl1">/איתור-נזילות-ב[עיר]/ ← מילת חיפוש רווחית</span>
+          <span class="lvl1">/הנדימן-ב[עיר]/ ← ערים מרכזיות בלבד</span>
+        </div>
+        <p style="font-size:.85rem; color:var(--text-2);"><b style="color:var(--text);">שלב 1: 6–8 עמודים</b> (שירות מוביל × 4–5 ערים + שירות שני × 2–3 ערים), לפי <a class="chip chip-link" href="#q2-1">2.1</a> + <a class="chip chip-link" href="#q3-11">3.11</a> + <a class="chip chip-link" href="#q14-5">14.5</a>. כל עמוד לפי אנטומיית ביו ישראל: H1 מקומי, בר אמון, פסקת עומק עם שכונות אמיתיות (<a class="chip chip-link" href="#q2-4">2.4</a>), FAQ מקומי, ביקורות, טופס + טלפון + וואטסאפ + sticky CTA.</p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:2.5rem;">
+      <div class="card">
+        <h3>11–12 · טכני וסמכות מקומית</h3>
+        <ul>
+          <li>תבנית <span class="ltr">metadata</span>: [שירות] ב[עיר] | [בידול] | ניסן שמריהו</li>
+          <li>3 בלוקי <span class="ltr">JSON-LD</span> לעמוד: <span class="ltr">Plumber/Locksmith/HomeAndConstructionBusiness</span> + <span class="ltr">FAQPage</span> + <span class="ltr">BreadcrumbList</span></li>
+          <li>דומיין אמיתי (<a class="chip chip-link" href="#q11-1">11.1</a>, <a class="chip chip-link" href="#q14-4">14.4</a>) — <span class="ltr">.co.il</span> עדיף על <span class="ltr">vercel.app</span></li>
+          <li>נגישות <span class="ltr">IS 5568</span> (חובה חוקית)</li>
+          <li>רישום באינדקסים ישראליים (<a class="chip chip-link" href="#q11-4">11.4</a>) — NAP אחיד</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>14 · KPI מרכזיים</h3>
+        <ul>
+          <li>עלות ליד — יעד מתחת ל-(<a class="chip chip-link" href="#q10-4">10.4</a>)</li>
+          <li>% שיחות שנענו תוך 15 דקות (<a class="chip chip-link" href="#q12-2">12.2</a>) — המדד שהורג או מציל את הקמפיין</li>
+          <li>המרות דף — יעד 10%+ בעמודי חירום</li>
+          <li>ביקורות גוגל — יעד 25 ב-90 יום</li>
+          <li>דירוג אורגני ל-[שירות] ב-[עיר] (מעקב <span class="ltr">Search Console</span>)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>13 · לוח זמנים מסוכם</h3>
+      <div class="steps">
+        <div class="step"><div class="step-week" style="color:var(--success);">✓ שבוע 0</div><div class="step-text">שאלון מלא נענה (6.7.2026) ← תכנית זו עודכנה לנתונים סופיים</div></div>
+        <div class="step"><div class="step-week">שבוע 1</div><div class="step-text">דומיין + לוגו + GBP + מדידה (GTM/GA4/Ads) + בניית 6-8 עמודי שלב 1 (עיצוב בהיר, clone ביו ישראל)</div></div>
+        <div class="step"><div class="step-week">שבוע 2</div><div class="step-text">השקת <b>3 קמפיינים A/B/C במקביל</b> (2,500₪ סה"כ) + התנעת מנוע ביקורות (מותנה במשימה 7.3)</div></div>
+        <div class="step"><div class="step-week">שבוע 3–4</div><div class="step-text">איסוף דאטה מ-3 הקמפיינים: אילו search terms, אילו עמודים ממירים, מה עלות הליד בפועל</div></div>
+        <div class="step"><div class="step-week">שבוע 5–8</div><div class="step-text">העברת תקציב לקמפיין המנצח, הרחבת ערים, שקילת הגדלת תקציב כולל לקראת 40/שבוע</div></div>
+        <div class="step"><div class="step-week">שבוע 9–12</div><div class="step-text">Target CPA, הרחבת עמודי SEO לפי Search Console, מאמר עומק ראשון</div></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════ 05 · משימות לניסן ═══════════════ -->
+  <section id="tasks" class="section">
+    <div class="kicker">05</div>
+    <h2>משימות פתוחות — לניסן ולעומרי</h2>
+    <p class="section-lede">כל מה שלא נסגר בשאלון, במקום אחד. בלי הפריטים האלה — חלק מהאתר/הקמפיין לא יכול לעלות באופן מלא.</p>
+
+    <div class="card card-danger" style="margin-bottom:1.5rem;">
+      <span class="card-label label-fix">חוסמות עלייה לאוויר</span>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>תעודת אינסטלטור מוסמך</b><span>מתקבלת בעוד כחודשיים (4.1). עד אז — אין "מוסמך" ליד אינסטלציה בשום מקום.</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>וידוא מצלמת FLIR</b><span>לוודא שמצלמה תרמית עדיין ברשות ניסן לפני שממשיכים להשתמש בה כ-USP/מילת מפתח (3.1).</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>רשימת 10-15 לקוחות לביקורות גוגל</b><span>שם + טלפון, כדי שמנוע הביקורות האמיתי יוכל להתחיל (7.3).</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>אישור שם מותג/דומיין/לוגו סופי</b><span>לפני רכישת הדומיין ופרסום הלוגו.</span></div></div>
+    </div>
+
+    <div class="card" style="margin-bottom:1.5rem;">
+      <span class="card-label label-adapt">תשתית לפני השקה</span>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>פתיחת וואטסאפ עסקי</b><span>יהיה המספר הראשי לכל הקמפיין (1.4).</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>רכישת דומיין</b><span>המלצה: <span class="ltr">nisan-shemaryahu.co.il</span> (11.1, 14.4).</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>פתיחת חשבונות Google Ads + Meta Business מאפס</b><span>אדיר מבצע בפועל את ההקמה וניהול המדיה (11.2, 11.5).</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>החלטה על ספק טלפוניה לשיחה-שלא-נענתה → וואטסאפ אוטומטי</b><span>למשל Twilio Voice או מקביל ישראלי — נדרש כדי לממש את האוטומציה שניסן ביקש (12.1). לא ניתן לבנייה בלי בחירת ספק.</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>תיאום יום צילום עם ללב מדיה</b><span>תמונות ניסן, רכב, ציוד, וידאו קצר (13.1–13.3) — יחליפו את תמונות ה-Higgsfield הזמניות.</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>שליחת תעודת מנעולן + אישור משטרה</b><span>לאימות ב-Google Business Profile ובאתר.</span></div></div>
+    </div>
+
+    <div class="card">
+      <span class="card-label" style="color:var(--text-muted);">פערי מידע קטנים (לא חוסמים)</span>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>ותק מדויק בשנים</b><span>לא נמסר (1.6) — לא יוצג מספר ותק עד שיימסר.</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>רשימת שכונות אמיתית</b><span>ניסן לא ציין שכונות ספציפיות (2.4) — כרגע נעשה שימוש בשמות אזורים ציבוריים בלבד.</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>רשימת שירותי הנדימן סופית</b><span>"עושה הכל" (3.7) — הצעה גנרית תישלח לאישור לפני פרסום.</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div class="task-text"><b>שווי לקוח ממוצע ויעד ל-3 חודשים</b><span>10.3 ו-10.5 לא נמסרו — לא קריטי לתחילת עבודה.</span></div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  מסמך עבודה פנימי · נבנה עבור עומרי כתב · מבוסס ניתוח <span class="ltr">bioisrael.co.il</span> ואתר <span class="ltr">nisan-shemaryahu.vercel.app</span> הקיים · נוצר 5.7.2026 · עודכן 6.7.2026
+</footer>
+
+<script>
+  const bar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = pct + '%';
+  });
+</script>
+
+</body>
+</html>
