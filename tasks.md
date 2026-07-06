@@ -13,7 +13,11 @@
 - `docs/campaign-packages.md` — 3 חבילות קמפיין מוכנות לאדיר
 
 ## Pending — חוסם עלייה לאוויר
-- [ ] אישור לוגו סופי מבין 2 האופציות ב-`public/brand/` (logo-v1 מעוגל/פתוח, logo-v2 עיגול מלא) + סקיצת חולצה — ניסן/עומרי לבחור, לא משולב עדיין בקוד האתר (Navbar/Footer עדיין טקסט בלבד)
+- [ ] אישור לוגו סופי מבין האופציות ב-`public/brand/`:
+      - `logo-general-v1.png` / `logo-general-v2.png` — לוגו כללי, פטיש+מפתח שבדי בלבד (בלי מפתח/מנעול, בכוונה, כדי לא להטות לשירות ספציפי) + "ניסן שמריהו" בלבד. **זה מה שעולה בפרופיל הוואטסאפ המשותף** לכל 3 הקמפיינים
+      - `logo-locksmith.png` (מפתח+מגן), `logo-plumbing.png` (מפתח צנרת+ברז), `logo-handyman.png` (פטיש+ארגז כלים) — לוגו ספציפי לכל דף נחיתה בנפרד
+      - `tshirt-back-sketch.png` — סקיצת הדפסת גב לחולצה
+      - עדיין לא משולב בקוד האתר (Navbar/Footer בכל 3 הדפים עדיין טקסט בלבד) — ממתין לאישור ניסן/עומרי לפני שילוב בפועל
 - [ ] וואטסאפ עסקי (יעדכן את `OWNER_PHONE_INTL` ב-`lib/siteConfig.ts`)
 - [ ] דומיין אמיתי + חיבור Vercel
 - [ ] משתני סביבה בפרויקט Vercel בפועל: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `LEADS_DASHBOARD_PASSWORD`
