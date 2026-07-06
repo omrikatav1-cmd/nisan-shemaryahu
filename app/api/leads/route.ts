@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
       return errorResponse("validation_error", "גוף הבקשה אינו תקין.", 400);
     }
 
-    const { name: rawName, phone: rawPhone, issue: rawIssue } = body as Record<string, unknown>;
+    const { name: rawName, phone: rawPhone, issue: rawIssue, service: rawService, source_page: rawSourcePage } = body as Record<string, unknown>;
 
     if (typeof rawName !== "string" || typeof rawPhone !== "string" || typeof rawIssue !== "string") {
       return errorResponse("validation_error", "שדות חסרים: שם, טלפון ותיאור הבעיה הם שדות חובה.", 400);
@@ -106,6 +106,9 @@ export async function POST(request: NextRequest) {
     const name = sanitize(rawName);
     const phone = sanitize(rawPhone);
     const issue = sanitize(rawIssue);
+    // Optional — tags which of the 3 parallel campaigns/pages produced the lead.
+    const service = typeof rawService === "string" ? sanitize(rawService).slice(0, 50) : null;
+    const sourcePage = typeof rawSourcePage === "string" ? sanitize(rawSourcePage).slice(0, 100) : null;
 
     if (!name || !phone || !issue) {
       return errorResponse("validation_error", "שדות חסרים: שם, טלפון ותיאור הבעיה הם שדות חובה.", 400);
@@ -121,7 +124,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await getSupabase()
       .from("leads")
-      .insert([{ name, phone, issue, status: "new" }])
+      .insert([{ name, phone, issue, status: "new", service, source_page: sourcePage }])
       .select()
       .single();
 
@@ -131,7 +134,7 @@ export async function POST(request: NextRequest) {
       return errorResponse("server_error", "שגיאה בשמירת הפנייה. נסה שוב.", 500);
     }
 
-    const whatsappUrl = getWhatsAppUrl(name, issue);
+    const whatsappUrl = getWhatsAppUrl(name, issue, service ?? undefined);
 
     return NextResponse.json({
       success: true,
