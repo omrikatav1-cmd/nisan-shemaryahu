@@ -13,7 +13,7 @@
 - `docs/campaign-packages.md` — 3 חבילות קמפיין מוכנות לאדיר
 
 ## Pending — חוסם עלייה לאוויר
-- [ ] לוגו + סקיצת חולצה (ניסיון קודם נכשל טכנית — לנסות שוב)
+- [ ] אישור לוגו סופי מבין 2 האופציות ב-`public/brand/` (logo-v1 מעוגל/פתוח, logo-v2 עיגול מלא) + סקיצת חולצה — ניסן/עומרי לבחור, לא משולב עדיין בקוד האתר (Navbar/Footer עדיין טקסט בלבד)
 - [ ] וואטסאפ עסקי (יעדכן את `OWNER_PHONE_INTL` ב-`lib/siteConfig.ts`)
 - [ ] דומיין אמיתי + חיבור Vercel
 - [ ] משתני סביבה בפרויקט Vercel בפועל: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `LEADS_DASHBOARD_PASSWORD`
