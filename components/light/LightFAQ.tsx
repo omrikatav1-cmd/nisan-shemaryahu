@@ -3,13 +3,13 @@
 import { ChevronDown } from "lucide-react";
 import type { FaqItem } from "@/lib/serviceContent";
 
-export default function LightFAQ({ items }: { items: FaqItem[] }) {
+export default function LightFAQ({ items, heading = "מה שואלים אותי הכי הרבה" }: { items: FaqItem[]; heading?: string }) {
   return (
     <section id="faq" className="py-20 px-4 sm:px-6">
       <div className="max-w-3xl mx-auto">
         <div className="text-right mb-10">
           <p className="text-l-accent text-xs font-black tracking-[0.2em] uppercase mb-2">שאלות נפוצות</p>
-          <h2 className="text-3xl sm:text-4xl font-black">מה שואלים אותי הכי הרבה</h2>
+          <h2 className="text-3xl sm:text-4xl font-black">{heading}</h2>
         </div>
 
         <div className="flex flex-col gap-3">

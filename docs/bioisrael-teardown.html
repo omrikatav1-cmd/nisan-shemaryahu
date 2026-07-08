@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ביו-ישראל — ניתוח מקצה לקצה + Blueprint לניסן</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#F7F4EE;--surface:#fff;--navy:#14395E;--amber:#C97A2B;--text:#1A2433;--text2:#435164;--muted:#7A8697;--border:#E4DFD3;--green:#1F7A4D;}
+  *{box-sizing:border-box;} body{margin:0;background:var(--bg);color:var(--text);font-family:'Assistant',sans-serif;line-height:1.7;direction:rtl;}
+  h1,h2,h3{font-family:'Rubik',sans-serif;margin:0;}
+  header{background:linear-gradient(135deg,var(--navy),#0C2740);color:#fff;padding:3rem 1.5rem;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 1.5rem;}
+  header .wrap{padding:0;}
+  .eyebrow{display:inline-block;background:rgba(201,122,43,.2);border:1px solid rgba(201,122,43,.5);color:#F0C89A;font-size:.78rem;font-weight:700;padding:.4rem 1rem;border-radius:999px;margin-bottom:1rem;}
+  header h1{font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:.6rem;}
+  header p{color:#CBD5E1;max-width:660px;margin:0;}
+  .metrics{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem;}
+  .metric{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:.8rem 1.2rem;}
+  .metric b{display:block;font-family:'Rubik',sans-serif;font-size:1.4rem;color:#F0C89A;}
+  .metric span{font-size:.78rem;color:#CBD5E1;}
+  section{padding:2.5rem 0;border-bottom:1px solid var(--border);}
+  h2{font-size:1.5rem;margin-bottom:.4rem;color:var(--navy);}
+  .lead{color:var(--text2);margin-bottom:1.4rem;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;box-shadow:0 8px 24px rgba(20,57,94,.06);margin-bottom:1rem;}
+  ul,ol{margin:0;padding-inline-start:1.3rem;color:var(--text2);}
+  li{margin-bottom:.5rem;} li b{color:var(--text);}
+  table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:.9rem;}
+  th,td{padding:.65rem .9rem;text-align:right;border-bottom:1px solid var(--border);}
+  th{background:var(--navy);color:#fff;font-family:'Rubik',sans-serif;font-size:.8rem;}
+  tr:last-child td{border-bottom:none;}
+  code{background:#EDE8DC;padding:.1rem .4rem;border-radius:5px;font-size:.85rem;direction:ltr;display:inline-block;}
+  .steps{counter-reset:s;list-style:none;padding:0;}
+  .steps li{counter-increment:s;position:relative;padding-inline-start:2.4rem;margin-bottom:.7rem;}
+  .steps li::before{content:counter(s);position:absolute;inset-inline-start:0;top:0;width:1.7rem;height:1.7rem;background:var(--amber);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Rubik',sans-serif;font-weight:800;font-size:.8rem;}
+  .map{background:var(--navy);color:#fff;border-radius:14px;padding:1.5rem;}
+  .map h2{color:#fff;} .map code{background:rgba(255,255,255,.12);color:#F0C89A;}
+  .arrow{color:var(--amber);font-weight:800;}
+  footer{padding:2rem 1.5rem;text-align:center;color:var(--muted);font-size:.85rem;}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <span class="eyebrow">ניתוח מתחרה/מודל · עומרי כתב · 8.7.2026</span>
+  <h1>ביו-ישראל — ניתוח מקצה לקצה + Blueprint לניסן</h1>
+  <p>נותח מ-sitemap, HTML גולמי, ותגי המדידה החיים של האתר. זה המודל המוכח (8K הוצאה חודשית → 60K הכנסה) שהומר לשלושת המשפכים של ניסן.</p>
+  <div class="metrics">
+    <div class="metric"><b>16</b><span>עמודים (בית + 15 ערים)</span></div>
+    <div class="metric"><b>Google Ads</b><span>מנוע הרכש</span></div>
+    <div class="metric"><b>~8K→60K</b><span>הוצאה → הכנסה</span></div>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+<section>
+  <h2>1 · ארכיטקטורה</h2>
+  <p class="lead">שירות אחד (הדברה) × הרבה ערים. אין עמודי "אודות/בלוג/שירותים" נפרדים — כל עמוד עיר הוא דף נחיתה שלם וסגור, שמשמש גם ל-SEO אורגני וגם כ-landing page לקמפיין.</p>
+  <div class="card">
+    <b>עמודי ה-sitemap בפועל:</b>
+    <p style="color:var(--text2);font-size:.9rem;margin:.6rem 0 0;">בית · הדברה-ברחובות · הדברה-בראשון-לציון · הדברה-בנס-ציונה · הדברה-בחולון · הדברה-בבת-ים · הדברה-ביבנה · הדברה-באשדוד · הדברה-במודיעין · הדברה-בבאר-יעקב · הדברה-בקריית-עקרון · הדברה-במזכרת-בתיה · הדברה-בגדרה · הדברה-בגן-יבנה · הדברה-בשוהם · הדברה-בסביון</p>
+  </div>
+</section>
+
+<section>
+  <h2>2 · אנטומיית עמוד עיר</h2>
+  <p class="lead">סדר הסקשנים בפועל (חולון) — זה ה-blueprint שהומר לכל עמוד עיר של ניסן:</p>
+  <ol class="steps">
+    <li><b>Hero + H1 מקומי</b> — "חברת הדברה בחולון — שירות מקומי מהיר ומקצועי לבית ולעסק" + טלפון + וואטסאפ</li>
+    <li><b>פסקת עומק מקומית</b> — שכונות בשם (ג'סי כהן, קרית שרת...). <b>לב ה-SEO המקומי.</b></li>
+    <li><b>6 כרטיסי שירות</b> — תיקנים, נמלים, מכרסמים, הדברה בטוחה, פרעושים, יונים</li>
+    <li><b>"היתרונות שלנו" (4)</b> — בטיחות, 100% אחריות, מקצועיות, תגובה מהירה</li>
+    <li><b>חוות דעת מלקוחות</b> — ביקורות שמיות</li>
+    <li><b>FAQ מקומי</b> — "שאלות נפוצות על הדברה בחולון" (זוכה גם ל-FAQ schema)</li>
+    <li><b>טופס — "קבלו הצעת מחיר בחולון"</b></li>
+    <li><b>"הדברה גם בערים הסמוכות לחולון"</b> — לינקוג' פנימי לערים שכנות</li>
+    <li><b>Sticky CTA מובייל</b> — טלפון + וואטסאפ קבועים</li>
+  </ol>
+</section>
+
+<section>
+  <h2>3 · מדידה וקמפיין (מהתגים החיים)</h2>
+  <div class="card">
+    <ul>
+      <li><b>Google Ads conversion</b> — <code>AW-18130804851</code> פעיל</li>
+      <li><b>GTM</b> — <code>GTM-PN7K3RCM</code> פעיל</li>
+      <li><b>GA4</b> — <code>G-XXX</code> = placeholder, <b>לא מוגדר</b>. משמעות: ההמרות רצות על Google Ads, לא על אנליטיקס. אנליטיקס הוא לא מה שמניע את התוצאה.</li>
+      <li><b>אין פיקסל פייסבוק</b> — כל התנועה כוונת-חיפוש חמה (Search), לא social.</li>
+      <li>טלפון <code>054-552-2607</code> · וואטסאפ <code>wa.me/972545522607</code> · CTA חוזר: התקשרו / וואטסאפ / טופס.</li>
+    </ul>
+  </div>
+  <p class="lead" style="margin-bottom:0;"><b>המסקנה:</b> המנוע = Google Search Ads שנוחתים על עמוד עיר תואם. התאמה מושלמת חיפוש→מודעה→עמוד = Quality Score גבוה = קליק זול = ROI של 7.5x.</p>
+</section>
+
+<section>
+  <h2>4 · SEO טכני</h2>
+  <table>
+    <tr><th>אלמנט</th><th>אצל ביו-ישראל</th><th>הומר לניסן</th></tr>
+    <tr><td>Title</td><td>הדברה בחולון | מדביר מורשה ומקצועי | ביו ישראל</td><td>מנעולן בחולון | ניסן שמריהו — מוסמך ומאושר משטרה</td></tr>
+    <tr><td>Schema</td><td>PestControlService + FAQPage + BreadcrumbList + AggregateRating + City</td><td>Locksmith/Plumber/HomeAndConstructionBusiness + FAQPage + BreadcrumbList (+ AggregateRating רק עם ביקורות אמיתיות)</td></tr>
+    <tr><td>URL</td><td><code>/הדברה-בחולון/</code></td><td><code>/מנעולן-בחולון</code></td></tr>
+    <tr><td>לינקוג' פנימי</td><td>ערים סמוכות</td><td>ערים סמוכות — באותו שירות בלבד (משפך אטום)</td></tr>
+  </table>
+</section>
+
+<section style="border-bottom:none;">
+  <div class="map">
+    <h2>5 · ההמרה למודל של ניסן</h2>
+    <p style="color:#E3E9F0;margin:.4rem 0 1rem;">ביו-ישראל = שירות אחד × 15 ערים. ניסן = <b>3 שירותים × ~12 ערים</b>, כשכל שירות הוא משפך אטום ונפרד:</p>
+    <p style="margin:0;line-height:2.2;">
+      <code>/מנעולן</code> <span class="arrow">→</span> 12 עמודי <code>/מנעולן-ב[עיר]</code> · צבע פלדה/אדום-חירום<br>
+      <code>/אינסטלטור</code> <span class="arrow">→</span> 12 עמודי <code>/אינסטלטור-ב[עיר]</code> · צבע טורקיז/מים<br>
+      <code>/הנדימן</code> <span class="arrow">→</span> 12 עמודי <code>/הנדימן-ב[עיר]</code> · צבע נייבי/ענבר
+    </p>
+    <p style="color:#E3E9F0;margin:1rem 0 0;">כל אשכול = מנוע רכש עצמאי (SEO + קמפיין Google Search משלו), נוחת על עמוד תואם, נמדד בנפרד. סה"כ ~40 עמודים, כולם חיים ועוברים build.</p>
+  </div>
+</section>
+
+</div>
+<footer>מסמך עבודה פנימי · ניסן שמריהו · מבוסס ניתוח חי של bioisrael.co.il · 8.7.2026</footer>
+</body>
+</html>

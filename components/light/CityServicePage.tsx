@@ -1,16 +1,15 @@
 import type { ServiceConfig } from "@/lib/serviceContent";
-import { buildPageSchemas } from "@/lib/schema";
-import { STATS } from "@/lib/siteConfig";
+import type { City } from "@/lib/cities";
+import { buildCityPageSchemas } from "@/lib/schema";
 import { SERVICE_THEME } from "@/lib/theme";
 import LightNavbar from "@/components/light/LightNavbar";
 import LocksmithHero from "@/components/light/heroes/LocksmithHero";
 import PlumbingHero from "@/components/light/heroes/PlumbingHero";
 import HandymanHero from "@/components/light/heroes/HandymanHero";
+import LightLocalIntro from "@/components/light/LightLocalIntro";
 import LightTrustBar from "@/components/light/LightTrustBar";
 import LightServices from "@/components/light/LightServices";
-import LightStats from "@/components/light/LightStats";
 import LightWhyUs from "@/components/light/LightWhyUs";
-import LightProblemSolution from "@/components/light/LightProblemSolution";
 import LightReviews from "@/components/light/LightReviews";
 import LightServiceAreas from "@/components/light/LightServiceAreas";
 import LightCTABanner from "@/components/light/LightCTABanner";
@@ -18,34 +17,35 @@ import LightFAQ from "@/components/light/LightFAQ";
 import LightContactForm from "@/components/light/LightContactForm";
 import LightFooter from "@/components/light/LightFooter";
 
-function ServiceHero({ service }: { service: ServiceConfig }) {
-  if (service.key === "locksmith") return <LocksmithHero service={service} />;
-  if (service.key === "plumbing") return <PlumbingHero service={service} />;
-  return <HandymanHero service={service} />;
+function CityHero({ service, cityName }: { service: ServiceConfig; cityName: string }) {
+  if (service.key === "locksmith") return <LocksmithHero service={service} cityName={cityName} />;
+  if (service.key === "plumbing") return <PlumbingHero service={service} cityName={cityName} />;
+  return <HandymanHero service={service} cityName={cityName} />;
 }
 
-export default function LightServicePage({ service }: { service: ServiceConfig }) {
-  const schemas = buildPageSchemas(service);
+export default function CityServicePage({ service, city }: { service: ServiceConfig; city: City }) {
+  const schemas = buildCityPageSchemas(service, city);
+  const cityFaq = [
+    { question: `כמה מהר מגיעים ל${city.name}?`, answer: `ניסן מגיע ${city.prefixed} עד שעתיים מרגע הפנייה — בכל שכונות ${city.name}.` },
+    ...service.faq,
+  ];
 
   return (
-    // Per-service theme recolors every --color-l-* token in this subtree,
-    // so the three funnels are genuinely distinct, not one recolored template.
     <div className="light-page" style={SERVICE_THEME[service.key]}>
       {schemas.map((schema, i) => (
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       ))}
       <LightNavbar service={service} />
       <main>
-        <ServiceHero service={service} />
+        <CityHero service={service} cityName={city.name} />
+        <LightLocalIntro service={service} city={city} />
         <LightTrustBar items={service.trustItems} />
         <LightServices items={service.services} offer={service.offer} />
-        <LightStats stats={STATS} />
         <LightWhyUs items={service.whyUs} />
-        <LightProblemSolution problem={service.problem} icon={service.services[0].icon} />
         <LightReviews reviews={service.reviews} />
-        <LightServiceAreas service={service} />
-        <LightFAQ items={service.faq} />
-        <LightContactForm service={service} />
+        <LightFAQ items={cityFaq} heading={`שאלות נפוצות על ${service.navLabel} ${city.prefixed}`} />
+        <LightServiceAreas service={service} currentCitySlug={city.slug} />
+        <LightContactForm service={service} city={city} />
       </main>
       <LightCTABanner whatsappLabel={service.whatsappIssueLabel} />
       <LightFooter service={service} />

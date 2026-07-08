@@ -1,19 +1,39 @@
 import type { NextConfig } from "next";
+import { CITIES } from "./lib/cities";
+
+// Hebrew service slugs → ASCII route folders. Turbopack can't statically
+// prerender non-ASCII route directories, so folders stay ASCII and the
+// Hebrew, SEO-friendly URLs are served via rewrites. path-to-regexp doesn't
+// reliably match raw Unicode, so every `source` is percent-encoded.
+const SERVICE_SLUGS: Record<string, string> = {
+  locksmith: "מנעולן",
+  plumbing: "אינסטלטור",
+  handyman: "הנדימן",
+};
+
+function buildRewrites() {
+  const rules: { source: string; destination: string }[] = [];
+  for (const [key, hebrew] of Object.entries(SERVICE_SLUGS)) {
+    // Main service page: /מנעולן → /locksmith
+    rules.push({ source: `/${encodeURIComponent(hebrew)}`, destination: `/${key}` });
+    // City pages: /מנעולן-בחולון → /locksmith/holon
+    for (const city of CITIES) {
+      const hebrewPath = `${hebrew}-${city.prefixed.replace(/ /g, "-")}`;
+      rules.push({
+        source: `/${encodeURIComponent(hebrewPath)}`,
+        destination: `/${key}/${city.slug}`,
+      });
+    }
+  }
+  return rules;
+}
 
 const nextConfig: NextConfig = {
   turbopack: {
     root: "..",
   },
-  // Keep Hebrew, SEO-friendly URLs in the address bar while the actual route
-  // folders stay ASCII (Turbopack fails to prerender non-ASCII route dirs).
   async rewrites() {
-    // path-to-regexp (used internally for rewrites) doesn't reliably match
-    // raw Unicode literals here — percent-encoded source strings work.
-    return [
-      { source: "/%D7%9E%D7%A0%D7%A2%D7%95%D7%9C%D7%9F", destination: "/locksmith" }, // /מנעולן
-      { source: "/%D7%90%D7%99%D7%A0%D7%A1%D7%98%D7%9C%D7%98%D7%95%D7%A8", destination: "/plumbing" }, // /אינסטלטור
-      { source: "/%D7%94%D7%A0%D7%93%D7%99%D7%9E%D7%9F", destination: "/handyman" }, // /הנדימן
-    ];
+    return buildRewrites();
   },
 };
 

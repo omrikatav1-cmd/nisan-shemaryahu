@@ -1,13 +1,15 @@
 import { BRAND_NAME, BUSINESS_ADDRESS, OWNER_PHONE_INTL, SERVICE_AREA_CITIES } from "@/lib/siteConfig";
-import type { ServiceConfig } from "@/lib/serviceContent";
+import type { ServiceConfig, FaqItem } from "@/lib/serviceContent";
+import type { City } from "@/lib/cities";
+import { cityUrl } from "@/lib/cities";
 
 const SITE_URL = "https://nisan-shemaryahu.vercel.app"; // TODO: swap to the real domain once purchased (brief §11.1)
 
-function localBusinessSchema(service: ServiceConfig, pageUrl: string) {
-  return {
+function localBusinessSchema(service: ServiceConfig, pageUrl: string, areaCity?: City) {
+  const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": service.schemaType,
-    name: `${BRAND_NAME} — ${service.navLabel}`,
+    name: `${BRAND_NAME} — ${service.navLabel}${areaCity ? ` ${areaCity.prefixed}` : ""}`,
     url: pageUrl,
     telephone: `+${OWNER_PHONE_INTL}`,
     address: {
@@ -16,16 +18,28 @@ function localBusinessSchema(service: ServiceConfig, pageUrl: string) {
       addressLocality: BUSINESS_ADDRESS.city,
       addressCountry: "IL",
     },
-    areaServed: SERVICE_AREA_CITIES.map((city) => ({ "@type": "City", name: city })),
+    areaServed: areaCity
+      ? { "@type": "City", name: areaCity.name }
+      : SERVICE_AREA_CITIES.map((c) => ({ "@type": "City", name: c })),
     priceRange: "$$",
   };
+  // AggregateRating only when real reviews exist — never fabricate rating data.
+  if (service.reviews.length > 0) {
+    const avg = service.reviews.reduce((s, r) => s + r.rating, 0) / service.reviews.length;
+    schema.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: avg.toFixed(1),
+      reviewCount: service.reviews.length,
+    };
+  }
+  return schema;
 }
 
-function faqSchema(service: ServiceConfig) {
+function faqSchema(faq: FaqItem[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: service.faq.map((item) => ({
+    mainEntity: faq.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: { "@type": "Answer", text: item.answer },
@@ -33,18 +47,31 @@ function faqSchema(service: ServiceConfig) {
   };
 }
 
-function breadcrumbSchema(service: ServiceConfig, pageUrl: string) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "ראשי", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: service.navLabel, item: pageUrl },
-    ],
-  };
+function breadcrumbSchema(service: ServiceConfig, pageUrl: string, areaCity?: City) {
+  const items: Record<string, unknown>[] = [
+    { "@type": "ListItem", position: 1, name: "ראשי", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: service.navLabel, item: `${SITE_URL}/${service.slug}` },
+  ];
+  if (areaCity) {
+    items.push({ "@type": "ListItem", position: 3, name: areaCity.name, item: pageUrl });
+  }
+  return { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: items };
 }
 
 export function buildPageSchemas(service: ServiceConfig) {
   const pageUrl = `${SITE_URL}/${service.slug}`;
-  return [localBusinessSchema(service, pageUrl), faqSchema(service), breadcrumbSchema(service, pageUrl)];
+  return [localBusinessSchema(service, pageUrl), faqSchema(service.faq), breadcrumbSchema(service, pageUrl)];
+}
+
+export function buildCityPageSchemas(service: ServiceConfig, city: City) {
+  const pageUrl = `${SITE_URL}${cityUrl(service.slug, city)}`;
+  const cityFaq: FaqItem[] = [
+    { question: `כמה מהר מגיעים ל${city.name}?`, answer: `ניסן מגיע ${city.prefixed} עד שעתיים מרגע הפנייה.` },
+    ...service.faq,
+  ];
+  return [
+    localBusinessSchema(service, pageUrl, city),
+    faqSchema(cityFaq),
+    breadcrumbSchema(service, pageUrl, city),
+  ];
 }

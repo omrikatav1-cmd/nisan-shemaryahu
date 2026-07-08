@@ -33,6 +33,14 @@ export const SERVICE_AREA_CITIES = [
 
 export const ARRIVAL_TIME = "עד שעתיים";
 
+// Real, verified numbers only — never invent a stat. Confirmed by Nisan directly.
+export const STATS = [
+  { value: "1,000+", label: "לקוחות מרוצים" },
+  { value: "24/6", label: "זמינות לפניות" },
+  { value: ARRIVAL_TIME, label: "זמן הגעה ממוצע" },
+  { value: `${SERVICE_AREA_CITIES.length}`, label: "ערים באזור השירות" },
+];
+
 export const HOURS = {
   regular: "08:00–18:00",
   sos: "18:00–00:00 (תעריף SOS)",

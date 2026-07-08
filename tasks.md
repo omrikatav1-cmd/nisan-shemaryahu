@@ -1,7 +1,14 @@
 # nisan-shemaryahu — Tasks
 
 ## Sprint Status
-6.7.2026 — שאלון איפיון סגור, 3 דפי נחיתה בנויים ורצים (build+lint נקיים), חבילות קמפיין כתובות. ממתין למשימות פתוחות של ניסן/עומרי לפני עלייה לאוויר בפועל.
+8.7.2026 — שוכתב מ-3 עמודים בתבנית אחת ל-**3 משפכים אטומים ושונים ויזואלית** + אשכולות עמודי-עיר (מודל ביו-ישראל). 46 מסלולים, build+lint נקיים. ממתין למשימות פתוחות של ניסן/עומרי לפני עלייה לאוויר.
+
+## ארכיטקטורה נוכחית (8.7.2026)
+- 3 משפכים אטומים: `/מנעולן` `/אינסטלטור` `/הנדימן` — לכל אחד theme משלו (`lib/theme.ts`), hero נפרד (`components/light/heroes/`), ו-~12 עמודי עיר (`/[service]-ב[עיר]`, סה"כ ~36). אפס קישור בין-שירותי (נבדק).
+- URL עברי דרך rewrites פרוגרמטיים ב-`next.config.ts` (מקודד) → תיקיות ASCII `app/{locksmith,plumbing,handyman}/[city]`.
+- תוכן מ-`lib/serviceContent.ts` + `lib/cities.ts` (שכונות אמיתיות פר-עיר). schema city-aware (`lib/schema.ts`), sitemap ~40 URL.
+- ביקורות: `LightReviews` מוצג רק עם reviews אמיתיים (ריק כרגע — אפס פברוק).
+- מסמכים: `docs/bioisrael-teardown.html`, `docs/service-separation-tradeoffs.html`.
 
 ## Completed
 - שאלון איפיון מלא (14 סקציות) + ניתוח מתחרה (ביו ישראל) + תכנית רכש — `docs/nisan-full-brief.html`

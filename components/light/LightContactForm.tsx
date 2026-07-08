@@ -6,6 +6,8 @@ import { Send, AlertCircle, Loader2, Phone, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import AnimatedCheckmark from "@/components/ui/AnimatedCheckmark";
 import type { ServiceConfig } from "@/lib/serviceContent";
+import type { City } from "@/lib/cities";
+import { cityUrl } from "@/lib/cities";
 import { OWNER_PHONE_DISPLAY, OWNER_PHONE_HREF, SERVICE_AREA_CITIES } from "@/lib/siteConfig";
 
 type FormState = "idle" | "loading" | "success" | "error";
@@ -17,7 +19,8 @@ function validatePhone(raw: string): boolean {
   return ISRAELI_PHONE_REGEX.test(raw.replace(/\D/g, ""));
 }
 
-export default function LightContactForm({ service }: { service: ServiceConfig }) {
+export default function LightContactForm({ service, city }: { service: ServiceConfig; city?: City }) {
+  const sourcePage = city ? cityUrl(service.slug, city) : `/${service.slug}`;
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [issue, setIssue] = useState("");
@@ -59,7 +62,7 @@ export default function LightContactForm({ service }: { service: ServiceConfig }
           phone: phone.replace(/\D/g, ""),
           issue: issue.trim(),
           service: service.whatsappIssueLabel,
-          source_page: `/${service.slug}`,
+          source_page: sourcePage,
         }),
       });
       const data = await res.json();
