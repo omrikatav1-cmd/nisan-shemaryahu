@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, Menu, X, MessageCircle } from "lucide-react";
 import { OWNER_PHONE_DISPLAY, OWNER_PHONE_HREF, BRAND_NAME } from "@/lib/siteConfig";
 import type { ServiceConfig } from "@/lib/serviceContent";
 import { CITIES, cityUrl } from "@/lib/cities";
 import { getSosWhatsAppUrl } from "@/lib/whatsapp";
+import { SERVICE_LOGO } from "@/lib/theme";
 
 // Sealed funnel: this nav only ever links within the current service —
 // its main page and its own city pages. Never to the other two trades.
@@ -18,9 +20,12 @@ export default function LightNavbar({ service }: { service: ServiceConfig }) {
   return (
     <header className="sticky top-0 z-50 bg-l-surface/95 backdrop-blur border-b border-l-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-        <Link href={`/${service.slug}`} className="flex flex-col leading-tight" aria-label={`${BRAND_NAME} — ${service.navLabel}`}>
-          <span className="font-black text-l-text text-lg" style={{ fontFamily: "var(--font-heading)" }}>{BRAND_NAME}</span>
-          <span className="text-[10px] text-l-accent tracking-[0.15em] font-bold">{service.navLabel} · אור יהודה והסביבה</span>
+        <Link href={`/${service.slug}`} className="flex items-center gap-2.5" aria-label={`${BRAND_NAME} — ${service.navLabel}`}>
+          <Image src={SERVICE_LOGO[service.key]} alt="" width={38} height={38} className="rounded-full flex-shrink-0" priority />
+          <span className="flex flex-col leading-tight">
+            <span className="font-black text-l-text text-lg" style={{ fontFamily: "var(--font-heading)" }}>{BRAND_NAME}</span>
+            <span className="text-[10px] text-l-accent tracking-[0.15em] font-bold">{service.navLabel} · אור יהודה והסביבה</span>
+          </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-5" aria-label="אזורי שירות">

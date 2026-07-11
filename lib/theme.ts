@@ -29,3 +29,12 @@ export const SERVICE_THEME: Record<ServiceKey, CSSProperties> = {
     ["--color-l-accent-dim" as string]: "#A35F1C",
   },
 };
+
+// Per-service logo mark (icon matches the trade — key+shield, pipe-wrench+droplet,
+// hammer+toolbox). Used only within that service's own funnel — the shared
+// WhatsApp/phone still uses the service-neutral general logo, not these.
+export const SERVICE_LOGO: Record<ServiceKey, string> = {
+  locksmith: "/brand/logo-locksmith.png",
+  plumbing: "/brand/logo-plumbing.png",
+  handyman: "/brand/logo-handyman.png",
+};
