@@ -16,6 +16,9 @@ export const BUSINESS_ADDRESS = {
 
 export const BASE_CITY = "אור יהודה";
 
+// Shown on FAQ sections — signals content freshness to AI crawlers (ChatGPT/Perplexity citations).
+export const CONTENT_LAST_UPDATED = "20 ביולי 2026";
+
 // 15km air-radius from Or Yehuda, per brief §2.1. Explicitly excludes Tel Aviv (§2.2).
 export const SERVICE_AREA_CITIES = [
   "אור יהודה",

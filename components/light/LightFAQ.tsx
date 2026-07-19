@@ -3,6 +3,7 @@
 import { ChevronDown } from "lucide-react";
 import type { FaqItem } from "@/lib/serviceContent";
 import LightSectionHeader from "@/components/light/LightSectionHeader";
+import { CONTENT_LAST_UPDATED } from "@/lib/siteConfig";
 
 export default function LightFAQ({ items, heading = "מה שואלים אותי הכי הרבה" }: { items: FaqItem[]; heading?: string }) {
   return (
@@ -21,6 +22,8 @@ export default function LightFAQ({ items, heading = "מה שואלים אותי 
             </details>
           ))}
         </div>
+
+        <p className="text-xs text-l-text-muted mt-6 text-center">עודכן לאחרונה: {CONTENT_LAST_UPDATED}</p>
       </div>
     </section>
   );
