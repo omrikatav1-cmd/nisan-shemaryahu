@@ -2,6 +2,7 @@
 
 import type { ServiceConfig } from "@/lib/serviceContent";
 import { buildServiceStats } from "@/lib/serviceContent";
+import { SERVICE_PHOTO } from "@/lib/theme";
 import { HeroShell, HeroBadge, HeroHeadline, HeroSub, HeroCTAButtons, HeroBadgePills, HeroStatsRow } from "@/components/light/heroes/heroShared";
 
 // Handyman hero — full-bleed navy/warm-amber background, craft/warmth feel.
@@ -10,8 +11,9 @@ export default function HandymanHero({ service, cityName }: { service: ServiceCo
 
   return (
     <HeroShell
-      gradient="linear-gradient(135deg, var(--color-l-primary) 0%, var(--color-l-primary-dim) 55%, #05121F 100%)"
-      glow="radial-gradient(circle at 78% 20%, rgba(201,122,43,0.4), transparent 60%)"
+      image={SERVICE_PHOTO.handyman}
+      gradient="linear-gradient(135deg, rgba(20,57,94,0.85) 0%, rgba(12,39,64,0.9) 55%, rgba(5,18,31,0.93) 100%)"
+      glow="radial-gradient(circle at 78% 20%, rgba(201,122,43,0.35), transparent 60%)"
     >
       <HeroBadge>{service.heroEyebrow}</HeroBadge>
       <HeroHeadline headline={headline} accent={service.heroHeadlineAccent} />

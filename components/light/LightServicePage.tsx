@@ -41,7 +41,7 @@ export default function LightServicePage({ service }: { service: ServiceConfig }
         <LightServices items={service.services} offer={service.offer} />
         <LightStats stats={buildServiceStats(service)} />
         <LightWhyUs items={service.whyUs} />
-        <LightProblemSolution problem={service.problem} icon={service.services[0].icon} />
+        <LightProblemSolution problem={service.problem} serviceKey={service.key} />
         <LightReviews reviews={service.reviews} />
         <LightServiceAreas service={service} />
         <LightFAQ items={service.faq} />

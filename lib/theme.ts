@@ -38,3 +38,12 @@ export const SERVICE_LOGO: Record<ServiceKey, string> = {
   plumbing: "/brand/logo-plumbing.png",
   handyman: "/brand/logo-handyman.png",
 };
+
+// Real, licensed (Pexels — free for commercial use) photos per trade. Used
+// as the hero background and reused in the Problem/Solution panel — stand-in
+// until Nisan's own photoshoot with ללב מדיה.
+export const SERVICE_PHOTO: Record<ServiceKey, string> = {
+  locksmith: "/images/hero-locksmith.jpg",
+  plumbing: "/images/hero-plumbing.jpg",
+  handyman: "/images/hero-handyman.jpg",
+};

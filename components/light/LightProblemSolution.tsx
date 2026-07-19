@@ -1,13 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Phone } from "lucide-react";
-import type { ProblemSolution, ServiceIcon } from "@/lib/serviceContent";
-import { SERVICE_ICONS } from "@/lib/serviceIcons";
+import type { ProblemSolution, ServiceKey } from "@/lib/serviceContent";
+import { SERVICE_PHOTO } from "@/lib/theme";
 import { OWNER_PHONE_DISPLAY, OWNER_PHONE_HREF } from "@/lib/siteConfig";
 
-export default function LightProblemSolution({ problem, icon }: { problem: ProblemSolution; icon: ServiceIcon }) {
-  const Icon = SERVICE_ICONS[icon];
+export default function LightProblemSolution({ problem, serviceKey }: { problem: ProblemSolution; serviceKey: ServiceKey }) {
 
   return (
     <section className="py-20 px-4 sm:px-6 bg-l-surface">
@@ -40,15 +40,10 @@ export default function LightProblemSolution({ problem, icon }: { problem: Probl
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
-          className="relative aspect-[4/3] rounded-2xl overflow-hidden noise"
-          style={{
-            background: "linear-gradient(135deg, var(--color-l-primary) 0%, var(--color-l-primary-dim) 60%, var(--color-l-accent-dim) 130%)",
-            boxShadow: "0 20px 50px rgba(20,57,94,0.28)",
-          }}
+          className="relative aspect-[4/3] rounded-2xl overflow-hidden"
+          style={{ boxShadow: "0 20px 50px rgba(20,57,94,0.28)" }}
         >
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Icon size={104} className="text-white/25" strokeWidth={1.25} />
-          </div>
+          <Image src={SERVICE_PHOTO[serviceKey]} alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
         </motion.div>
       </div>
     </section>

@@ -2,6 +2,7 @@
 
 import type { ServiceConfig } from "@/lib/serviceContent";
 import { buildServiceStats } from "@/lib/serviceContent";
+import { SERVICE_PHOTO } from "@/lib/theme";
 import { HeroShell, HeroBadge, HeroHeadline, HeroSub, HeroCTAButtons, HeroBadgePills, HeroStatsRow } from "@/components/light/heroes/heroShared";
 
 // Plumbing hero — full-bleed deep-teal/aqua background, price-anchor badges.
@@ -10,8 +11,9 @@ export default function PlumbingHero({ service, cityName }: { service: ServiceCo
 
   return (
     <HeroShell
-      gradient="linear-gradient(135deg, var(--color-l-primary) 0%, var(--color-l-primary-dim) 55%, #06232C 100%)"
-      glow="radial-gradient(circle at 78% 22%, rgba(21,150,176,0.45), transparent 60%)"
+      image={SERVICE_PHOTO.plumbing}
+      gradient="linear-gradient(135deg, rgba(14,76,107,0.85) 0%, rgba(10,54,80,0.9) 55%, rgba(6,35,44,0.93) 100%)"
+      glow="radial-gradient(circle at 78% 22%, rgba(21,150,176,0.4), transparent 60%)"
     >
       <HeroBadge>{service.heroEyebrow}</HeroBadge>
       <HeroHeadline headline={headline} accent={service.heroHeadlineAccent} />

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Phone, MessageCircle } from "lucide-react";
 import type { ServiceConfig } from "@/lib/serviceContent";
@@ -9,28 +10,28 @@ import CountUpValue from "@/components/light/CountUpValue";
 
 export const HERO_EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
-// Full-bleed hero shell — bio-israel structure: rich background fills the
-// whole section, content sits on top with a dark-safe (white/light) palette.
-// No photo yet (pending Nisan's real photoshoot / AI credits) — a layered
-// gradient + noise + off-center glow stands in for the photo's depth.
+// Full-bleed hero shell — bio-israel structure: one real photo fills the
+// whole section (Pexels, licensed free-for-commercial-use — see
+// public/images/hero-*.jpg), a dark gradient scrim sits over it for text
+// contrast, content sits on top in white.
 export function HeroShell({
+  image,
   gradient,
   glow,
   children,
 }: {
+  image: string;
   gradient: string;
   glow: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="hero-dark relative overflow-hidden noise" style={{ background: gradient }}>
+    <section className="hero-dark relative overflow-hidden noise">
+      <Image src={image} alt="" fill priority sizes="100vw" className="object-cover" />
+      <div className="absolute inset-0" style={{ background: gradient }} />
       <div
         className="absolute inset-0 opacity-70"
         style={{ background: glow }}
-      />
-      <div
-        className="absolute inset-0 opacity-[0.08]"
-        style={{ backgroundImage: "radial-gradient(circle at 25% 20%, #fff 1px, transparent 1px)", backgroundSize: "26px 26px" }}
       />
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 py-20 sm:py-28 lg:py-32 text-right">
         {children}
