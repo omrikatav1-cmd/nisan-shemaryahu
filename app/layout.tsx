@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Rubik, Assistant } from "next/font/google";
+import { A11Y_BOOTSTRAP_SCRIPT } from "@/lib/a11y-prefs/core";
+import MotionA11yProvider from "@/components/accessibility/MotionA11yProvider";
+import AccessibilityWidget from "@/components/accessibility/AccessibilityWidget";
 import "./globals.css";
 
 const rubik = Rubik({
@@ -40,7 +43,15 @@ export default function RootLayout({
       dir="rtl"
       className={`${rubik.variable} ${assistant.variable}`}
     >
-      <body className="min-h-dvh flex flex-col antialiased">{children}</body>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: A11Y_BOOTSTRAP_SCRIPT }} />
+      </head>
+      <body className="min-h-dvh flex flex-col antialiased">
+        <MotionA11yProvider>
+          {children}
+          <AccessibilityWidget />
+        </MotionA11yProvider>
+      </body>
     </html>
   );
 }

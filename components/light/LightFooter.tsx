@@ -36,7 +36,8 @@ export default function LightFooter({ service }: { service: ServiceConfig }) {
         </div>
       </div>
       <div className="border-t border-l-border py-4 text-center text-l-text-muted text-xs">
-        &copy; {year} {BRAND_NAME} · {service.navLabel} · כל הזכויות שמורות
+        &copy; {year} {BRAND_NAME} · {service.navLabel} · כל הזכויות שמורות ·{" "}
+        <Link href="/accessibility" className="underline hover:text-l-primary">הצהרת נגישות</Link>
       </div>
     </footer>
   );

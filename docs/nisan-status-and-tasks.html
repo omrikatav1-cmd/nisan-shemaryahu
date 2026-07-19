@@ -12,7 +12,7 @@
     --space:#020617; --surface:#0d1a2d;
     --primary:#3B82F6; --primary-glow:rgba(59,130,246,.25);
     --accent:#D4AF37; --accent-glow:rgba(212,175,55,.2);
-    --danger:#EF4444; --success:#22C55E;
+    --danger:#EF4444; --success:#22C55E; --warn:#F59E0B;
     --text:#F1F5F9; --text-2:#CBD5E1; --text-muted:#8b98ac;
     --border:rgba(255,255,255,.08); --border-bright:rgba(255,255,255,.16);
     --font-heading:'Rubik',sans-serif; --font-body:'Assistant',sans-serif;
@@ -28,87 +28,133 @@
     background:rgba(212,175,55,.08); border:1px solid rgba(212,175,55,.3); padding:.4rem 1rem;
     border-radius:999px; margin-bottom:1.2rem;}
   h1{font-size:clamp(1.9rem,4vw,2.6rem); margin-bottom:.6rem;}
-  .sub{color:var(--text-2); font-size:1.05rem; max-width:640px;}
+  .sub{color:var(--text-2); font-size:1.05rem; max-width:680px;}
   section{margin-top:3rem;}
   .sec-head{display:flex; align-items:center; gap:.8rem; margin-bottom:1.2rem;}
   .sec-num{width:2.4rem; height:2.4rem; border-radius:50%; display:flex; align-items:center; justify-content:center;
     font-family:var(--font-heading); font-weight:800; font-size:1.05rem; flex-shrink:0;}
   section h2{font-size:1.5rem;}
+  section h2 .badge{vertical-align:middle;}
   .card{background:rgba(13,26,45,.55); border:1px solid var(--border); border-radius:1.1rem; padding:1.5rem; backdrop-filter:blur(14px);}
   .card + .card{margin-top:1rem;}
   .card-success{border-color:rgba(34,197,94,.28); box-shadow:0 8px 28px rgba(34,197,94,.12);}
   .card-danger{border-color:rgba(239,68,68,.3); box-shadow:0 8px 28px rgba(239,68,68,.14);}
   .card-primary{border-color:rgba(59,130,246,.25); box-shadow:0 8px 28px var(--primary-glow);}
+  .card-warn{border-color:rgba(245,158,11,.32); box-shadow:0 8px 28px rgba(245,158,11,.12);}
   .card ul{margin:0; padding-inline-start:1.2rem; color:var(--text-2); font-size:.94rem;}
   .card li{margin-bottom:.5rem;}
   .task{display:flex; align-items:flex-start; gap:.7rem; padding:.7rem 0; border-top:1px solid var(--border);}
   .task:first-child{border-top:none;}
   .task input{width:1.15rem; height:1.15rem; accent-color:var(--danger); margin-top:.2rem; flex-shrink:0;}
+  .task input:checked{accent-color:var(--success);}
   .task b{color:var(--text); display:block; margin-bottom:.15rem;}
   .task span{color:var(--text-2); font-size:.88rem;}
   .badge{display:inline-block; font-size:.72rem; font-weight:700; padding:.25rem .65rem; border-radius:999px; margin-inline-start:.4rem;}
   .b-done{color:var(--success); background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.3);}
   .b-open{color:var(--text-muted); background:rgba(255,255,255,.04); border:1px solid var(--border-bright);}
+  .b-blocked{color:var(--danger); background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.3);}
   a.link{color:var(--accent); text-decoration:underline;}
+  .sessions{display:grid; grid-template-columns:1fr 1fr; gap:1rem;}
+  @media(max-width:680px){.sessions{grid-template-columns:1fr;}}
+  .sess-card{background:rgba(13,26,45,.55); border:1px solid var(--border); border-radius:1rem; padding:1.2rem;}
+  .sess-card .n{display:inline-flex; width:1.6rem; height:1.6rem; border-radius:50%; background:rgba(212,175,55,.15); color:var(--accent);
+    font-family:var(--font-heading); font-weight:800; font-size:.82rem; align-items:center; justify-content:center; margin-inline-end:.5rem;}
+  .sess-card b{font-size:1rem;}
+  .sess-card p{color:var(--text-2); font-size:.86rem; margin:.5rem 0 0;}
+  .sess-card code{background:rgba(255,255,255,.06); padding:.1rem .4rem; border-radius:5px; font-size:.78rem; direction:ltr; display:inline-block; margin-top:.5rem;}
   footer{max-width:920px; margin:0 auto; padding:2rem 1.5rem 3rem; color:var(--text-muted); font-size:.85rem; text-align:center; border-top:1px solid var(--border);}
 </style>
 </head>
 <body>
 
 <header>
-  <span class="eyebrow">סיכום פעולה · עומרי כתב · 6.7.2026</span>
+  <span class="eyebrow">סיכום פעולה · עומרי כתב · 19.7.2026 · עדכון סבב עריכה חי + דיבאג מקיף</span>
   <h1>ניסן שמריהו — איפה אנחנו עומדים</h1>
-  <p class="sub">גרסה תמציתית וממוקדת פעולה. לפירוט המלא (שאלון + ניתוח מתחרה + תכנית רכש) — <span class="ltr">docs/nisan-full-brief.html</span> באותו ריפו.</p>
+  <p class="sub">שלושת הדפים חיים בפרודקשן. הלילה עברו סבב תיקונים מול ניסן + דיבאג מלא של הקוד, ה-Vercel וה-Supabase. זו הרשימה המלאה של מה שנשאר עד שאדיר יכול להתחיל להריץ קמפיינים. לפירוט המקורי המלא — <span class="ltr">docs/nisan-full-brief.html</span>; לחבילת הקמפיינים המוכנה — <span class="ltr">docs/campaign-packages.md</span>; לניתוח למה 3 אתרים נפרדים — <span class="ltr">docs/service-separation-tradeoffs.html</span>.</p>
 </header>
 
 <main>
 
   <section>
-    <div class="sec-head"><div class="sec-num" style="background:rgba(34,197,94,.15); color:var(--success);">✓</div><h2>מה בוצע עד כה</h2></div>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(34,197,94,.15); color:var(--success);">✓</div><h2>מה בוצע — כולל הלילה</h2></div>
     <div class="card card-success">
       <ul>
-        <li><b style="color:var(--text);">שאלון איפיון מלא הושלם</b> — 14 סקציות, כל התשובות של ניסן נקלטו ותועדו</li>
-        <li><b style="color:var(--text);">ניתוח עומק של ביו ישראל</b> (המדביר) — ארכיטקטורת האתר, אנטומיית עמוד, SEO טכני — כבסיס לשכפול-השראה</li>
-        <li><b style="color:var(--text);">תכנית רכש ראשונית</b> — מבנה 3 קמפיינים מקבילים (מנעולנות/אינסטלציה/הנדימן), מילות מפתח, תקציב, ארכיטקטורת עמודי SEO</li>
-        <li><b style="color:var(--text);">שני דגלים משפטיים/אמינות נבדקו ונחסמו מראש</b> — לא יופיע "אינסטלטור מוסמך" עד שהתעודה בפועל תגיע, ולא יופיעו ביקורות מזויפות בפורמט של ביקורת גוגל אמיתית</li>
-        <li>כל זה נדחף ל-<span class="ltr">GitHub</span> ונפתח כ-<span class="ltr">Pull Request</span>: <a class="link" href="https://github.com/omrikatav1-cmd/nisan-shemaryahu/pull/1">PR #1</a></li>
+        <li><b>שלושת דפי הנחיתה חיים בפרודקשן</b> — <span class="ltr">/locksmith /plumbing /handyman</span>, עיצוב בהיר, זהות ויזואלית נפרדת לכל שירות, ~36 עמודי עיר, לוגו לכל שירות</li>
+        <li><b>סבב תיקונים חי עם ניסן (הלילה)</b> — כותרת Hero חדשה בהנדימן ("הרשימה רק מתארכת? ניסן מגיע וסוגר את כולה"), הוסר "עד שעתיים"/"ביטוח מלא" מהמשפך (לא רלוונטי לעבודה מתוזמנת), בידול חדש סביב מחיר-לפי-היקף</li>
+        <li><b>מערכת עיצוב בסגנון ביו-ישראל</b> — כותרות סקשן עם pill-badge וכניסה מדורגת (scroll-reveal), מוני count-up בסטטיסטיקות, על כל הסקשנים בשלושת הדפים</li>
+        <li><b>3 סבבי ביקורת אנושיות (humanization) על כל הקופי</b> — הוסרו דפוסי AI (מקפים חוזרים, שלשות מלאכותיות, חזרתיות בין-דפית, ערבובי גוף/זמן) משלושת המשפכים, בלי לשנות מחיר/תעודה/שעות</li>
+        <li><b>דיבאג מלא הלילה</b> — <span class="ltr">npm run build</span>, <span class="ltr">tsc --noEmit</span>, <span class="ltr">eslint</span>: אפס שגיאות. אפס שגיאות runtime בפרודקשן (7 ימים אחרונים, נבדק ב-Vercel).</li>
+        <li><b><span class="ltr">LEADS_DASHBOARD_PASSWORD</span> הוגדר בפרודקשן</b> — לוח הלידים ב-<span class="ltr">/leads</span> כבר לא חסום (503), רק דורש התחברות. הסיסמה נשלחה בנפרד, לא בקובץ הזה.</li>
       </ul>
-    </div>
-    <div class="card card-danger" style="margin-top:1rem;">
-      <span class="badge b-open" style="margin-inline-start:0;">חשוב לדעת</span>
-      <p style="color:var(--text-2); font-size:.92rem; margin-top:.6rem;">מה שנעשה עד עכשיו הוא <b style="color:var(--text);">תכנון ותיעוד בלבד</b>. הקוד של האתר עצמו — עיצוב בהיר חדש, עמודי שירות×עיר, לוגו — <b style="color:var(--text);">עדיין לא נבנה</b>. האתר החי כרגע הוא עדיין הגרסה הישנה (כהה, אינסטלציה בלבד). זה השלב הבא.</p>
     </div>
   </section>
 
   <section>
-    <div class="sec-head"><div class="sec-num" style="background:rgba(239,68,68,.15); color:var(--danger);">!</div><h2>משימות שניסן חייב לבצע</h2></div>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(239,68,68,.15); color:var(--danger);">!</div><h2>משימות שניסן/עומרי חייבים לבצע</h2></div>
     <div class="card card-danger">
-      <div class="task"><input type="checkbox" disabled><div><b>לפתוח וואטסאפ עסקי</b><span>יהיה המספר הראשי של כל הקמפיין — בלי זה לא ניתן להשלים את חיבור הלידים</span></div></div>
-      <div class="task"><input type="checkbox" disabled><div><b>למסור רשימת 10–15 לקוחות עבר (שם + טלפון)</b><span>כדי להתחיל לבקש מהם ביקורת אמיתית בגוגל — בלי זה אין ביקורות אמיתיות באתר</span></div></div>
-      <div class="task"><input type="checkbox" disabled><div><b>לתאם יום צילום עם ללב מדיה</b><span>תמונות פנים, רכב, ציוד, וידאו קצר — בלי זה נשארים עם תמונות זמניות בלבד</span></div></div>
-      <div class="task"><input type="checkbox" disabled><div><b>לשלוח תעודת מנעולן + אישור משטרה</b><span>לאימות בכרטיס גוגל ובאתר</span></div></div>
-      <div class="task"><input type="checkbox" disabled><div><b>לעדכן ברגע שתעודת האינסטלטור מגיעה</b><span>עד אז — לא מוצג "מוסמך" ליד אינסטלציה, בשום מקום</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>לפתוח וואטסאפ עסקי</b><span>יהיה המספר הראשי של כל הקמפיין. כרגע האתר עדיין שולח לכל ה-CTA-ים למספר האישי (<span class="ltr">lib/siteConfig.ts</span>) — בלי זה לידים ימשיכו לזרום למספר הלא-נכון</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>למסור רשימת 10–15 לקוחות עבר (שם + טלפון)</b><span>כדי להתחיל לבקש מהם ביקורת אמיתית בגוגל — יש agent ייעודי לזה (Review Engine), אבל בלי הרשימה אין ביקורות אמיתיות באתר</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>לתאם יום צילום עם ללב מדיה</b><span>תמונות פנים, רכב, ציוד, וידאו קצר — זה מקור התמונות האמיתי המתוכנן. תמונות AI הן פלייסהולדר זמני-להמחשה בלבד עד אז (ר' פער #5 למטה — כרגע גם זה חסום זמנית)</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>לשלוח תעודת מנעולן + אישור משטרה</b><span>לאימות בכרטיס גוגל ובאתר (כבר מוצג באתר כמאושר — צריך תיעוד רשמי בצד לגיבוי)</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>לעדכן ברגע שתעודת האינסטלטור מגיעה</b><span>עד אז — לא מוצג "מוסמך"/"רישיון"/"מורשה" ליד אינסטלציה, בשום מקום, כולל בקמפיין (חסום מראש ב-<span class="ltr">docs/campaign-packages.md</span>)</span></div></div>
       <div class="task"><input type="checkbox" disabled><div><b>לאשר את שם המותג / רעיון הלוגו / הדומיין הסופיים</b><span>לפני שרוכשים דומיין ומעלים לוגו לאוויר</span></div></div>
       <div class="task"><input type="checkbox" disabled><div><b>למסור מספר שנות ותק מדויק</b><span>לא יוצג מספר עד שיימסר</span></div></div>
     </div>
   </section>
 
-  <section id="vercel">
-    <div class="sec-head"><div class="sec-num" style="background:var(--primary-glow); color:var(--primary);">▲</div><h2>דחוף — להשלמה לפני העלאה ל-Vercel</h2></div>
+  <section id="infra">
+    <div class="sec-head"><div class="sec-num" style="background:var(--primary-glow); color:var(--primary);">▲</div><h2>תשתית — לפני תנועה בתשלום</h2></div>
     <div class="card card-primary">
-      <div class="task"><input type="checkbox" disabled><div><b>רכישת דומיין אמיתי</b><span>המלצה: <span class="ltr">nisan-shemaryahu.co.il</span>. חובה — לא ניתן לחבר Vercel לדומיין מקצועי בלי זה. מי רוכש: לניסן/עומרי להחליט.</span></div></div>
-      <div class="task"><input type="checkbox" disabled><div><b>הגדרת משתני סביבה בפרויקט Vercel עצמו</b><span><span class="ltr">NEXT_PUBLIC_SUPABASE_URL</span> ו-<span class="ltr">NEXT_PUBLIC_SUPABASE_ANON_KEY</span> — קיימים מקומית ב-<span class="ltr">.env.local</span> בלבד. בלי שהם מוגדרים גם ב-Vercel (Settings → Environment Variables), טופס הלידים ייפול בפרודקשן.</span></div></div>
-      <div class="task"><input type="checkbox" disabled><div><b>וידוא שטבלת leads קיימת בפרויקט ה-Supabase האמיתי</b><span>ה-SQL ליצירת הטבלה מתועד ב-<span class="ltr">lib/supabase.ts</span> — צריך להריץ אותו בפועל בפרויקט Supabase שמחובר ל-Vercel, לא רק בסביבת פיתוח</span></div></div>
-      <div class="task"><input type="checkbox" disabled><div><b>מספר וואטסאפ עסקי סופי</b><span>ברגע שנפתח (משימה למעלה) — מתעדכן בקוד לפני שהאתר עולה, אחרת לידים ימשיכו לזרום למספר האישי</span></div></div>
-      <div class="task"><input type="checkbox" disabled><div><b>אישור תוכן סופי לפני עלייה לאוויר</b><span>שם עסק, כתובת, שעות, מחירים כפי שמופיעים בבריף המלא — לוודא עם ניסן שהכל מדויק לפני שהדף החדש מתפרסם ומקבל תנועה מקמפיין בתשלום</span></div></div>
-      <div class="task"><input type="checkbox" disabled><div><b>בניית האתר החדש עצמו</b><span>עיצוב בהיר, 3 שירותים, עמודי שירות×עיר, לוגו — עדיין לא בוצע. זו העבודה הבאה בתור אחרי שהמשימות למעלה נסגרות</span></div></div>
+      <div class="task"><input type="checkbox" checked disabled><div><b>לוח לידים מוגן בסיסמה</b><span><span class="ltr">LEADS_DASHBOARD_PASSWORD</span> מוגדר ב-Vercel production — בוצע הלילה</span></div></div>
+      <div class="task"><input type="checkbox" checked disabled><div><b>Build/lint/typecheck/runtime נקיים</b><span>נבדק הלילה על כל שלושת הדפים — אפס שגיאות</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>חשבון Supabase משלו לניסן</b><span>הוחלט הלילה: <b>לא</b> על החשבון/ריפו של עומרי (עלות $10/חודש קבועה, וכדי שהתשתית תהיה בבעלות ניסן). כרגע <span class="ltr">.env.local</span> מכיל ערך placeholder בלבד — <b>אין פרויקט Supabase אמיתי מחובר, טופס הלידים לא שומר כלום בפועל</b>. שלבים: (1) ניסן פותח חשבון Supabase חינמי, (2) יוצר פרויקט, (3) מריץ את ה-SQL המתועד ב-<span class="ltr">lib/supabase.ts</span> ליצירת טבלת <span class="ltr">leads</span>, (4) מוסר את ה-URL וה-anon key (לא סודיים, אפשר בצ'אט/כאן) כדי שאחבר אותם ב-Vercel — את ה-<span class="ltr">service_role key</span> (סוד אמיתי) יש להזין <b>ישירות ב-Vercel Dashboard</b>, לעולם לא בצ'אט</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>רכישת דומיין אמיתי</b><span>המלצה: <span class="ltr">nisan-shemaryahu.co.il</span>. בלעדיו האתר נשאר על <span class="ltr">vercel.app</span> — עובד, אבל לא מקצועי לקמפיין. מחייב עדכון ב-3 קבצים (<span class="ltr">lib/schema.ts</span>, <span class="ltr">app/sitemap.ts</span>, <span class="ltr">app/robots.ts</span>)</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>מספר וואטסאפ עסקי סופי בקוד</b><span>ברגע שנפתח (משימה למעלה) — עדכון ב-<span class="ltr">lib/siteConfig.ts</span> לפני שהאתר מקבל תנועה בתשלום</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>אישור תוכן סופי</b><span>שם עסק, כתובת, שעות, מחירים, ותק — לוודא עם ניסן שהכל מדויק לפני שהתנועה בתשלום מתחילה לזרום</span></div></div>
+    </div>
+  </section>
+
+  <section id="gaps">
+    <div class="sec-head"><div class="sec-num" style="background:rgba(245,158,11,.15); color:var(--warn);">◆</div><h2>פערים שהתגלו בדיבאג הלילה</h2></div>
+    <div class="card card-warn">
+      <div class="task"><input type="checkbox" disabled><div><b>1 · אין שום מדידת המרות (GA4 / GTM / Google Ads conversion)</b><span>אפס תגי מדידה בקוד כרגע. אדיר לא יכול להריץ קמפיינים בלי זה — זה גם בראש רשימת הדרישות שלו ב-<span class="ltr">docs/campaign-packages.md</span>. ביו-ישראל (המודל) רץ בפועל על Google Ads conversion + GTM, לא על GA4 — אותה גישה מומלצת כאן</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>2 · טופס הלידים חשוף לספאם</b><span>אין honeypot, אין reCAPTCHA, אין checkbox הסכמת פרטיות — כל השלושה תוכננו במקור בבריף (סקציית "טופס לידים") אך לא מומשו בקוד בפועל. יש הגנה חלקית (rate-limit + validation) אבל לא מספיק ברגע שיש תנועה בתשלום</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>3 · אין תפריט/ווידג'ט נגישות</b><span>הבריף המקורי מגדיר את זה כ"חובה חוקית" (תקן ישראלי 5568) — לא קיים באתר החי כרגע. חשיפה משפטית אמיתית לעסק פעיל</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>4 · תמונות AI חסומות זמנית</b><span>מנוע היצירה (Higgsfield) נגמר לו הקרדיט הלילה — גם תמונות זמניות-להמחשה (המתוכננות כפתרון ביניים עד יום הצילום עם ללב מדיה) לא ניתנות ליצירה כרגע. נחכה לאיפוס המכסה היומי / שדרוג תוכנית, או נעדיף לחכות לתמונות האמיתיות</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>5 · היגיינת Git</b><span>לא חוסם, עדיפות נמוכה: הפרודקשן בפועל רץ מ-branch <span class="ltr">claude/elegant-sammet-10972f</span>, לא מ-<span class="ltr">main</span> (שעדיין מכיל את האתר הישן). כדאי למזג בשלב נוח כדי שלא יהיה בלבול לסשן הבא</span></div></div>
+    </div>
+  </section>
+
+  <section id="opinion">
+    <div class="sec-head"><div class="sec-num" style="background:rgba(59,130,246,.15); color:var(--primary);">○</div><h2>דעה: פיצול לשלושה אתרים נפרדים</h2></div>
+    <div class="card">
+      <p style="color:var(--text-2); margin:0 0 .8rem;">זו לא החלטה חדשה — כבר קיים דוח החלטה מפורט ב-<span class="ltr">docs/service-separation-tradeoffs.html</span> (8.7.2026) שממליץ באופן חד-משמעי על הפרדה מוחלטת. אחרי שראיתי את זה בנוי וחי הלילה — אני מסכים איתו, עם ניואנס תפעולי אחד:</p>
+      <p style="color:var(--text-2); margin:0 0 .8rem;"><b style="color:var(--text);">ההפרדה נכונה.</b> Quality Score זול יותר, SEO ממוקד, מדידה נקייה לפי <span class="ltr">service</span>+<span class="ltr">source_page</span> שכבר נשלחים מהאתר, ותחושת מומחות ללקוח שנוחת מקמפיין ספציפי. הקוד כבר תומך בזה נקי: תוכן מקובץ אחד (<span class="ltr">serviceContent.ts</span>), עמודי עיר אוטומטיים, טלפון/וואטסאפ משותפים עם לוגו ניטרלי — בדיוק כפי שתוכנן.</p>
+      <p style="color:var(--text-2); margin:0;"><b style="color:var(--text);">הניואנס:</b> תקציב הקמפיין הכולל (2,500 ₪/חודש, מפוצל שווה-בשווה לפי <span class="ltr">docs/campaign-packages.md</span>) מפוצל דק מאוד בין 3 קמפיינים — כל אחד מקבל ~833 ₪, שזה מעט מדי כדי להגיע ל-15 המרות מהר (הסף שנקבע ל-Target CPA). זה בסדר לפי התכנון (2-3 שבועות מבחן מקביל לפני אופטימיזציה), אבל כדאי לוודא שהציפיות מנוהלות: התוצאות הראשוניות מכל קמפיין יהיו "רועשות" (מדגם קטן) לפני שיהיה אפשר להסיק מסקנות אמינות על איזה שירות באמת הכי משתלם.</p>
+    </div>
+  </section>
+
+  <section id="sessions">
+    <div class="sec-head"><div class="sec-num" style="background:rgba(212,175,55,.15); color:var(--accent);">▤</div><h2>תפריט סשנים לפתיחה</h2></div>
+    <p class="sub" style="margin-bottom:1.2rem;">כל כרטיס = סשן נפרד שאפשר לפתוח בנפרד, עם ההקשר הדרוש לו בלבד.</p>
+    <div class="sessions">
+      <div class="sess-card"><b><span class="n">1</span>וואטסאפ עסקי</b><p>פתיחת המספר, עדכון <span class="ltr">lib/siteConfig.ts</span>, בדיקת זרימת ליד מקצה לקצה בכל 3 הדפים</p></div>
+      <div class="sess-card"><b><span class="n">2</span>Supabase של ניסן</b><p>פתיחת חשבון, יצירת פרויקט, הרצת ה-SQL מ-<span class="ltr">lib/supabase.ts</span>, חיבור משתני סביבה ב-Vercel</p></div>
+      <div class="sess-card"><b><span class="n">3</span>דומיין</b><p>רכישת <span class="ltr">nisan-shemaryahu.co.il</span>, חיבור ל-Vercel, עדכון SITE_URL בשלושה קבצים</p></div>
+      <div class="sess-card"><b><span class="n">4</span>תמונות אמיתיות</b><p>קליטת תמונות מיום הצילום עם ללב מדיה, או תמונות AI זמניות ברגע שהקרדיט מתאפס</p></div>
+      <div class="sess-card"><b><span class="n">5</span>ביקורות גוגל</b><p>קבלת רשימת 10-15 לקוחות מניסן, שליחת בקשות ביקורת (Review Engine agent כבר קיים לזה)</p></div>
+      <div class="sess-card"><b><span class="n">6</span>מדידה והמרות</b><p>הקמת GA4/GTM/Google Ads conversion tracking בקוד + בחשבונות בפועל, לפני שאדיר מתחיל</p></div>
+      <div class="sess-card"><b><span class="n">7</span>אבטחת טופס</b><p>honeypot + reCAPTCHA + checkbox הסכמת פרטיות בטופס הלידים בשלושת הדפים</p></div>
+      <div class="sess-card"><b><span class="n">8</span>נגישות (IS 5568)</b><p>הוספת תפריט נגישות מלא — חובה חוקית לעסק פעיל בישראל</p></div>
+      <div class="sess-card"><b><span class="n">9</span>השוואת קמפיינים</b><p>מסירת <span class="ltr">docs/campaign-packages.md</span> לאדיר, אחרי שכל התלויות למעלה נסגרו</p></div>
+      <div class="sess-card"><b><span class="n">10</span>היגיינת Git</b><p>מיזוג <span class="ltr">claude/elegant-sammet-10972f</span> ל-<span class="ltr">main</span> כדי לסגור את הפער בין הענפים</p></div>
     </div>
   </section>
 
 </main>
 
 <footer>
-  מסמך עבודה פנימי · עומרי כתב · מבוסס docs/nisan-full-brief.html באותו ריפו · 6.7.2026
+  מסמך עבודה פנימי · עומרי כתב · מבוסס docs/nisan-full-brief.html + docs/campaign-packages.md + docs/service-separation-tradeoffs.html באותו ריפו · עודכן 19.7.2026
 </footer>
 
 </body>

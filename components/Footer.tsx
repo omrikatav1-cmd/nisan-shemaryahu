@@ -129,7 +129,7 @@ export default function Footer() {
             &copy; {year} ניסן שמריהו | שרברב מוסמך
           </p>
           <p className="text-[#64748B] text-xs order-3 sm:order-2">
-            כל הזכויות שמורות
+            כל הזכויות שמורות · <a href="/accessibility" className="underline">הצהרת נגישות</a>
           </p>
           {/* Back to top */}
           <a

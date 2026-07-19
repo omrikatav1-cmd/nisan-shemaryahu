@@ -12,7 +12,7 @@ import { cityUrl } from "@/lib/cities";
 import { OWNER_PHONE_DISPLAY, OWNER_PHONE_HREF, SERVICE_AREA_CITIES } from "@/lib/siteConfig";
 
 type FormState = "idle" | "loading" | "success" | "error";
-type FieldErrors = { name?: string; phone?: string; issue?: string };
+type FieldErrors = { name?: string; phone?: string; issue?: string; consent?: string };
 
 const ISRAELI_PHONE_REGEX = /^0[2-9]\d{7,8}$/;
 
@@ -25,6 +25,8 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [issue, setIssue] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot — real users never fill this
+  const [consent, setConsent] = useState(false);
   const [formState, setFormState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
@@ -37,6 +39,7 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
     if (!phone.trim()) errors.phone = "שדה חובה";
     else if (!validatePhone(phone)) errors.phone = "מספר טלפון לא תקין (לדוגמה: 050-1234567)";
     if (!issue.trim()) errors.issue = "יש לבחור מה צריך";
+    if (!consent) errors.consent = "יש לאשר את מדיניות הפרטיות";
     return errors;
   };
 
@@ -49,7 +52,7 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
     e.preventDefault();
     const errors = validate();
     setFieldErrors(errors);
-    setTouched({ name: true, phone: true, issue: true });
+    setTouched({ name: true, phone: true, issue: true, consent: true });
     if (Object.keys(errors).length > 0) return;
 
     setFormState("loading");
@@ -64,6 +67,8 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
           issue: issue.trim(),
           service: service.whatsappIssueLabel,
           source_page: sourcePage,
+          website,
+          consent,
         }),
       });
       const data = await res.json();
@@ -123,6 +128,15 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+                  {/* Honeypot — real users never see or fill this field. */}
+                  <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+                    <label htmlFor="lf-website">אתר</label>
+                    <input
+                      id="lf-website" name="website" type="text" tabIndex={-1} autoComplete="off"
+                      value={website} onChange={(e) => setWebsite(e.target.value)}
+                    />
+                  </div>
+
                   <div className="flex flex-col gap-1.5">
                     <label htmlFor="lf-name" className="text-sm font-semibold">שם מלא <span className="text-l-danger">*</span></label>
                     <input
@@ -157,6 +171,22 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
                       <option value="אחר">אחר</option>
                     </select>
                     {touched.issue && fieldErrors.issue && <p className="text-l-danger text-xs">{fieldErrors.issue}</p>}
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="flex items-start gap-2 text-sm text-l-text-2">
+                      <input
+                        type="checkbox" checked={consent} disabled={formState === "loading"}
+                        onChange={(e) => setConsent(e.target.checked)} onBlur={() => handleBlur("consent")}
+                        className="mt-0.5 w-4 h-4 flex-shrink-0"
+                      />
+                      <span>
+                        קראתי ואני מאשר/ת את{" "}
+                        <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline text-l-primary">מדיניות הפרטיות</a>
+                        <span className="text-l-danger"> *</span>
+                      </span>
+                    </label>
+                    {touched.consent && fieldErrors.consent && <p className="text-l-danger text-xs">{fieldErrors.consent}</p>}
                   </div>
 
                   {formState === "error" && errorMsg && (
