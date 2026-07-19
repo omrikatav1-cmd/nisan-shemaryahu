@@ -41,6 +41,12 @@ export const STATS = [
   { value: `${SERVICE_AREA_CITIES.length}`, label: "ערים באזור השירות" },
 ];
 
+// Handyman works by scheduled jobs, not emergency calls (Nisan, 19.7.2026) —
+// no arrival-time promise anywhere in that funnel.
+export const HANDYMAN_STATS = STATS.map((s) =>
+  s.value === ARRIVAL_TIME ? { value: "איש אחד", label: "לכל הרשימה" } : s
+);
+
 export const HOURS = {
   regular: "08:00–18:00",
   sos: "18:00–00:00 (תעריף SOS)",

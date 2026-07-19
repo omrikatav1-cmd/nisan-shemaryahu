@@ -25,8 +25,10 @@ export default function LightLocalIntro({ service, city }: { service: ServiceCon
         </h2>
         <p className="text-l-text-2 leading-relaxed text-lg">
           {BRAND_NAME} נותן שירותי {service.navLabel} בכל רחבי {city.name}
-          {hoodText ? ` — ${hoodText}` : ""}. {ANGLE[service.key]} מגיע {city.prefixed} עד שעתיים מרגע הפנייה,
-          עם מחיר סגור וברור מראש בטלפון — בלי הפתעות בסוף.
+          {hoodText ? ` — ${hoodText}` : ""}. {ANGLE[service.key]}{" "}
+          {service.key === "handyman"
+            ? `תיאום ביקור ${city.prefixed} בדרך כלל תוך יום-יומיים, והמחיר נקבע לפי גודל העבודה — בלי הפתעות בסוף.`
+            : `מגיע ${city.prefixed} עד שעתיים מרגע הפנייה, עם מחיר סגור וברור מראש בטלפון — בלי הפתעות בסוף.`}
         </p>
       </div>
     </section>

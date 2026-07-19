@@ -156,14 +156,14 @@ export const SERVICES: Record<ServiceKey, ServiceConfig> = {
     navLabel: "הנדימן",
     metaTitle: "הנדימן באור יהודה והסביבה | ניסן שמריהו — הכל בית אחד, איש אחד",
     metaDescription:
-      "הנדימן לכל תיקון בבית באור יהודה, יהוד, קרית אונו וראשון לציון: הרכבות, תליות, צבע, גבס והחלפת ברזים. מגיע עד שעתיים.",
+      "הנדימן לכל תיקון בבית באור יהודה, יהוד, קרית אונו וראשון לציון: הרכבות, תליות, צבע, גבס והחלפת ברזים. מחיר הוגן לפי גודל העבודה.",
     schemaType: "HomeAndConstructionBusiness",
     heroEyebrow: "כל תיקון בבית, איש אחד",
-    heroHeadline: "רשימת דברים לתקן בבית?",
-    heroHeadlineAccent: "ניסן עושה הכל",
-    heroSub: `הרכבות, תליות, צבע, גבס והחלפת ברזים — באור יהודה והסביבה. מגיע ${ARRIVAL_TIME}, עובד לפי גודל העבודה.`,
-    heroBadges: ["טווח שירותים רחב", "מגיע עד שעתיים", "עובד מסודר ונקי"],
-    trustItems: ["ידיים של זהב", "ביטוח מלא", `הגעה ${ARRIVAL_TIME}`, "מתאים לבתים ולעסקים קטנים", "בלי מינימום נוקשה"],
+    heroHeadline: "רשימת התיקונים בבית רק מתארכת?",
+    heroHeadlineAccent: "ניסן מגיע וסוגר את כולה",
+    heroSub: "הרכבות, תליות, צבע, גבס, החלפת ברזים ועוד — באור יהודה והסביבה. המחיר נקבע לפי גודל העבודה והמורכבות שלה, בלי הפתעות.",
+    heroBadges: ["טווח שירותים רחב", "מחיר לפי גודל העבודה", "עובד מסודר ונקי"],
+    trustItems: ["ידי זהב", "מחיר לפי גודל העבודה", "איש אחד לכל הרשימה", "מתאים לבתים ולעסקים קטנים", "בלי מינימום נוקשה"],
     services: [
       { title: "החלפת ברזים", description: "השירות שהכי מבוקש — החלפה מהירה ונקייה.", icon: "Wrench" },
       { title: "צביעה", description: "צביעת קירות, תיקוני צבע נקודתיים וריענון חדרים.", icon: "PaintRoller" },
@@ -171,22 +171,22 @@ export const SERVICES: Record<ServiceKey, ServiceConfig> = {
       { title: "עבודות גבס ותיקונים קטנים", description: "תיקוני גבס, דלתות ותקלות בית שוטפות.", icon: "Construction" },
     ],
     whyUs: [
-      { icon: "Wrench", title: "ידיים של זהב", description: "טווח שירותים רחב — מהחלפת ברז ועד צביעה והרכבות, הכל באיש אחד." },
-      { icon: "Clock", title: `הגעה ${ARRIVAL_TIME}`, description: "מרגע התיאום ועד שהעבודה מתחילה." },
+      { icon: "Wrench", title: "ידי זהב", description: "טווח שירותים רחב — מהחלפת ברז ועד צביעה והרכבות, הכל באיש אחד." },
+      { icon: "Clock", title: "תיאום מהיר וגמיש", description: "קובעים יום ושעה שנוחים לכם — בלי לחכות שבועות לבעל מקצוע." },
       { icon: "Building2", title: "בתים ועסקים קטנים", description: "עובד גם בבית פרטי וגם במשרד או עסק קטן." },
       { icon: "BadgeCheck", title: "בלי מינימום נוקשה", description: "כל עבודה מוערכת לגופה — משלמים בדיוק לפי ההיקף." },
     ],
     problem: {
       eyebrow: "הבעיה שלך — הפתרון שלנו",
-      headline: "רשימת דברים לתקן מצטברת?",
-      headlineAccent: "לא צריך איש אחד לכל תיקון.",
+      headline: "כל תיקון קטן מחכה לבעל מקצוע אחר?",
+      headlineAccent: "ניסן עושה את כולם באותו ביקור.",
       body: "ברז שדולף, מדף שצריך לתלות, קיר שדורש רענון — כל התיקונים הקטנים האלה נדחים כי קשה למצוא מישהו אחד שעושה הכל. ניסן מגיע, עובר על הרשימה, ומטפל בהכל באותו ביקור.",
     },
     offer: "הצעת מחיר טלפונית לפני שמתחילים — לפי גודל העבודה בפועל.",
     faq: [
       { question: "אילו עבודות אתה מבצע?", answer: "כמעט הכל בבית: החלפת ברזים, צביעה, הרכבות, תליות ותיקוני גבס. אם לא בטוחים אם זה מתאים — פשוט להתקשר ולשאול." },
       { question: "יש מינימום הזמנה?", answer: "אין מחירון קבוע — כל עבודה מוערכת לגופה בשיחה קצרה, כדי שהמחיר יתאים בדיוק להיקף." },
-      { question: `תוך כמה זמן אפשר לתאם?`, answer: `הגעה תוך ${ARRIVAL_TIME} מרגע התיאום, באזור אור יהודה והסביבה.` },
+      { question: "תוך כמה זמן אפשר לתאם?", answer: "בדרך כלל נקבע ביקור תוך יום-יומיים, לפי היומן שלכם. עבודות קטנות אפשר לפעמים לשלב גם מוקדם יותר." },
       { question: "עובד גם עם עסקים קטנים?", answer: "כן, גם בתים פרטיים וגם עסקים ומשרדים קטנים." },
     ],
     reviews: [], // TODO: populate with real reviews once Nisan supplies them
@@ -195,3 +195,18 @@ export const SERVICES: Record<ServiceKey, ServiceConfig> = {
 };
 
 export const SERVICE_LIST = Object.values(SERVICES);
+
+// City-page arrival FAQ, per service. Handyman schedules by calendar (no
+// emergency-call promise) — locksmith/plumbing keep the on-call arrival time.
+export function cityArrivalFaq(key: ServiceKey, cityName: string, cityPrefixed: string): FaqItem {
+  if (key === "handyman") {
+    return {
+      question: `תוך כמה זמן אפשר לתאם ביקור ב${cityName}?`,
+      answer: `בדרך כלל נקבע ביקור ${cityPrefixed} תוך יום-יומיים, לפי היומן שלכם.`,
+    };
+  }
+  return {
+    question: `כמה מהר מגיעים ל${cityName}?`,
+    answer: `ניסן מגיע ${cityPrefixed} ${ARRIVAL_TIME} מרגע הפנייה.`,
+  };
+}

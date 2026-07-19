@@ -8,7 +8,7 @@ const TRUST_ITEMS = [
   { icon: Award,       text: "אחריות בכתב לכל עבודה" },
   { icon: FileText,    text: "דוח לחברת הביטוח" },
   { icon: Thermometer, text: "מצלמה תרמית FLIR" },
-  { icon: Star,        text: "ידיים של זהב" },
+  { icon: Star,        text: "ידי זהב" },
   { icon: Wrench,      text: "Grohe & Geberit" },
 ];
 

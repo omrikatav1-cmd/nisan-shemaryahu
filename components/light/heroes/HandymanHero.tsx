@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Phone, MessageCircle, Check, Clock } from "lucide-react";
+import { Phone, MessageCircle, Check } from "lucide-react";
 import type { ServiceConfig } from "@/lib/serviceContent";
 import { OWNER_PHONE_DISPLAY, OWNER_PHONE_HREF } from "@/lib/siteConfig";
 import { getSosWhatsAppUrl } from "@/lib/whatsapp";
@@ -63,7 +63,7 @@ export default function HandymanHero({ service, cityName }: { service: ServiceCo
           <div className="flex flex-wrap gap-2 justify-end mt-6">
             {service.heroBadges.map((b) => (
               <span key={b} className="inline-flex items-center gap-1.5 bg-l-surface border border-l-border text-l-text-2 text-xs font-semibold px-3 py-1.5 rounded-full">
-                <Clock size={12} className="text-l-accent" /> {b}
+                <Check size={12} className="text-l-accent" /> {b}
               </span>
             ))}
           </div>

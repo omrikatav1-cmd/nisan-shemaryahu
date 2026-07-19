@@ -1,5 +1,6 @@
 import { BRAND_NAME, BUSINESS_ADDRESS, OWNER_PHONE_INTL, SERVICE_AREA_CITIES } from "@/lib/siteConfig";
 import type { ServiceConfig, FaqItem } from "@/lib/serviceContent";
+import { cityArrivalFaq } from "@/lib/serviceContent";
 import type { City } from "@/lib/cities";
 import { cityUrl } from "@/lib/cities";
 
@@ -66,7 +67,7 @@ export function buildPageSchemas(service: ServiceConfig) {
 export function buildCityPageSchemas(service: ServiceConfig, city: City) {
   const pageUrl = `${SITE_URL}${cityUrl(service.slug, city)}`;
   const cityFaq: FaqItem[] = [
-    { question: `כמה מהר מגיעים ל${city.name}?`, answer: `ניסן מגיע ${city.prefixed} עד שעתיים מרגע הפנייה.` },
+    cityArrivalFaq(service.key, city.name, city.prefixed),
     ...service.faq,
   ];
   return [

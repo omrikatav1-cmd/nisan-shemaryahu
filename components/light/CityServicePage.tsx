@@ -1,4 +1,5 @@
 import type { ServiceConfig } from "@/lib/serviceContent";
+import { cityArrivalFaq } from "@/lib/serviceContent";
 import type { City } from "@/lib/cities";
 import { buildCityPageSchemas } from "@/lib/schema";
 import { SERVICE_THEME } from "@/lib/theme";
@@ -25,10 +26,7 @@ function CityHero({ service, cityName }: { service: ServiceConfig; cityName: str
 
 export default function CityServicePage({ service, city }: { service: ServiceConfig; city: City }) {
   const schemas = buildCityPageSchemas(service, city);
-  const cityFaq = [
-    { question: `כמה מהר מגיעים ל${city.name}?`, answer: `ניסן מגיע ${city.prefixed} עד שעתיים מרגע הפנייה — בכל שכונות ${city.name}.` },
-    ...service.faq,
-  ];
+  const cityFaq = [cityArrivalFaq(service.key, city.name, city.prefixed), ...service.faq];
 
   return (
     <div className="light-page" style={SERVICE_THEME[service.key]}>
