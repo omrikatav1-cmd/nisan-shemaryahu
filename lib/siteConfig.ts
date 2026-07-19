@@ -31,21 +31,13 @@ export const SERVICE_AREA_CITIES = [
   "חולון",
 ];
 
-export const ARRIVAL_TIME = "עד שעתיים";
-
-// Real, verified numbers only — never invent a stat. Confirmed by Nisan directly.
-export const STATS = [
+// No arrival-time or insurance claims anywhere on the site (Nisan/Omri,
+// 19.7.2026 — explicit, applies to all 3 funnels). Each service shows its
+// own real differentiator instead (see ServiceConfig.statHighlight).
+export const STATS_BASE = [
   { value: "1,000+", label: "לקוחות מרוצים" },
   { value: "24/6", label: "זמינות לפניות" },
-  { value: ARRIVAL_TIME, label: "זמן הגעה ממוצע" },
-  { value: `${SERVICE_AREA_CITIES.length}`, label: "ערים באזור השירות" },
 ];
-
-// Handyman works by scheduled jobs, not emergency calls (Nisan, 19.7.2026) —
-// no arrival-time promise anywhere in that funnel.
-export const HANDYMAN_STATS = STATS.map((s) =>
-  s.value === ARRIVAL_TIME ? { value: "איש אחד", label: "לכל הרשימה" } : s
-);
 
 export const HOURS = {
   regular: "08:00–18:00",

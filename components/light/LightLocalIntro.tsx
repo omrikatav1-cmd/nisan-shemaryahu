@@ -28,7 +28,7 @@ export default function LightLocalIntro({ service, city }: { service: ServiceCon
           {hoodText ? ` — ${hoodText}` : ""}. {ANGLE[service.key]}{" "}
           {service.key === "handyman"
             ? `תיאום ביקור ${city.prefixed} בדרך כלל תוך יום-יומיים, והמחיר נקבע לפי גודל העבודה — בלי הפתעות בסוף.`
-            : `מגיע ${city.prefixed} עד שעתיים מרגע הפנייה, עם מחיר סגור וברור מראש בטלפון — בלי הפתעות בסוף.`}
+            : `מחיר סגור וברור מראש בטלפון, לפני שיוצאים אליכם ${city.prefixed} — בלי הפתעות בסוף.`}
         </p>
       </div>
     </section>

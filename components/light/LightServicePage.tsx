@@ -1,6 +1,6 @@
 import type { ServiceConfig } from "@/lib/serviceContent";
 import { buildPageSchemas } from "@/lib/schema";
-import { STATS, HANDYMAN_STATS } from "@/lib/siteConfig";
+import { STATS_BASE, SERVICE_AREA_CITIES } from "@/lib/siteConfig";
 import { SERVICE_THEME } from "@/lib/theme";
 import LightNavbar from "@/components/light/LightNavbar";
 import LocksmithHero from "@/components/light/heroes/LocksmithHero";
@@ -39,7 +39,9 @@ export default function LightServicePage({ service }: { service: ServiceConfig }
         <ServiceHero service={service} />
         <LightTrustBar items={service.trustItems} />
         <LightServices items={service.services} offer={service.offer} />
-        <LightStats stats={service.key === "handyman" ? HANDYMAN_STATS : STATS} />
+        <LightStats
+          stats={[...STATS_BASE, service.statHighlight, { value: `${SERVICE_AREA_CITIES.length}`, label: "ערים באזור השירות" }]}
+        />
         <LightWhyUs items={service.whyUs} />
         <LightProblemSolution problem={service.problem} icon={service.services[0].icon} />
         <LightReviews reviews={service.reviews} />

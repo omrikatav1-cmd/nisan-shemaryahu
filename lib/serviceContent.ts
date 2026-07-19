@@ -1,5 +1,3 @@
-import { ARRIVAL_TIME } from "@/lib/siteConfig";
-
 export type ServiceIcon =
   | "DoorOpen" | "KeyRound" | "ShieldCheck" | "Car"
   | "Droplets" | "Wrench" | "Flame" | "ShowerHead" | "AlertTriangle"
@@ -55,6 +53,10 @@ export type ServiceConfig = {
   heroSub: string;
   heroBadges: string[];
   trustItems: string[];
+  // This service's own real differentiator, shown as the 3rd stat in
+  // LightStats — no arrival-time or insurance claims anywhere (Omri/Nisan,
+  // 19.7.2026).
+  statHighlight: { value: string; label: string };
   services: ServiceItem[];
   whyUs: WhyUsItem[];
   problem: ProblemSolution;
@@ -71,14 +73,15 @@ export const SERVICES: Record<ServiceKey, ServiceConfig> = {
     navLabel: "מנעולנות",
     metaTitle: "מנעולן באור יהודה והסביבה | ניסן שמריהו — מוסמך ומאושר משטרה",
     metaDescription:
-      "מנעולן מוסמך עם אישור משטרה באור יהודה, יהוד, קרית אונו וראשון לציון. פריצת דלתות, החלפת צילינדרים ומנעולי ביטחון. מגיע עד שעתיים.",
+      "מנעולן מוסמך עם אישור משטרה באור יהודה, יהוד, קרית אונו וראשון לציון. פריצת דלתות, החלפת צילינדרים ומנעולי ביטחון, מחיר סגור מראש.",
     schemaType: "Locksmith",
     heroEyebrow: "מנעולן מוסמך · אישור משטרה",
     heroHeadline: "ננעלתם בחוץ?",
     heroHeadlineAccent: "ניסן בדרך אליכם",
-    heroSub: `פריצת דלתות, החלפת צילינדרים ומנעולי ביטחון באור יהודה והסביבה. מגיע ${ARRIVAL_TIME}, והמחיר נסגר בטלפון עוד לפני שאני יוצא אליכם.`,
-    heroBadges: ["מוסמך + אישור משטרה", "מגיע עד שעתיים", "מחיר לפני העבודה"],
-    trustItems: ["מנעולן מוסמך", "אישור משטרה", "ביטוח מלא", `הגעה ${ARRIVAL_TIME}`, "מחיר סגור מראש"],
+    heroSub: "פריצת דלתות, החלפת צילינדרים ומנעולי ביטחון באור יהודה והסביבה. המחיר נסגר בטלפון עוד לפני שאני יוצא אליכם.",
+    heroBadges: ["מוסמך + אישור משטרה", "מחיר לפני העבודה", "עבודה נקייה ומקצועית"],
+    trustItems: ["מנעולן מוסמך", "אישור משטרה", "מחיר סגור מראש", "עבודה נקייה", "זמין 24/6"],
+    statHighlight: { value: "250₪+", label: "פריצת דלת" },
     services: [
       { title: "פריצת דלתות (נעילה בחוץ)", description: "נפתח בעדינות, בלי להרוס את המנעול או הדלת. גם באמצע הלילה.", price: "החל מ-250 ש\"ח", icon: "DoorOpen" },
       { title: "החלפת צילינדרים ומנעולים", description: "צילינדר שנתקע, מפתח שמסתובב באוויר או מנעול שכבר עייף. מחליפים במקום.", icon: "KeyRound" },
@@ -87,20 +90,20 @@ export const SERVICES: Record<ServiceKey, ServiceConfig> = {
     ],
     whyUs: [
       { icon: "ShieldCheck", title: "מוסמך + אישור משטרה", description: "פריצה ונעילה דורשות רישיון לפי חוק. יש לי תעודה ואישור משטרה, ומוזמנים לבקש לראות." },
-      { icon: "Clock", title: `הגעה ${ARRIVAL_TIME}`, description: "מרגע השיחה ועד שאני בפתח הדלת. בלי לחכות חצי יום בחוץ." },
       { icon: "BadgeCheck", title: "מחיר סגור מראש", description: "בלי הפתעות בסוף. מה שנאמר בטלפון זה מה שבחשבונית." },
-      { icon: "Umbrella", title: "ביטוח מלא", description: "כל עבודה מכוסה בביטוח מלא. אם משהו נשרט בדרך, אתם מכוסים." },
+      { icon: "Sparkles", title: "עבודה נקייה ומקצועית", description: "פותח בעדינות, בלי לשבור ובלי ללכלך אחריי." },
+      { icon: "Building2", title: "זמין 24/6", description: "גם בשעות המאוחרות. תעריף SOS נאמר מראש בטלפון, בלי הפתעות." },
     ],
     problem: {
       eyebrow: "זה קורה לכולם, גם בשתיים בלילה",
       headline: "הדלת נטרקה ברגע הכי לא נכון?",
       headlineAccent: "בדיוק בשביל זה אני כאן.",
-      body: "דלת שנטרקה באמצע הלילה, מפתח שנשבר בפנים — זה תמיד קורה כשממהרים. קחו נשימה והתקשרו. אני מגיע מהר, פותח בלי לקלקל, והמחיר סגור עוד לפני שהתחלתי.",
+      body: "דלת שנטרקה באמצע הלילה, מפתח שנשבר בפנים — זה תמיד קורה כשממהרים. קחו נשימה והתקשרו. אני פותח בלי לקלקל, והמחיר סגור עוד לפני שהתחלתי.",
     },
     offer: "המחיר נסגר בטלפון, לפני שאני יוצא אליכם. מה שסיכמנו, זה מה שתשלמו.",
     faq: [
       { question: "כמה עולה פריצת דלת?", answer: "בין 250 ל-550 ש\"ח, תלוי בסוג המנעול. את המחיר המדויק אני אומר בטלפון, לפני שיוצאים אליכם, והוא לא משתנה." },
-      { question: "תוך כמה זמן מגיעים?", answer: `${ARRIVAL_TIME} מרגע השיחה, בכל אזור השירות: אור יהודה והסביבה, ברדיוס של כ-15 ק"מ.` },
+      { question: "מה אזור השירות?", answer: "אור יהודה והסביבה, ברדיוס של כ-15 ק\"מ." },
       { question: "האם המנעולן מוסמך?", answer: "כן. מנעולן מוסמך עם אישור משטרה, מה שהחוק דורש בשביל עבודות פריצה ונעילה." },
       { question: "עובדים בלילה?", answer: "כן, 24/6 (יום מנוחה אחד בשבוע). אחרי 18:00 ובשעות הלילה יש תעריף SOS, ואומר לכם עליו מראש בטלפון." },
     ],
@@ -118,9 +121,10 @@ export const SERVICES: Record<ServiceKey, ServiceConfig> = {
     heroEyebrow: "טיפול מהיר בכל תקלת אינסטלציה",
     heroHeadline: "נזילה, סתימה או חירום?",
     heroHeadlineAccent: "ניסן כבר יוצא אליכם",
-    heroSub: `סתימות, צנרת, דודי שמש וכל תקלה דחופה, באור יהודה והסביבה. מגיע ${ARRIVAL_TIME}. ביקור אבחון 350 ש"ח, שיורדים מהמחיר כשסוגרים עבודה.`,
-    heroBadges: ["קריאה 350₪ מתקזזת", "מגיע עד שעתיים", "טיפול חירום"],
-    trustItems: ["מנוסה בסתימות, צנרת ודודים", "ביטוח מלא", `הגעה ${ARRIVAL_TIME}`, "קריאה מתקזזת מהעבודה", "עובד נקי ומסודר"],
+    heroSub: "סתימות, צנרת, דודי שמש וכל תקלה דחופה, באור יהודה והסביבה. ביקור אבחון 350 ש\"ח, שיורדים מהמחיר כשסוגרים עבודה.",
+    heroBadges: ["קריאה 350₪ מתקזזת", "טיפול חירום", "עובד נקי ומסודר"],
+    trustItems: ["מנוסה בסתימות, צנרת ודודים", "קריאה מתקזזת מהעבודה", "עובד נקי ומסודר", "זמין 24/6"],
+    statHighlight: { value: "350₪", label: "קריאת אבחון" },
     services: [
       { title: "פתיחת סתימות", description: "כיור, אמבטיה או ביוב. פותחים בציוד מקצועי, בלי לפרק חצי מטבח.", icon: "Droplets" },
       { title: "תיקון והחלפת צנרת", description: "צינור ישן, חלוד או מטפטף? מאתרים את הבעיה ומחליפים רק את מה שצריך.", icon: "Wrench" },
@@ -130,20 +134,20 @@ export const SERVICES: Record<ServiceKey, ServiceConfig> = {
     ],
     whyUs: [
       { icon: "Wrench", title: "ראיתי כבר הכל בצנרת", description: "מסתימה עקשנית ועד פיצוץ באמצע הלילה. אין תקלה שתפתיע אותי." },
-      { icon: "Clock", title: `הגעה ${ARRIVAL_TIME}`, description: "בתקלה דחופה אני לא נותן לכם לחכות עד הבוקר." },
       { icon: "BadgeCheck", title: "קריאה מתקזזת מהעבודה", description: "350 ש\"ח לביקור האבחון. סגרתם עבודה? הסכום יורד מהמחיר במלואו." },
       { icon: "Sparkles", title: "מסיים ומנקה אחריי", description: "לפני שאני הולך. הבית נשאר כמו שהיה, רק בלי הנזילה." },
+      { icon: "Building2", title: "זמין 24/6", description: "גם בתקלת חירום. תעריף SOS בשעות המאוחרות נאמר מראש בטלפון." },
     ],
     problem: {
       eyebrow: "קודם כל, סוגרים את המים",
       headline: "משהו מטפטף? עולה? נשפך?",
       headlineAccent: "תנשמו. זה מטופל.",
-      body: "זה תמיד מתחיל בקטן: כתם רטוב בתקרה או טפטוף שלא נותן לישון. מרגיש כמו סוף העולם, אבל ברוב המקרים הפתרון פשוט ממה שנדמה. אני מגיע, בודק מה קרה, ואומר לכם מה צריך וכמה זה יעלה.",
+      body: "זה תמיד מתחיל בקטן: כתם רטוב בתקרה או טפטוף שלא נותן לישון. מרגיש כמו סוף העולם, אבל ברוב המקרים הפתרון פשוט ממה שנדמה. אני בודק מה קרה, ואומר לכם מה צריך וכמה זה יעלה.",
     },
     offer: "ביקור האבחון עולה 350 ש\"ח, וכשסוגרים עבודה הוא בעצם חינם: הסכום יורד מהמחיר.",
     faq: [
       { question: "כמה עולה קריאת אינסטלטור?", answer: "350 ש\"ח לביקור אבחון. ממשיכים לתיקון? הסכום מתקזז במלואו ממחיר העבודה." },
-      { question: "תוך כמה זמן מגיעים במקרה חירום?", answer: `${ARRIVAL_TIME} מרגע השיחה, בכל האזור סביב אור יהודה.` },
+      { question: "מה אזור השירות?", answer: "אור יהודה והסביבה, וכל האזור סביבה." },
       { question: "יש אחריות על העבודה?", answer: "אני עומד מאחורי כל עבודה שיוצאת מתחת לידיים שלי. ההיקף והמחיר נסגרים מראש בטלפון." },
       { question: "עובדים גם בלילה?", answer: "כן, 24/6. בשעות המאוחרות יש תעריף SOS, ונאמר מראש בטלפון, בלי הפתעות." },
     ],
@@ -164,6 +168,7 @@ export const SERVICES: Record<ServiceKey, ServiceConfig> = {
     heroSub: "הרכבות, תליות, צבע, גבס, החלפת ברזים ועוד — באור יהודה והסביבה. המחיר נקבע לפי גודל העבודה והמורכבות שלה, בלי הפתעות.",
     heroBadges: ["כמעט הכל בבית", "מחיר לפי גודל העבודה", "עובד מסודר ונקי"],
     trustItems: ["ידי זהב", "מחיר לפי גודל העבודה", "בלי לתאם כמה בעלי מקצוע", "מתאים לבתים ולעסקים קטנים", "בלי מינימום נוקשה"],
+    statHighlight: { value: "0", label: "מינימום הזמנה" },
     services: [
       { title: "החלפת ברזים", description: "ברז ישן החוצה, ברז חדש פנימה. עבודה נקייה, ובלי טפטופים אחרי.", icon: "Wrench" },
       { title: "צביעה", description: "קיר אחד שהתקלף או רענון לכל החדר. צבע מקצועי, בלי כתמים על הרצפה.", icon: "PaintRoller" },
@@ -196,8 +201,7 @@ export const SERVICES: Record<ServiceKey, ServiceConfig> = {
 
 export const SERVICE_LIST = Object.values(SERVICES);
 
-// City-page arrival FAQ, per service. Handyman schedules by calendar (no
-// emergency-call promise) — locksmith/plumbing keep the on-call arrival time.
+// City-page scheduling FAQ, per service — no arrival-time promise anywhere.
 export function cityArrivalFaq(key: ServiceKey, cityName: string, cityPrefixed: string): FaqItem {
   if (key === "handyman") {
     return {
@@ -206,7 +210,7 @@ export function cityArrivalFaq(key: ServiceKey, cityName: string, cityPrefixed: 
     };
   }
   return {
-    question: `כמה מהר מגיעים ל${cityName}?`,
-    answer: `ניסן מגיע ${cityPrefixed} ${ARRIVAL_TIME} מרגע הפנייה.`,
+    question: `אתם נותנים שירות ב${cityName}?`,
+    answer: `כן, ${cityPrefixed} וגם בכל הישובים הסמוכים.`,
   };
 }

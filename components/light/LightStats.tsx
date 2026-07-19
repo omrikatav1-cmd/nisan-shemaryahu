@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
 // Bio-Israel-style count-up: purely numeric values ("1,000+", "11") animate
-// 0→target on first view; non-numeric values ("24/6", "עד שעתיים") render as-is.
+// 0→target on first view; non-numeric values ("24/6", "250₪+") render as-is.
 function CountUpValue({ value }: { value: string }) {
   const match = value.match(/^([\d,]+)(\+?)$/);
   const target = match ? parseInt(match[1].replace(/,/g, ""), 10) : null;

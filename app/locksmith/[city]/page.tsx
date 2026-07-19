@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const city = CITY_BY_SLUG[slug];
   if (!city) return {};
   const title = `מנעולן ${city.prefixed} | ניסן שמריהו — מוסמך ומאושר משטרה`;
-  const description = `מנעולן מוסמך עם אישור משטרה ${city.prefixed} — פריצת דלתות, החלפת צילינדרים ומנעולי ביטחון. מגיע עד שעתיים, מחיר סגור מראש.`;
+  const description = `מנעולן מוסמך עם אישור משטרה ${city.prefixed} — פריצת דלתות, החלפת צילינדרים ומנעולי ביטחון, מחיר סגור מראש.`;
   return { title, description, openGraph: { title, description, locale: "he_IL", type: "website" } };
 }
 

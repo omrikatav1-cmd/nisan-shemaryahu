@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const city = CITY_BY_SLUG[slug];
   if (!city) return {};
   const title = `אינסטלטור ${city.prefixed} | ניסן שמריהו — סתימות, צנרת, חירום`;
-  const description = `אינסטלטור מנוסה ${city.prefixed} — פתיחת סתימות, החלפת צנרת, דודי שמש וטיפול בחירום. קריאה 350₪ מתקזזת מהעבודה. מגיע עד שעתיים.`;
+  const description = `אינסטלטור מנוסה ${city.prefixed} — פתיחת סתימות, החלפת צנרת, דודי שמש וטיפול בחירום. קריאה 350₪ מתקזזת מהעבודה.`;
   return { title, description, openGraph: { title, description, locale: "he_IL", type: "website" } };
 }
 
