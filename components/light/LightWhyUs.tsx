@@ -3,15 +3,13 @@
 import { motion } from "framer-motion";
 import type { WhyUsItem } from "@/lib/serviceContent";
 import { SERVICE_ICONS } from "@/lib/serviceIcons";
+import LightSectionHeader from "@/components/light/LightSectionHeader";
 
 export default function LightWhyUs({ items }: { items: WhyUsItem[] }) {
   return (
     <section className="py-20 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="text-right mb-10 max-w-xl mr-0 ml-auto">
-          <p className="text-l-accent text-xs font-black tracking-[0.2em] uppercase mb-2">למה ניסן</p>
-          <h2 className="text-3xl sm:text-4xl font-black">היתרונות שלי</h2>
-        </div>
+        <LightSectionHeader eyebrow="למה ניסן" title="היתרונות שלי" />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {items.map((item, i) => {

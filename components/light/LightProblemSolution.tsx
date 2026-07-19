@@ -19,7 +19,7 @@ export default function LightProblemSolution({ problem, icon }: { problem: Probl
           transition={{ duration: 0.5 }}
           className="text-right"
         >
-          <p className="text-l-accent text-xs font-black tracking-[0.2em] uppercase mb-2">{problem.eyebrow}</p>
+          <span className="inline-flex items-center gap-2 bg-l-accent/10 border border-l-accent/30 text-l-accent text-xs font-black px-4 py-1.5 rounded-full mb-3">{problem.eyebrow}</span>
           <h2 className="text-3xl sm:text-4xl font-black leading-[1.1] mb-4">
             {problem.headline}
             <br />

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import type { Review } from "@/lib/serviceContent";
+import LightSectionHeader from "@/components/light/LightSectionHeader";
 
 // Renders nothing until real reviews exist — we never fabricate review cards.
 export default function LightReviews({ reviews }: { reviews: Review[] }) {
@@ -11,10 +12,7 @@ export default function LightReviews({ reviews }: { reviews: Review[] }) {
   return (
     <section className="py-20 px-4 sm:px-6 bg-l-surface">
       <div className="max-w-6xl mx-auto">
-        <div className="text-right mb-10 max-w-xl mr-0 ml-auto">
-          <p className="text-l-accent text-xs font-black tracking-[0.2em] uppercase mb-2">חוות דעת מלקוחות</p>
-          <h2 className="text-3xl sm:text-4xl font-black">מה אומרים עליי</h2>
-        </div>
+        <LightSectionHeader eyebrow="חוות דעת מלקוחות" title="מה אומרים עליי" />
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           {reviews.map((r, i) => (
             <motion.div key={i}

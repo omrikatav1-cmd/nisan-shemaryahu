@@ -6,6 +6,7 @@ import { MapPin } from "lucide-react";
 import { BASE_CITY } from "@/lib/siteConfig";
 import type { ServiceConfig } from "@/lib/serviceContent";
 import { CITIES, cityUrl } from "@/lib/cities";
+import LightSectionHeader from "@/components/light/LightSectionHeader";
 
 // Links to this service's own city pages only (sealed funnel + internal SEO).
 export default function LightServiceAreas({ service, currentCitySlug }: { service: ServiceConfig; currentCitySlug?: string }) {
@@ -14,11 +15,11 @@ export default function LightServiceAreas({ service, currentCitySlug }: { servic
   return (
     <section className="py-20 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto text-right">
-        <p className="text-l-accent text-xs font-black tracking-[0.2em] uppercase mb-2">אזור שירות</p>
-        <h2 className="text-3xl sm:text-4xl font-black mb-3">{service.navLabel} בכל האזור</h2>
-        <p className="text-l-text-2 mb-8 max-w-xl mr-0 ml-auto">
-          מבוסס ב{BASE_CITY}, ומגיע לכל היישובים הסמוכים ברדיוס של כ-15 ק&quot;מ. בחרו את היישוב שלכם:
-        </p>
+        <LightSectionHeader
+          eyebrow="אזור שירות"
+          title={`${service.navLabel} בכל האזור`}
+          sub={<>מבוסס ב{BASE_CITY}, ומגיע לכל היישובים הסמוכים ברדיוס של כ-15 ק&quot;מ. בחרו את היישוב שלכם:</>}
+        />
 
         <div className="flex flex-wrap justify-end gap-3">
           {cities.map((c, i) => (

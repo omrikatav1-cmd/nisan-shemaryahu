@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Send, AlertCircle, Loader2, Phone, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import AnimatedCheckmark from "@/components/ui/AnimatedCheckmark";
+import LightSectionHeader from "@/components/light/LightSectionHeader";
 import type { ServiceConfig } from "@/lib/serviceContent";
 import type { City } from "@/lib/cities";
 import { cityUrl } from "@/lib/cities";
@@ -84,11 +85,7 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 bg-l-surface">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-10">
-          <p className="text-l-accent text-xs font-black tracking-[0.2em] uppercase mb-2">צרו קשר</p>
-          <h2 className="text-3xl sm:text-4xl font-black mb-3">מוכן לעזור — עכשיו</h2>
-          <p className="text-l-text-2">השאירו פרטים ואחזור אליכם בהקדם.</p>
-        </div>
+        <LightSectionHeader center eyebrow="צרו קשר" title="מוכן לעזור — עכשיו" sub="השאירו פרטים ואחזור אליכם בהקדם." />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
           <div className="lg:col-span-2 flex flex-col gap-3">
