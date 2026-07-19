@@ -1,3 +1,5 @@
+import { STATS_BASE, SERVICE_AREA_CITIES } from "@/lib/siteConfig";
+
 export type ServiceIcon =
   | "DoorOpen" | "KeyRound" | "ShieldCheck" | "Car"
   | "Droplets" | "Wrench" | "Flame" | "ShowerHead" | "AlertTriangle"
@@ -200,6 +202,12 @@ export const SERVICES: Record<ServiceKey, ServiceConfig> = {
 };
 
 export const SERVICE_LIST = Object.values(SERVICES);
+
+// Shared stat set for both the hero mini-row and the page-body LightStats
+// section — one source so the two never drift.
+export function buildServiceStats(service: ServiceConfig): { value: string; label: string }[] {
+  return [...STATS_BASE, service.statHighlight, { value: `${SERVICE_AREA_CITIES.length}`, label: "ערים באזור השירות" }];
+}
 
 // City-page scheduling FAQ, per service — no arrival-time promise anywhere.
 export function cityArrivalFaq(key: ServiceKey, cityName: string, cityPrefixed: string): FaqItem {

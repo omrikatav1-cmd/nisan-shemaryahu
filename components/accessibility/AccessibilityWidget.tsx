@@ -85,7 +85,7 @@ export default function AccessibilityWidget() {
         aria-expanded={open}
         aria-controls="a11y-widget-panel"
         aria-keyshortcuts="Alt+A"
-        className={`fixed bottom-5 start-5 z-[70] flex h-13 w-13 items-center justify-center rounded-full text-white shadow-xl transition-transform hover:scale-105 ${
+        className={`fixed bottom-20 sm:bottom-5 start-5 z-[70] flex h-13 w-13 items-center justify-center rounded-full text-white shadow-xl transition-transform hover:scale-105 ${
           isAnyActive(prefs) ? "ring-2 ring-offset-2" : ""
         }`}
         style={{ background: "#14395E", width: 52, height: 52, ...(isAnyActive(prefs) ? { boxShadow: "0 0 0 2px #fff, 0 0 0 4px #C97A2B" } : {}) }}

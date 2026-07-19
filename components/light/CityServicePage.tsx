@@ -17,6 +17,7 @@ import LightCTABanner from "@/components/light/LightCTABanner";
 import LightFAQ from "@/components/light/LightFAQ";
 import LightContactForm from "@/components/light/LightContactForm";
 import LightFooter from "@/components/light/LightFooter";
+import LightStickyCTA from "@/components/light/LightStickyCTA";
 
 function CityHero({ service, cityName }: { service: ServiceConfig; cityName: string }) {
   if (service.key === "locksmith") return <LocksmithHero service={service} cityName={cityName} />;
@@ -34,7 +35,7 @@ export default function CityServicePage({ service, city }: { service: ServiceCon
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       ))}
       <LightNavbar service={service} />
-      <main>
+      <main className="pb-16 sm:pb-0">
         <CityHero service={service} cityName={city.name} />
         <LightLocalIntro service={service} city={city} />
         <LightTrustBar items={service.trustItems} />
@@ -47,6 +48,7 @@ export default function CityServicePage({ service, city }: { service: ServiceCon
       </main>
       <LightCTABanner whatsappLabel={service.whatsappIssueLabel} />
       <LightFooter service={service} />
+      <LightStickyCTA service={service} />
     </div>
   );
 }

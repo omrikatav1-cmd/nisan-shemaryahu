@@ -293,6 +293,12 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-l-text);
 }
 
+/* Full-bleed dark heroes sit on a rich gradient, not the page background —
+   headings need to stay white instead of inheriting the light-page default. */
+.light-page .hero-dark h1 {
+  color: #fff;
+}
+
 .light-card {
   background: var(--color-l-surface);
   border: 1px solid var(--color-l-border);
