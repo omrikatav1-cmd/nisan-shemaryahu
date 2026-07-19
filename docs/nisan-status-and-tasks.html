@@ -85,6 +85,8 @@
         <li><b>3 סבבי ביקורת אנושיות (humanization) על כל הקופי</b> — הוסרו דפוסי AI (מקפים חוזרים, שלשות מלאכותיות, חזרתיות בין-דפית, ערבובי גוף/זמן) משלושת המשפכים, בלי לשנות מחיר/תעודה/שעות</li>
         <li><b>דיבאג מלא הלילה</b> — <span class="ltr">npm run build</span>, <span class="ltr">tsc --noEmit</span>, <span class="ltr">eslint</span>: אפס שגיאות. אפס שגיאות runtime בפרודקשן (7 ימים אחרונים, נבדק ב-Vercel).</li>
         <li><b><span class="ltr">LEADS_DASHBOARD_PASSWORD</span> הוגדר בפרודקשן</b> — לוח הלידים ב-<span class="ltr">/leads</span> כבר לא חסום (503), רק דורש התחברות. הסיסמה נשלחה בנפרד, לא בקובץ הזה.</li>
+        <li><b>תפריט נגישות מלא (IS 5568) חי באתר</b> — ניגודיות, גודל טקסט, ריווח שורות, פונט קריא, הדגשת קישורים/כותרות, עצירת אנימציות, מקש Alt+A, עם דף <span class="ltr">/accessibility</span> (הצהרת נגישות). נבדק ידנית מקצה לקצה — לא ביקורת מקצועית של מורשה נגישות (ר' הצהרה)</li>
+        <li><b>טופס הלידים מוגן</b> — honeypot שקוף (בוט שממלא אותו מקבל "הצלחה" מזויפת בלי לגעת ב-DB) + checkbox הסכמת פרטיות חובה, נאכף גם בצד השרת. דף <span class="ltr">/privacy</span> חדש</li>
       </ul>
     </div>
   </section>
@@ -118,8 +120,8 @@
     <div class="sec-head"><div class="sec-num" style="background:rgba(245,158,11,.15); color:var(--warn);">◆</div><h2>פערים שהתגלו בדיבאג הלילה</h2></div>
     <div class="card card-warn">
       <div class="task"><input type="checkbox" disabled><div><b>1 · אין שום מדידת המרות (GA4 / GTM / Google Ads conversion)</b><span>אפס תגי מדידה בקוד כרגע. אדיר לא יכול להריץ קמפיינים בלי זה — זה גם בראש רשימת הדרישות שלו ב-<span class="ltr">docs/campaign-packages.md</span>. ביו-ישראל (המודל) רץ בפועל על Google Ads conversion + GTM, לא על GA4 — אותה גישה מומלצת כאן</span></div></div>
-      <div class="task"><input type="checkbox" disabled><div><b>2 · טופס הלידים חשוף לספאם</b><span>אין honeypot, אין reCAPTCHA, אין checkbox הסכמת פרטיות — כל השלושה תוכננו במקור בבריף (סקציית "טופס לידים") אך לא מומשו בקוד בפועל. יש הגנה חלקית (rate-limit + validation) אבל לא מספיק ברגע שיש תנועה בתשלום</span></div></div>
-      <div class="task"><input type="checkbox" disabled><div><b>3 · אין תפריט/ווידג'ט נגישות</b><span>הבריף המקורי מגדיר את זה כ"חובה חוקית" (תקן ישראלי 5568) — לא קיים באתר החי כרגע. חשיפה משפטית אמיתית לעסק פעיל</span></div></div>
+      <div class="task"><input type="checkbox" checked disabled><div><b>2 · טופס הלידים חשוף לספאם — נסגר</b><span>honeypot + checkbox הסכמת פרטיות נוספו ונאכפים גם בצד השרת. reCAPTCHA לא נוסף (דורש חשבון Google reCAPTCHA — לא חוסם כרגע, honeypot+rate-limit נותנים הגנה סבירה בשלב הזה)</span></div></div>
+      <div class="task"><input type="checkbox" checked disabled><div><b>3 · אין תפריט/ווידג'ט נגישות — נסגר</b><span>תפריט נגישות מלא + דף הצהרת נגישות חיים באתר. עדיין לא עבר ביקורת מקצועית של מורשה נגישות שירות מוסמך — מומלץ בהמשך, לא חוסם</span></div></div>
       <div class="task"><input type="checkbox" disabled><div><b>4 · תמונות AI חסומות זמנית</b><span>מנוע היצירה (Higgsfield) נגמר לו הקרדיט הלילה — גם תמונות זמניות-להמחשה (המתוכננות כפתרון ביניים עד יום הצילום עם ללב מדיה) לא ניתנות ליצירה כרגע. נחכה לאיפוס המכסה היומי / שדרוג תוכנית, או נעדיף לחכות לתמונות האמיתיות</span></div></div>
       <div class="task"><input type="checkbox" disabled><div><b>5 · היגיינת Git</b><span>לא חוסם, עדיפות נמוכה: הפרודקשן בפועל רץ מ-branch <span class="ltr">claude/elegant-sammet-10972f</span>, לא מ-<span class="ltr">main</span> (שעדיין מכיל את האתר הישן). כדאי למזג בשלב נוח כדי שלא יהיה בלבול לסשן הבא</span></div></div>
     </div>
@@ -144,8 +146,8 @@
       <div class="sess-card"><b><span class="n">4</span>תמונות אמיתיות</b><p>קליטת תמונות מיום הצילום עם ללב מדיה, או תמונות AI זמניות ברגע שהקרדיט מתאפס</p></div>
       <div class="sess-card"><b><span class="n">5</span>ביקורות גוגל</b><p>קבלת רשימת 10-15 לקוחות מניסן, שליחת בקשות ביקורת (Review Engine agent כבר קיים לזה)</p></div>
       <div class="sess-card"><b><span class="n">6</span>מדידה והמרות</b><p>הקמת GA4/GTM/Google Ads conversion tracking בקוד + בחשבונות בפועל, לפני שאדיר מתחיל</p></div>
-      <div class="sess-card"><b><span class="n">7</span>אבטחת טופס</b><p>honeypot + reCAPTCHA + checkbox הסכמת פרטיות בטופס הלידים בשלושת הדפים</p></div>
-      <div class="sess-card"><b><span class="n">8</span>נגישות (IS 5568)</b><p>הוספת תפריט נגישות מלא — חובה חוקית לעסק פעיל בישראל</p></div>
+      <div class="sess-card"><b><span class="n">7</span>אבטחת טופס — שלב 2</b><p>honeypot והסכמת פרטיות כבר חיים. נותר: חשבון Google reCAPTCHA אם ספאם יהפוך לבעיה בפועל</p></div>
+      <div class="sess-card"><b><span class="n">8</span>ביקורת נגישות מקצועית</b><p>הווידג'ט חי, אך מומלץ אימות ע"י מורשה נגישות שירות מוסמך לכיסוי מלא</p></div>
       <div class="sess-card"><b><span class="n">9</span>השוואת קמפיינים</b><p>מסירת <span class="ltr">docs/campaign-packages.md</span> לאדיר, אחרי שכל התלויות למעלה נסגרו</p></div>
       <div class="sess-card"><b><span class="n">10</span>היגיינת Git</b><p>מיזוג <span class="ltr">claude/elegant-sammet-10972f</span> ל-<span class="ltr">main</span> כדי לסגור את הפער בין הענפים</p></div>
     </div>
