@@ -64,6 +64,27 @@ export function buildPageSchemas(service: ServiceConfig) {
   return [localBusinessSchema(service, pageUrl), faqSchema(service.faq), breadcrumbSchema(service, pageUrl)];
 }
 
+// Brand-root schema — the homepage lists all 3 trades, so it can't use one
+// service's narrow schemaType (Locksmith/Plumber/etc.) without misrepresenting
+// the business. Generic LocalBusiness covers the shared identity correctly.
+export function buildHomeSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: BRAND_NAME,
+    url: SITE_URL,
+    telephone: `+${OWNER_PHONE_INTL}`,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: BUSINESS_ADDRESS.street,
+      addressLocality: BUSINESS_ADDRESS.city,
+      addressCountry: "IL",
+    },
+    areaServed: SERVICE_AREA_CITIES.map((c) => ({ "@type": "City", name: c })),
+    priceRange: "$$",
+  };
+}
+
 export function buildCityPageSchemas(service: ServiceConfig, city: City) {
   const pageUrl = `${SITE_URL}${cityUrl(service.slug, city)}`;
   const cityFaq: FaqItem[] = [
