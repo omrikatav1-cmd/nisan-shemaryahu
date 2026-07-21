@@ -29,9 +29,6 @@ function buildRewrites() {
 }
 
 const nextConfig: NextConfig = {
-  turbopack: {
-    root: "..",
-  },
   async rewrites() {
     return buildRewrites();
   },
