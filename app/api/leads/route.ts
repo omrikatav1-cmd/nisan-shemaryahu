@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
+import { isValidIsraeliPhone } from "@/lib/validation";
 
 // --- Rate Limiting ---
 
@@ -45,19 +46,12 @@ function isRateLimited(ip: string): { limited: boolean; retryAfterSeconds: numbe
 
 // --- Validation & Sanitization ---
 
-const ISRAELI_PHONE_REGEX = /^(05[0-9]\d{7}|(\+972)5[0-9]\d{7})$/;
-
 function stripHtmlTags(input: string): string {
   return input.replace(/<[^>]*>/g, "");
 }
 
 function sanitize(input: string): string {
   return stripHtmlTags(input.trim());
-}
-
-function isValidIsraeliPhone(phone: string): boolean {
-  const normalized = phone.replace(/[-\s]/g, "");
-  return ISRAELI_PHONE_REGEX.test(normalized);
 }
 
 // --- Error Responses ---

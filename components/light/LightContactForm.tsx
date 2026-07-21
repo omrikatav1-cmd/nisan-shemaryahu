@@ -11,15 +11,10 @@ import type { City } from "@/lib/cities";
 import { cityUrl } from "@/lib/cities";
 import { OWNER_PHONE_DISPLAY, OWNER_PHONE_HREF, SERVICE_AREA_CITIES } from "@/lib/siteConfig";
 import { pushLeadEvent } from "@/lib/analytics";
+import { isValidIsraeliPhone } from "@/lib/validation";
 
 type FormState = "idle" | "loading" | "success" | "error";
 type FieldErrors = { name?: string; phone?: string; issue?: string; consent?: string };
-
-const ISRAELI_PHONE_REGEX = /^0[2-9]\d{7,8}$/;
-
-function validatePhone(raw: string): boolean {
-  return ISRAELI_PHONE_REGEX.test(raw.replace(/\D/g, ""));
-}
 
 export default function LightContactForm({ service, city }: { service: ServiceConfig; city?: City }) {
   const sourcePage = city ? cityUrl(service.slug, city) : `/${service.slug}`;
@@ -38,7 +33,7 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
     const errors: FieldErrors = {};
     if (!name.trim()) errors.name = "שדה חובה";
     if (!phone.trim()) errors.phone = "שדה חובה";
-    else if (!validatePhone(phone)) errors.phone = "מספר טלפון לא תקין (לדוגמה: 050-1234567)";
+    else if (!isValidIsraeliPhone(phone)) errors.phone = "מספר טלפון לא תקין (לדוגמה: 050-1234567)";
     if (!issue.trim()) errors.issue = "יש לבחור מה צריך";
     if (!consent) errors.consent = "יש לאשר את מדיניות הפרטיות";
     return errors;
