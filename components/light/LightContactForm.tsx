@@ -10,6 +10,7 @@ import type { ServiceConfig } from "@/lib/serviceContent";
 import type { City } from "@/lib/cities";
 import { cityUrl } from "@/lib/cities";
 import { OWNER_PHONE_DISPLAY, OWNER_PHONE_HREF, SERVICE_AREA_CITIES } from "@/lib/siteConfig";
+import { pushLeadEvent } from "@/lib/analytics";
 
 type FormState = "idle" | "loading" | "success" | "error";
 type FieldErrors = { name?: string; phone?: string; issue?: string; consent?: string };
@@ -73,6 +74,7 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "שגיאה בשליחה");
+      pushLeadEvent(service.whatsappIssueLabel, sourcePage); // conversion → GTM/GA4/Ads
       setFormState("success");
     } catch (err) {
       setFormState("error");

@@ -3,6 +3,8 @@ import { Rubik, Assistant } from "next/font/google";
 import { A11Y_BOOTSTRAP_SCRIPT } from "@/lib/a11y-prefs/core";
 import MotionA11yProvider from "@/components/accessibility/MotionA11yProvider";
 import AccessibilityWidget from "@/components/accessibility/AccessibilityWidget";
+import { GTM_ID } from "@/lib/analytics";
+import { SITE_URL } from "@/lib/siteConfig";
 import "./globals.css";
 
 const rubik = Rubik({
@@ -20,6 +22,7 @@ const assistant = Assistant({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "\u05E0\u05D9\u05E1\u05DF \u05E9\u05DE\u05E8\u05D9\u05D4\u05D5 \u2014 \u05DE\u05E0\u05E2\u05D5\u05DC\u05DF, \u05D0\u05D9\u05E0\u05E1\u05D8\u05DC\u05D8\u05D5\u05E8 \u05D5\u05D4\u05E0\u05D3\u05D9\u05DE\u05DF \u05D1\u05D0\u05D5\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4 \u05D5\u05D4\u05E1\u05D1\u05D9\u05D1\u05D4",
   description:
     "\u05D1\u05E2\u05DC \u05DE\u05E7\u05E6\u05D5\u05E2 \u05D0\u05D7\u05D3 \u05DC\u05E9\u05DC\u05D5\u05E9\u05D4 \u05EA\u05D7\u05D5\u05DE\u05D9\u05DD: \u05DE\u05E0\u05E2\u05D5\u05DC\u05E0\u05D5\u05EA, \u05D0\u05D9\u05E0\u05E1\u05D8\u05DC\u05E6\u05D9\u05D4 \u05D5\u05D4\u05E0\u05D3\u05D9\u05DE\u05DF. \u05D0\u05D5\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4, \u05D9\u05D4\u05D5\u05D3, \u05E7\u05E8\u05D9\u05EA \u05D0\u05D5\u05E0\u05D5 \u05D5\u05E8\u05D0\u05E9\u05D5\u05DF \u05DC\u05E6\u05D9\u05D5\u05DF. \u05DE\u05D7\u05D9\u05E8 \u05D1\u05E8\u05D5\u05E8 \u05DE\u05E8\u05D0\u05E9. 050-9911241",
@@ -29,6 +32,16 @@ export const metadata: Metadata = {
     description: "\u05D1\u05E2\u05DC \u05DE\u05E7\u05E6\u05D5\u05E2 \u05D0\u05D7\u05D3 \u05DC\u05E9\u05DC\u05D5\u05E9\u05D4 \u05EA\u05D7\u05D5\u05DE\u05D9\u05DD, \u05D1\u05D0\u05D5\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4 \u05D5\u05D4\u05E1\u05D1\u05D9\u05D1\u05D4. \u05DE\u05D7\u05D9\u05E8 \u05D1\u05E8\u05D5\u05E8 \u05DE\u05E8\u05D0\u05E9.",
     locale: "he_IL",
     type: "website",
+    url: SITE_URL,
+    siteName: "ניסן שמריהו",
+    // Interim social-share image (stock). Swap to a branded card / Nisan's photo after the shoot.
+    images: [{ url: "/images/hero-locksmith.jpg", width: 1200, height: 630, alt: "ניסן שמריהו — מנעולן, אינסטלטור והנדימן" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ניסן שמריהו — מנעולן, אינסטלטור והנדימן",
+    description: "בעל מקצוע אחד לשלושה תחומים, באור יהודה והסביבה. מחיר ברור מראש.",
+    images: ["/images/hero-locksmith.jpg"],
   },
 };
 
@@ -45,8 +58,26 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: A11Y_BOOTSTRAP_SCRIPT }} />
+        {/* Google Tag Manager — inert until NEXT_PUBLIC_GTM_ID is set on Vercel. */}
+        {GTM_ID && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`,
+            }}
+          />
+        )}
       </head>
       <body className="min-h-dvh flex flex-col antialiased">
+        {GTM_ID && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
+        )}
         <MotionA11yProvider>
           {children}
           <AccessibilityWidget />
