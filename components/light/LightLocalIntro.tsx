@@ -12,10 +12,10 @@ const ANGLE: Record<ServiceKey, string> = {
 
 export default function LightLocalIntro({ service, city }: { service: ServiceConfig; city: City }) {
   const hoods = city.neighborhoods;
+  // Lists every real neighborhood (not just the first 2-4) — "מ-A, B ו-C" for
+  // any count, so no city's data silently drops a name based on array length.
   const hoodText =
-    hoods.length >= 2
-      ? `מ${hoods[0]} ו${hoods[1]}${hoods.length >= 4 ? ` ועד ${hoods[2]} ו${hoods[3]}` : ""}`
-      : "";
+    hoods.length >= 2 ? `מ${hoods.slice(0, -1).join(", ")} ו${hoods[hoods.length - 1]}` : "";
 
   return (
     <section className="py-16 px-4 sm:px-6 bg-l-surface">

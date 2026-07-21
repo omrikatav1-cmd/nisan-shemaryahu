@@ -179,7 +179,7 @@ export const SERVICES: Record<ServiceKey, ServiceConfig> = {
     ],
     whyUs: [
       { icon: "Wrench", title: "ידי זהב", description: "במקום לתאם שלושה בעלי מקצוע, מתקשרים לאחד. מהחלפת ברז ועד צביעה והרכבות." },
-      { icon: "Clock", title: "תיאום מהיר וגמיש", description: "קובעים יום ושעה שנוחים לכם, בלי לחכות שבועות לבעל מקצוע." },
+      { icon: "Clock", title: "תיאום נוח וגמיש", description: "קובעים יום ושעה שנוחים לכם, בלי לחכות שבועות לבעל מקצוע." },
       { icon: "Building2", title: "בתים ועסקים קטנים", description: "בית פרטי, משרד או חנות קטנה. אותה עבודה מסודרת בכל מקום." },
       { icon: "BadgeCheck", title: "בלי מינימום נוקשה", description: "גם עבודה של שעה מקבלת יחס רציני. משלמים על מה שנעשה, לא על מינימום." },
     ],

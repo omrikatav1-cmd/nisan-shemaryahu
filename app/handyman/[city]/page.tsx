@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const city = CITY_BY_SLUG[slug];
   if (!city) return {};
   const title = `הנדימן ${city.prefixed} | ניסן שמריהו — הכל בבית, איש אחד`;
-  const description = `הנדימן ${city.prefixed} לכל תיקון בבית — החלפת ברזים, צביעה, הרכבות, תליות וגבס. תיאום מהיר וגמיש, מחיר לפי גודל העבודה.`;
+  const description = `הנדימן ${city.prefixed} לכל תיקון בבית — החלפת ברזים, צביעה, הרכבות, תליות וגבס. תיאום נוח וגמיש, מחיר לפי גודל העבודה.`;
   return { title, description, openGraph: { title, description, locale: "he_IL", type: "website" } };
 }
 
