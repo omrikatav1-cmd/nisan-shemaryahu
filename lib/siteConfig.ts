@@ -5,9 +5,23 @@ import { CITIES } from "@/lib/cities";
 
 export const BRAND_NAME = "ניסן שמריהו";
 
-// Single source of truth for the canonical site URL. Change here ONLY when the
-// real domain is bought — schema.ts, sitemap.ts, robots.ts, layout.tsx all import it.
-export const SITE_URL = "https://nisan-shemaryahu.vercel.app"; // TODO: real domain (brief §11.1)
+// Single source of truth for the canonical site URL. Overridable per-deployment
+// via the SITE_URL env var (each of the 3 dedicated Vercel projects sets its own) —
+// falls back to the combined-hub default for local dev. Change the fallback here
+// only when that project's real domain is bought — schema.ts, sitemap.ts,
+// robots.ts, layout.tsx all import it.
+export const SITE_URL = process.env.SITE_URL || "https://nisan-shemaryahu.vercel.app";
+
+// When set, this deployment is dedicated to ONE trade — its root `/` renders
+// that service's own funnel directly instead of the 3-trade hub, and its
+// sitemap only lists that service's own pages. Each of the 3 separate Vercel
+// projects (nisan-shemaryahu/nisan-plumbing/nisan-handyman) sets its own value.
+// Unset = combined hub behavior (local dev default).
+export const SITE_SERVICE = process.env.SITE_SERVICE as
+  | "locksmith"
+  | "plumbing"
+  | "handyman"
+  | undefined;
 
 // TODO: replace with the business WhatsApp number once opened (brief §1.4) —
 // campaigns should point at that number, not the personal one.
