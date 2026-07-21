@@ -35,7 +35,7 @@
   --color-l-success:      #1F7A4D;
   --color-l-text:         #1A2433;
   --color-l-text-2:       #435164;
-  --color-l-text-muted:   #7A8697;
+  --color-l-text-muted:   #5A6675; /* darkened from #7A8697 — that shade measured ~3.4:1 against the page background, below WCAG AA's 4.5:1 for normal text; this measures ~4.9:1 */
   --color-l-border:       #E4DFD3;
   --color-l-border-bright:#D6CFBD;
 
