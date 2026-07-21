@@ -28,7 +28,7 @@ export default function LightProblemSolution({ problem, serviceKey }: { problem:
           <p className="text-l-text-2 leading-relaxed mb-6 max-w-lg mr-0 ml-auto">{problem.body}</p>
           <a
             href={OWNER_PHONE_HREF}
-            className="inline-flex items-center gap-2 bg-l-primary hover:bg-l-primary-dim text-white font-black px-6 py-3.5 rounded-xl transition-colors shadow-[0_8px_24px_rgba(20,57,94,0.25)]"
+            className="inline-flex items-center gap-2 bg-l-primary hover:bg-l-primary-dim text-white font-black px-6 py-3.5 rounded-xl cta-glow-primary"
           >
             <Phone size={16} />
             <span dir="ltr">{OWNER_PHONE_DISPLAY}</span>

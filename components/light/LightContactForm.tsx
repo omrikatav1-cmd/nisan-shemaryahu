@@ -197,7 +197,7 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
                     type="submit" disabled={formState === "loading"}
                     className={cn(
                       "flex items-center justify-center gap-2 w-full font-black px-6 py-4 rounded-[0.625rem] transition-colors min-h-[52px]",
-                      formState === "loading" ? "bg-l-primary/40 text-white/60" : "bg-l-primary hover:bg-l-primary-dim text-white"
+                      formState === "loading" ? "bg-l-primary/40 text-white/60" : "bg-l-primary hover:bg-l-primary-dim text-white cta-glow-primary"
                     )}
                   >
                     {formState === "loading" ? <><Loader2 size={18} className="animate-spin" />שולח...</> : <><Send size={18} />שלח פנייה</>}

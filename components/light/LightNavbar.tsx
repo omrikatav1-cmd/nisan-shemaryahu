@@ -41,7 +41,7 @@ export default function LightNavbar({ service }: { service: ServiceConfig }) {
             <Phone size={14} /><span dir="ltr">{OWNER_PHONE_DISPLAY}</span>
           </a>
           <a href={getSosWhatsAppUrl(service.whatsappIssueLabel)} target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-l-accent-dim hover:opacity-90 text-white text-sm font-black px-4 py-2 rounded-xl transition-colors">
+            className="flex items-center gap-2 bg-l-accent-dim hover:opacity-90 text-white text-sm font-black px-5 py-2.5 rounded-xl cta-glow-accent">
             <MessageCircle size={15} /> וואטסאפ
           </a>
         </div>
@@ -66,7 +66,7 @@ export default function LightNavbar({ service }: { service: ServiceConfig }) {
                 <Phone size={14} /><span dir="ltr">{OWNER_PHONE_DISPLAY}</span>
               </a>
               <a href={getSosWhatsAppUrl(service.whatsappIssueLabel)} target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 bg-l-accent-dim text-white text-sm font-black px-4 py-3 rounded-xl">
+                className="flex items-center justify-center gap-2 bg-l-accent-dim text-white text-sm font-black px-4 py-3 rounded-xl cta-glow-accent">
                 <MessageCircle size={15} /> וואטסאפ עכשיו
               </a>
             </div>

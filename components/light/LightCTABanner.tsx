@@ -15,7 +15,7 @@ export default function LightCTABanner({ whatsappLabel }: { whatsappLabel: strin
         <div className="flex gap-3">
           <a
             href={OWNER_PHONE_HREF}
-            className="flex items-center gap-2 bg-white text-l-accent-dim font-black px-5 py-3 rounded-xl hover:bg-white/90 transition-colors"
+            className="flex items-center gap-2 bg-white text-l-accent-dim font-black px-5 py-3 rounded-xl hover:bg-white/90 cta-glow-primary"
           >
             <Phone size={16} />
             <span dir="ltr">{OWNER_PHONE_DISPLAY}</span>
@@ -24,7 +24,7 @@ export default function LightCTABanner({ whatsappLabel }: { whatsappLabel: strin
             href={getSosWhatsAppUrl(whatsappLabel)}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-l-primary text-white font-black px-5 py-3 rounded-xl hover:bg-l-primary-dim transition-colors"
+            className="flex items-center gap-2 bg-l-primary text-white font-black px-5 py-3 rounded-xl hover:bg-l-primary-dim cta-glow-primary"
           >
             <MessageCircle size={16} />
             וואטסאפ

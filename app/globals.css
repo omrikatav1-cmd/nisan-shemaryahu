@@ -306,6 +306,95 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 8px 28px rgba(20, 57, 94, 0.08);
 }
 
+/* ─── Premium polish pass — touch response, readable type, section flow ───
+   Anti-slop micro-interactions: things lift when you hover, press when you
+   click, and type never leaves a word stranded. Scoped to the light service
+   pages so the dark homepage is untouched. Honors reduced-motion below. ── */
+
+/* Every interactive element eases its state changes — no instant snaps. */
+.light-page a,
+.light-page button {
+  transition: color .2s ease, background-color .2s ease,
+              box-shadow .25s ease, transform .14s ease, opacity .2s ease;
+}
+/* Physical press feedback — the control dips under your finger. */
+.light-page a[href]:active,
+.light-page button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+/* Cards lift and cast a warmer, deeper shadow on hover/touch. The form card
+   is excluded (:has(form)) so it never jumps while you're filling it in. */
+.light-card {
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1),
+              box-shadow .35s ease, border-color .35s ease;
+  will-change: transform;
+}
+.light-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px rgba(20, 57, 94, 0.16);
+  border-color: var(--color-l-border-bright);
+}
+.light-card:has(form):hover {
+  transform: none;
+  box-shadow: 0 12px 34px rgba(20, 57, 94, 0.12);
+}
+
+/* Readable, human typography — balanced headlines, no orphaned last words. */
+.light-page h1, .light-page h2, .light-page h3 { text-wrap: balance; }
+.light-page p, .light-page li { text-wrap: pretty; }
+.light-page { letter-spacing: -0.006em; }
+
+/* Anchor jumps land softly below the sticky header instead of under it. */
+.light-page [id] { scroll-margin-top: 92px; }
+
+/* A hair of warmth connects stacked sections — soft seam, never a hard rule. */
+.light-page section { position: relative; }
+.light-page section + section::before {
+  content: "";
+  position: absolute;
+  inset-inline: 18%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent,
+    color-mix(in srgb, var(--color-l-accent) 22%, transparent), transparent);
+  pointer-events: none;
+}
+
+/* Call-to-action emphasis — the phone/WhatsApp buttons are the entire point
+   of the page, so they carry a real tinted glow (not a grey drop-shadow) and
+   lift on hover, on top of the press-in feedback already set above. Two
+   variants so "call" (navy) and "WhatsApp" (clay accent) read as distinct
+   actions at a glance. */
+.cta-glow-primary {
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--color-l-primary) 38%, transparent),
+              0 2px 8px color-mix(in srgb, var(--color-l-primary) 22%, transparent);
+}
+.cta-glow-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 38px color-mix(in srgb, var(--color-l-primary) 46%, transparent),
+              0 4px 12px color-mix(in srgb, var(--color-l-primary) 28%, transparent);
+}
+.cta-glow-accent {
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--color-l-accent-dim) 42%, transparent),
+              0 2px 8px color-mix(in srgb, var(--color-l-accent-dim) 26%, transparent);
+}
+.cta-glow-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 38px color-mix(in srgb, var(--color-l-accent-dim) 50%, transparent),
+              0 4px 12px color-mix(in srgb, var(--color-l-accent-dim) 30%, transparent);
+}
+/* translateY(-2px) hover + translateY(1px) active from above would fight on a
+   button that has both — active always wins while pressed, which is correct. */
+.cta-glow-primary:active, .cta-glow-accent:active { transform: translateY(1px); }
+
+/* Focus ring and text selection use the light palette, not the dark-theme blue. */
+.light-page :focus-visible { outline-color: var(--color-l-primary); }
+.light-page ::selection {
+  background: color-mix(in srgb, var(--color-l-accent) 28%, transparent);
+  color: var(--color-l-primary);
+}
+
 /* ─── Reduced motion ────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
