@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Accessibility,
@@ -40,10 +40,14 @@ const LINE_SPACING_LABEL: Record<A11yPrefs["lineSpacing"], string> = {
 // Regulation 35 / IS 5568 preference widget. Toggles CSS classes on <html>
 // only — never touches content DOM, alt text, or ARIA. See docs/... for the
 // full compliance write-up; this is the control surface, not the whole story.
+const FOCUSABLE_SELECTOR = 'button, a[href], [tabindex]:not([tabindex="-1"])';
+
 export default function AccessibilityWidget() {
   const prefs = useA11yPrefs();
   const [open, setOpen] = useState(false);
   const [announcement, setAnnouncement] = useState("");
+  const panelRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   // Safety net if the inline FOUC bootstrap script didn't run (e.g. blocked
   // localStorage). Reads current snapshot only — never writes back to storage.
@@ -51,19 +55,50 @@ export default function AccessibilityWidget() {
     applyPrefsToElement(document.documentElement, a11yStore.getSnapshot());
   }, []);
 
-  // Alt+A shortcut. e.code (physical key), not e.key — macOS emits the
-  // dead-key "å" for e.key on Alt+A, which would silently miss the check.
+  // role="dialog" aria-modal="true" requires real focus management: move focus
+  // into the panel on open, restore it to the trigger on close — otherwise a
+  // keyboard user opening the panel keeps focus wherever it was and can tab
+  // straight past it into the page underneath.
+  useEffect(() => {
+    if (open) {
+      panelRef.current?.focus();
+    } else {
+      triggerRef.current?.focus();
+    }
+  }, [open]);
+
+  // Alt+A shortcut + Escape + Tab trap while the panel is open. e.code
+  // (physical key), not e.key — macOS emits the dead-key "å" for e.key on
+  // Alt+A, which would silently miss the check.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.code === "KeyA") {
         e.preventDefault();
         setOpen((v) => !v);
+        return;
       }
-      if (e.key === "Escape") setOpen(false);
+      if (!open) return;
+      if (e.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (e.key === "Tab" && panelRef.current) {
+        const focusable = Array.from(panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR));
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [open]);
 
   const applyToggle = useCallback((partial: Partial<A11yPrefs>, announce: string) => {
     a11yStore.set(partial);
@@ -78,6 +113,7 @@ export default function AccessibilityWidget() {
       </div>
 
       <button
+        ref={triggerRef}
         id="a11y-widget-trigger"
         type="button"
         onClick={() => setOpen(true)}
@@ -104,6 +140,8 @@ export default function AccessibilityWidget() {
               onClick={() => setOpen(false)}
             />
             <motion.div
+              ref={panelRef}
+              tabIndex={-1}
               id="a11y-widget-panel"
               role="dialog"
               aria-modal="true"
@@ -113,11 +151,11 @@ export default function AccessibilityWidget() {
               exit={{ x: "100%" }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
               dir="rtl"
-              className="fixed inset-y-0 start-0 z-[90] w-[85%] max-w-sm overflow-y-auto bg-white text-[#1A2433] shadow-2xl"
+              className="fixed inset-y-0 start-0 z-[90] w-[85%] max-w-sm overflow-y-auto bg-white text-[#1A2433] shadow-2xl outline-none"
             >
               <div className="flex items-center justify-between border-b border-[#E4DFD3] p-5">
                 <h2 className="text-lg font-black">הגדרות נגישות</h2>
-                <button type="button" onClick={() => setOpen(false)} aria-label="סגור" className="p-1 text-[#7A8697]">
+                <button type="button" onClick={() => setOpen(false)} aria-label="סגור" className="flex items-center justify-center w-11 h-11 -m-2.5 text-l-text-muted">
                   <X size={20} />
                 </button>
               </div>
@@ -228,7 +266,7 @@ function ToggleCard({
     >
       <Icon size={22} aria-hidden />
       <span className="text-xs font-semibold">{label}</span>
-      {valueLabel && <span className="text-[10px] text-[#7A8697]">{valueLabel}</span>}
+      {valueLabel && <span className="text-[10px] text-l-text-muted">{valueLabel}</span>}
     </button>
   );
 }

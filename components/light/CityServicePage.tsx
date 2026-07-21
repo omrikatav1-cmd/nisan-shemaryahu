@@ -35,7 +35,7 @@ export default function CityServicePage({ service, city }: { service: ServiceCon
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       ))}
       <LightNavbar service={service} />
-      <main className="pb-16 sm:pb-0">
+      <main id="main-content" className="pb-16 sm:pb-0">
         <CityHero service={service} cityName={city.name} />
         <LightLocalIntro service={service} city={city} />
         <LightTrustBar items={service.trustItems} />

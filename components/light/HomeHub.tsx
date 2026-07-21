@@ -36,10 +36,10 @@ export default function HomeHub() {
         </div>
       </header>
 
-      <main>
+      <main id="main-content">
         <section className="py-20 px-4 sm:px-6 text-center" style={{ background: "linear-gradient(180deg, var(--color-l-bg) 0%, var(--color-l-surface) 100%)" }}>
           <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-2 bg-l-accent/10 border border-l-accent/30 text-l-accent text-xs font-black px-4 py-1.5 rounded-full mb-4">
+            <span className="inline-flex items-center gap-2 bg-l-accent-dim/10 border border-l-accent-dim/30 text-l-accent-dim text-xs font-black px-4 py-1.5 rounded-full mb-4">
               {BASE_CITY} והסביבה
             </span>
             <h1 className="text-4xl sm:text-5xl font-black mb-4">{BRAND_NAME}</h1>

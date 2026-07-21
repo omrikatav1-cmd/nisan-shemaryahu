@@ -68,6 +68,12 @@ export default function RootLayout({
         )}
       </head>
       <body className="min-h-dvh flex flex-col antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[100] focus:bg-l-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:font-bold"
+        >
+          דילוג לתוכן הראשי
+        </a>
         {GTM_ID && (
           <noscript>
             <iframe

@@ -12,7 +12,7 @@ export default async function LeadsPage() {
   const leads = (data as Lead[] | null) ?? [];
 
   return (
-    <main dir="rtl" style={{ padding: "2rem", fontFamily: "sans-serif", maxWidth: 1100, margin: "0 auto" }}>
+    <main id="main-content" dir="rtl" style={{ padding: "2rem", fontFamily: "sans-serif", maxWidth: 1100, margin: "0 auto" }}>
       <h1 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1rem" }}>לידים — ניסן שמריהו</h1>
 
       {error && <p style={{ color: "#c23b3b" }}>שגיאה בטעינת הלידים: {error.message}</p>}

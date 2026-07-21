@@ -9,7 +9,7 @@ const FUNNELS = [
 
 export default function NotFound() {
   return (
-    <main dir="rtl" className="light-page flex flex-col items-center justify-center text-center px-6 py-24">
+    <main id="main-content" dir="rtl" className="light-page flex flex-col items-center justify-center text-center px-6 py-24">
       <p className="text-l-primary font-black text-6xl sm:text-7xl mb-3">404</p>
       <h1 className="text-2xl sm:text-3xl font-black mb-3">הדף לא נמצא</h1>
       <p className="text-l-text-2 max-w-md mb-8">

@@ -35,7 +35,7 @@ export default function LightServicePage({ service }: { service: ServiceConfig }
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       ))}
       <LightNavbar service={service} />
-      <main className="pb-16 sm:pb-0">
+      <main id="main-content" className="pb-16 sm:pb-0">
         <ServiceHero service={service} />
         <LightTrustBar items={service.trustItems} />
         <LightServices items={service.services} offer={service.offer} />
