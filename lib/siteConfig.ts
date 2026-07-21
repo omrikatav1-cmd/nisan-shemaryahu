@@ -1,6 +1,8 @@
 // Single source of truth for business facts (NAP, hours, service area).
 // Keep in sync with docs/nisan-full-brief.html §01/§03 if these ever change.
 
+import { CITIES } from "@/lib/cities";
+
 export const BRAND_NAME = "ניסן שמריהו";
 
 // Single source of truth for the canonical site URL. Change here ONLY when the
@@ -24,19 +26,10 @@ export const BASE_CITY = "אור יהודה";
 export const CONTENT_LAST_UPDATED = "20 ביולי 2026";
 
 // 15km air-radius from Or Yehuda, per brief §2.1. Explicitly excludes Tel Aviv (§2.2).
-export const SERVICE_AREA_CITIES = [
-  "אור יהודה",
-  "יהוד",
-  "קרית אונו",
-  "סביון",
-  "חמד",
-  "מזור",
-  "יגל",
-  "לוד",
-  "פתח תקווה",
-  "ראשון לציון",
-  "חולון",
-];
+// Derived from lib/cities.ts's CITIES so this list can never drift from the
+// cities that actually have a landing page — it used to be a separate
+// hand-maintained array that named 3 cities with no page and omitted 4 that had one.
+export const SERVICE_AREA_CITIES = CITIES.map((c) => c.name);
 
 // No arrival-time or insurance claims anywhere on the site (Nisan/Omri,
 // 19.7.2026 — explicit, applies to all 3 funnels). Each service shows its
