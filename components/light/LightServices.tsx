@@ -28,7 +28,7 @@ export default function LightServices({ items, offer }: { items: ServiceItem[]; 
                 </div>
                 <h3 className="font-black text-lg mb-1.5">{item.title}</h3>
                 <p className="text-l-text-2 text-sm leading-relaxed">{item.description}</p>
-                {item.price && <p className="text-l-accent font-black text-sm mt-3">{item.price}</p>}
+                {item.price && <p className="text-l-accent-dim font-black text-sm mt-3">{item.price}</p>}
               </motion.div>
             );
           })}

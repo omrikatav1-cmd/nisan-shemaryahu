@@ -84,11 +84,11 @@ export function HeroSub({ children }: { children: React.ReactNode }) {
 
 export function HeroCTAButtons({ service, phoneDominant }: { service: ServiceConfig; phoneDominant?: boolean }) {
   const phoneClass = phoneDominant
-    ? "bg-l-accent hover:bg-l-accent-dim text-white shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
+    ? "bg-l-accent-dim hover:opacity-90 text-white shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
     : "bg-white hover:bg-white/90 text-l-primary-dim";
   const waClass = phoneDominant
     ? "bg-white/10 backdrop-blur border border-white/25 hover:border-white/50 text-white"
-    : "bg-l-accent hover:bg-l-accent-dim text-white";
+    : "bg-l-accent-dim hover:opacity-90 text-white";
 
   return (
     <motion.div

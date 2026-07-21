@@ -24,7 +24,7 @@ export default function LightNavbar({ service }: { service: ServiceConfig }) {
           <Image src={SERVICE_LOGO[service.key]} alt="" width={38} height={38} className="rounded-full flex-shrink-0" priority />
           <span className="flex flex-col leading-tight">
             <span className="font-black text-l-text text-lg" style={{ fontFamily: "var(--font-heading)" }}>{BRAND_NAME}</span>
-            <span className="text-[10px] text-l-accent tracking-[0.15em] font-bold">{service.navLabel} · אור יהודה והסביבה</span>
+            <span className="text-[10px] text-l-accent-dim tracking-[0.15em] font-bold">{service.navLabel} · אור יהודה והסביבה</span>
           </span>
         </Link>
 
@@ -41,7 +41,7 @@ export default function LightNavbar({ service }: { service: ServiceConfig }) {
             <Phone size={14} /><span dir="ltr">{OWNER_PHONE_DISPLAY}</span>
           </a>
           <a href={getSosWhatsAppUrl(service.whatsappIssueLabel)} target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-l-accent hover:bg-l-accent-dim text-white text-sm font-black px-4 py-2 rounded-xl transition-colors">
+            className="flex items-center gap-2 bg-l-accent-dim hover:opacity-90 text-white text-sm font-black px-4 py-2 rounded-xl transition-colors">
             <MessageCircle size={15} /> וואטסאפ
           </a>
         </div>
@@ -66,7 +66,7 @@ export default function LightNavbar({ service }: { service: ServiceConfig }) {
                 <Phone size={14} /><span dir="ltr">{OWNER_PHONE_DISPLAY}</span>
               </a>
               <a href={getSosWhatsAppUrl(service.whatsappIssueLabel)} target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 bg-l-accent text-white text-sm font-black px-4 py-3 rounded-xl">
+                className="flex items-center justify-center gap-2 bg-l-accent-dim text-white text-sm font-black px-4 py-3 rounded-xl">
                 <MessageCircle size={15} /> וואטסאפ עכשיו
               </a>
             </div>

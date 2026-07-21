@@ -14,7 +14,7 @@ export default function LightStickyCTA({ service }: { service: ServiceConfig }) 
         <Phone size={16} /> <span dir="ltr">{OWNER_PHONE_DISPLAY}</span>
       </a>
       <a href={getSosWhatsAppUrl(service.whatsappIssueLabel)} target="_blank" rel="noopener noreferrer"
-        className="flex-1 flex items-center justify-center gap-2 py-3.5 font-black text-sm text-white bg-l-accent">
+        className="flex-1 flex items-center justify-center gap-2 py-3.5 font-black text-sm text-white bg-l-accent-dim">
         <MessageCircle size={16} /> וואטסאפ
       </a>
     </div>

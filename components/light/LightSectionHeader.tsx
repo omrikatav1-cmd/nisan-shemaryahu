@@ -29,7 +29,7 @@ export default function LightSectionHeader({
     <div className={center ? "text-center mb-10" : "text-right mb-10 max-w-xl mr-0 ml-auto"}>
       <motion.span
         {...reveal(0)}
-        className="inline-flex items-center gap-2 bg-l-accent/10 border border-l-accent/30 text-l-accent text-xs font-black px-4 py-1.5 rounded-full mb-3"
+        className="inline-flex items-center gap-2 bg-l-accent-dim/10 border border-l-accent-dim/30 text-l-accent-dim text-xs font-black px-4 py-1.5 rounded-full mb-3"
       >
         {eyebrow}
       </motion.span>
