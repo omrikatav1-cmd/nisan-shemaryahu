@@ -3,6 +3,10 @@
 
 export const BRAND_NAME = "ניסן שמריהו";
 
+// Single source of truth for the canonical site URL. Change here ONLY when the
+// real domain is bought — schema.ts, sitemap.ts, robots.ts, layout.tsx all import it.
+export const SITE_URL = "https://nisan-shemaryahu.vercel.app"; // TODO: real domain (brief §11.1)
+
 // TODO: replace with the business WhatsApp number once opened (brief §1.4) —
 // campaigns should point at that number, not the personal one.
 export const OWNER_PHONE_INTL = "972509911241"; // 050-9911241

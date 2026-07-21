@@ -1,8 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SERVICE_LIST } from "@/lib/serviceContent";
 import { CITIES, cityUrl } from "@/lib/cities";
-
-const SITE_URL = "https://nisan-shemaryahu.vercel.app"; // TODO: swap to the real domain once purchased (brief §11.1)
+import { SITE_URL } from "@/lib/siteConfig";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [

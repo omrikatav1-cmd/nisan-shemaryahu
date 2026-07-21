@@ -1,10 +1,8 @@
-import { BRAND_NAME, BUSINESS_ADDRESS, OWNER_PHONE_INTL, SERVICE_AREA_CITIES } from "@/lib/siteConfig";
+import { BRAND_NAME, BUSINESS_ADDRESS, OWNER_PHONE_INTL, SERVICE_AREA_CITIES, SITE_URL } from "@/lib/siteConfig";
 import type { ServiceConfig, FaqItem } from "@/lib/serviceContent";
 import { cityArrivalFaq } from "@/lib/serviceContent";
 import type { City } from "@/lib/cities";
 import { cityUrl } from "@/lib/cities";
-
-const SITE_URL = "https://nisan-shemaryahu.vercel.app"; // TODO: swap to the real domain once purchased (brief §11.1)
 
 function localBusinessSchema(service: ServiceConfig, pageUrl: string, areaCity?: City) {
   const schema: Record<string, unknown> = {
