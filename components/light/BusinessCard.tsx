@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Phone,
@@ -250,9 +251,14 @@ export default function BusinessCard() {
           </div>
         </motion.section>
 
-        <p className="text-center text-l-text-muted text-xs mt-6">
-          כרטיס ביקור דיגיטלי · {BRAND_NAME}
-        </p>
+        {/* Accessibility statement link is mandatory on every page under IS 5568 —
+            the card doesn't use LightFooter, so it carries its own. */}
+        <footer className="text-center text-l-text-muted text-xs mt-6">
+          <p className="mb-2">כרטיס ביקור דיגיטלי · {BRAND_NAME}</p>
+          <Link href="/accessibility" className="underline hover:text-l-primary">הצהרת נגישות</Link>
+          <span aria-hidden="true"> · </span>
+          <Link href="/privacy" className="underline hover:text-l-primary">מדיניות פרטיות</Link>
+        </footer>
       </div>
 
       {/* Sticky mobile action bar — matches the site's funnel pattern (a11y widget floats above it) */}
