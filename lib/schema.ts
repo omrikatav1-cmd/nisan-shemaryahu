@@ -20,7 +20,6 @@ function localBusinessSchema(service: ServiceConfig, pageUrl: string, areaCity?:
     areaServed: areaCity
       ? { "@type": "City", name: areaCity.name }
       : SERVICE_AREA_CITIES.map((c) => ({ "@type": "City", name: c })),
-    priceRange: "$$",
   };
   // AggregateRating only when real reviews exist — never fabricate rating data.
   if (service.reviews.length > 0) {
@@ -79,7 +78,6 @@ export function buildHomeSchema() {
       addressCountry: "IL",
     },
     areaServed: SERVICE_AREA_CITIES.map((c) => ({ "@type": "City", name: c })),
-    priceRange: "$$",
   };
 }
 

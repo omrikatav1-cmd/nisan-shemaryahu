@@ -6,15 +6,15 @@ import type { ServiceKey } from "@/lib/serviceContent";
 // subtree, so every `text-l-primary` / `bg-l-accent` utility recolors itself.
 // Result: three funnels that look genuinely different, not one recolored template.
 //
-// - locksmith: steel + alarm red — emergency/security feel
-// - plumbing:  deep teal + aqua   — water/reliability feel
-// - handyman:  navy + warm amber  — craft/warmth feel
+// - locksmith: steel + brass gold  — keys/locks/vault, security without alarm-red
+// - plumbing:  deep teal + aqua    — water/reliability feel
+// - handyman:  navy + warm amber   — craft/warmth feel
 export const SERVICE_THEME: Record<ServiceKey, CSSProperties> = {
   locksmith: {
     ["--color-l-primary" as string]: "#1F2D3D",
     ["--color-l-primary-dim" as string]: "#111A24",
-    ["--color-l-accent" as string]: "#C0392B",
-    ["--color-l-accent-dim" as string]: "#992B20",
+    ["--color-l-accent" as string]: "#D4AF37",
+    ["--color-l-accent-dim" as string]: "#8A6B1A",
   },
   plumbing: {
     ["--color-l-primary" as string]: "#0E4C6B",

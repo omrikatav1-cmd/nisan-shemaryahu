@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ניסן שמריהו — צ'קליסט עלייה לאוויר (Go-Live)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --space:#020617; --surface:#0d1a2d;
+    --primary:#3B82F6; --primary-glow:rgba(59,130,246,.25);
+    --accent:#D4AF37; --accent-glow:rgba(212,175,55,.2);
+    --danger:#EF4444; --success:#22C55E; --warn:#F59E0B;
+    --text:#F1F5F9; --text-2:#CBD5E1; --text-muted:#8b98ac;
+    --border:rgba(255,255,255,.08); --border-bright:rgba(255,255,255,.16);
+    --font-heading:'Rubik',sans-serif; --font-body:'Assistant',sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  body{margin:0; background:var(--space); color:var(--text); font-family:var(--font-body); font-weight:300;
+    direction:rtl; -webkit-font-smoothing:antialiased; line-height:1.65;}
+  h1,h2,h3{font-family:var(--font-heading); font-weight:800; margin:0;}
+  .ltr{direction:ltr; unicode-bidi:isolate; display:inline-block;}
+  main{max-width:920px; margin:0 auto; padding:3rem 1.5rem 5rem;}
+  header{max-width:920px; margin:0 auto; padding:3rem 1.5rem 1.5rem;}
+  .eyebrow{display:inline-flex; font-size:.78rem; font-weight:700; color:var(--accent);
+    background:rgba(212,175,55,.08); border:1px solid rgba(212,175,55,.3); padding:.4rem 1rem;
+    border-radius:999px; margin-bottom:1.2rem;}
+  h1{font-size:clamp(1.9rem,4vw,2.6rem); margin-bottom:.6rem;}
+  .sub{color:var(--text-2); font-size:1.05rem; max-width:680px;}
+  section{margin-top:3rem;}
+  .sec-head{display:flex; align-items:center; gap:.8rem; margin-bottom:1.2rem;}
+  .sec-num{width:2.4rem; height:2.4rem; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-heading); font-weight:800; font-size:1.05rem; flex-shrink:0;}
+  section h2{font-size:1.5rem;}
+  .card{background:rgba(13,26,45,.55); border:1px solid var(--border); border-radius:1.1rem; padding:1.5rem; backdrop-filter:blur(14px);}
+  .card + .card{margin-top:1rem;}
+  .card-success{border-color:rgba(34,197,94,.28); box-shadow:0 8px 28px rgba(34,197,94,.12);}
+  .card-danger{border-color:rgba(239,68,68,.3); box-shadow:0 8px 28px rgba(239,68,68,.14);}
+  .card-primary{border-color:rgba(59,130,246,.25); box-shadow:0 8px 28px var(--primary-glow);}
+  .card-warn{border-color:rgba(245,158,11,.32); box-shadow:0 8px 28px rgba(245,158,11,.12);}
+  .card ul{margin:0; padding-inline-start:1.2rem; color:var(--text-2); font-size:.94rem;}
+  .card li{margin-bottom:.5rem;}
+  .task{display:flex; align-items:flex-start; gap:.7rem; padding:.7rem 0; border-top:1px solid var(--border);}
+  .task:first-child{border-top:none;}
+  .task input{width:1.15rem; height:1.15rem; accent-color:var(--danger); margin-top:.2rem; flex-shrink:0;}
+  .task input:checked{accent-color:var(--success);}
+  .task b{color:var(--text); display:block; margin-bottom:.15rem;}
+  .task span{color:var(--text-2); font-size:.88rem;}
+  .badge{display:inline-block; font-size:.72rem; font-weight:700; padding:.25rem .65rem; border-radius:999px; margin-inline-start:.4rem;}
+  .b-nisan{color:var(--warn); background:rgba(245,158,11,.1); border:1px solid rgba(245,158,11,.3);}
+  .b-omri{color:var(--primary); background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.3);}
+  .b-claude{color:var(--success); background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.3);}
+  a.link{color:var(--accent); text-decoration:underline;}
+  code, .code{background:rgba(255,255,255,.06); padding:.1rem .4rem; border-radius:5px; font-size:.82rem; direction:ltr; unicode-bidi:isolate; display:inline-block;}
+  table{width:100%; border-collapse:collapse; font-size:.9rem;}
+  th,td{padding:.6rem .8rem; text-align:right; border-bottom:1px solid var(--border); color:var(--text-2);}
+  th{color:var(--text); font-family:var(--font-heading); font-weight:700; font-size:.82rem;}
+  .flow{display:grid; gap:.7rem;}
+  .flow-step{display:flex; gap:.8rem; align-items:flex-start; background:rgba(13,26,45,.55); border:1px solid var(--border); border-radius:.9rem; padding:.9rem 1.1rem;}
+  .flow-step .n{display:inline-flex; width:1.7rem; height:1.7rem; border-radius:50%; background:rgba(212,175,55,.15); color:var(--accent);
+    font-family:var(--font-heading); font-weight:800; font-size:.85rem; align-items:center; justify-content:center; flex-shrink:0; margin-top:.1rem;}
+  .flow-step b{color:var(--text);}
+  .flow-step p{margin:.2rem 0 0; color:var(--text-2); font-size:.87rem;}
+  footer{max-width:920px; margin:0 auto; padding:2rem 1.5rem 3rem; color:var(--text-muted); font-size:.85rem; text-align:center; border-top:1px solid var(--border);}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">תוכנית Go-Live · עומרי כתב · 23.7.2026</span>
+  <h1>ניסן שמריהו — צ'קליסט עלייה לאוויר</h1>
+  <p class="sub">שלושת האתרים חיים וקוד-complete. מה שחוסם פרודקשן ו-קמפיינים זה לא קוד — אלא חשבונות חיצוניים על שם ניסן, דומיין וחיווט. כל משימה כאן מסומנת מי מבצע: <span class="badge b-nisan">ניסן</span> <span class="badge b-omri">עומרי</span> <span class="badge b-claude">קלוד</span>. מדריך הצעדים המפורט לכל חשבון: <span class="ltr">docs/campaign-launch-guide.html</span>.</p>
+</header>
+
+<main>
+
+  <section>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(212,175,55,.15); color:var(--accent);">0</div><h2>ההחלטה שנסגרה — דומיין אחד + 3 סאבים</h2></div>
+    <div class="card card-primary">
+      <table>
+        <tr><th>כתובת</th><th>משפך</th><th>פרויקט Vercel</th></tr>
+        <tr><td><span class="ltr">nisan-shemaryahu.co.il</span></td><td>מנעולן (הראשי)</td><td><span class="ltr">nisan-shemaryahu</span></td></tr>
+        <tr><td><span class="ltr">instalator.nisan-shemaryahu.co.il</span></td><td>אינסטלטור</td><td><span class="ltr">nisan-plumbing</span></td></tr>
+        <tr><td><span class="ltr">handyman.nisan-shemaryahu.co.il</span></td><td>הנדימן</td><td><span class="ltr">nisan-handyman</span></td></tr>
+      </table>
+      <ul style="margin-top:1rem;">
+        <li><b>למה כך:</b> כל המוניטין (ביקורות גוגל, GBP, אימייל עסקי) נצבר על שם אחד — וזה בדיוק הבידול של ניסן מול תבנית האגרגטורים/₪99 (ר' <span class="ltr">docs/competitor-intelligence.html</span>). רכישה אחת, ~80–100 ₪/שנה, DNS אחד.</li>
+        <li><b>Root = מנעולן</b> — ה-wedge החזק ביותר (מוסמך + אישור משטרה), והאתר שכרטיס ה-GBP יקשר אליו.</li>
+        <li><b>אפס שינויי קוד:</b> <span class="ltr">SITE_URL</span> ריכוזי ב-<span class="ltr">lib/siteConfig.ts</span> עם override מ-env — החלפת דומיין היא משתנה סביבה + redeploy בלבד.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(245,158,11,.15); color:var(--warn);">1</div><h2>ניסן — בדפדפן שלו, על המייל שלו <span class="badge b-nisan">ניסן</span></h2></div>
+    <div class="card card-warn">
+      <div class="task"><input type="checkbox"><div><b>רכישת הדומיין <span class="ltr">nisan-shemaryahu.co.il</span></b><span>אצל רשם מוסמך של איגוד האינטרנט הישראלי (למשל LiveDNS או Domain The Net). ~80–100 ₪ לשנה. הדומיין נרשם על שם ניסן, בחשבון שלו — הנכס שלו.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>פתיחת חשבון Supabase — חינם, לא קונים כלום</b><span>ב-<span class="ltr">supabase.com</span> עם המייל של ניסן → פרויקט חדש (Region: פרנקפורט — הקרוב לישראל) → SQL Editor → מדביקים את כל תוכן <span class="ltr">docs/supabase-setup.sql</span> → Run. זה יוצר את טבלת הלידים + אבטחת RLS. ה-Free tier מכסה טבלת לידים בקלות רבה.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>העברת מפתחות Supabase לעומרי — לא בצ'אט</b><span>Settings → API: להעתיק Project URL + anon key + service_role key ולשלוח לעומרי בערוץ פרטי. עומרי מזין אותם ישירות ל-Vercel (פקודות מוכנות בסעיף 2) — המפתחות לא עוברים דרך קלוד.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>וואטסאפ עסקי</b><span>להוריד WhatsApp Business ולהחליט: אותו מספר (הפרופיל האישי הופך לעסקי) או SIM/מספר חדש. זה המספר שכל ה-CTA-ים באתר יפנו אליו — כרגע הם על המספר האישי.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>חשבון Google Ads על שם ניסן + אמצעי תשלום</b><span>עם חשבון גוגל של העסק. את ה-GA4/GTM פותח ניסן או אדיר — מה שצריך בסוף זה מזהה קונטיינר <span class="ltr">GTM-XXXXXXX</span> אחד. הצעדים המלאים: <span class="ltr">docs/campaign-launch-guide.html</span>.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>כרטיס Google Business Profile</b><span>עסק מבוסס-אזור-שירות (בלי כתובת גלויה): קטגוריה ראשית "מנעולן", אזור שירות אור יהודה + ~15 ק"מ, טלפון = המספר העסקי, אתר = <span class="ltr">nisan-shemaryahu.co.il</span>. האימות של גוגל (וידאו/גלויה) לוקח כמה ימים — לפתוח מוקדם.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>תיאום יום צילום עם ללב מדיה</b><span>תמונות פנים, רכב, ציוד — מחליפות את תמונות הסטוק ב-hero ומזינות OG ממותג. הפריט התוכני האחרון שנשאר.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>רשימת 10–15 לקוחות עבר (שם + טלפון)</b><span>לבקשות ביקורת גוגל אמיתיות (Review Engine מנסח אישית). סקשן הביקורות באתר נשאר מוסתר עד שיש אמיתיות — לעולם לא מפוברקות.</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(59,130,246,.15); color:var(--primary);">2</div><h2>עומרי — קליקים שרק הוא יכול <span class="badge b-omri">עומרי</span></h2></div>
+    <div class="card card-primary">
+      <div class="task"><input type="checkbox"><div><b>אישור Vercel↔GitHub App (קליק אחד)</b><span>Vercel Dashboard → Project → Settings → Git, או מסך התקנת האפליקציה בגיטהאב, עבור <span class="ltr">omrikatav1-cmd/nisan-shemaryahu</span>. משחרר auto-deploy ל-plumbing/handyman (כרגע redeploy ידני בלבד; <span class="ltr">vercel git connect</span> מחזיר 400 עד האישור).</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>חיבור הדומיינים ב-Vercel</b><span>בכל פרויקט: Settings → Domains → Add לפי טבלת סעיף 0 (root + www למנעולן, סאב לכל אחד מהשניים) → מגדירים אצל הרשם את רשומות ה-DNS בדיוק כפי ש-Vercel מציג. SSL אוטומטי.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>הזנת מפתחות Supabase ל-Vercel (בלי לעבור דרך צ'אט)</b><span>מתוך ה-worktree, פעם אחת לכל אחד משלושת הפרויקטים: <code>npx vercel env add NEXT_PUBLIC_SUPABASE_URL production</code> וכן <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code> + <code>SUPABASE_SERVICE_ROLE_KEY</code> (הערכים מודבקים בטרמינל כשהפקודה מבקשת). לחלופין: לתת לקלוד אישור מפורש והוא מריץ, עם הערכים מקובץ מקומי.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>אישור לקלוד: env של דומיין + GTM ו-redeploy</b><span>כתיבת env vars ב-Vercel חסומה לקלוד בלי אישור מפורש (gotcha מתועד). ברגע שיש דומיין + <span class="ltr">GTM-XXXXXXX</span> — אישור אחד וקלוד סוגר את סעיף 3 כולו.</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(34,197,94,.15); color:var(--success);">3</div><h2>קלוד — אוטומטי ברגע שהקלטים קיימים <span class="badge b-claude">קלוד</span></h2></div>
+    <div class="card card-success">
+      <div class="task"><input type="checkbox"><div><b>עדכון <span class="ltr">SITE_URL</span> פר-פרויקט + <span class="ltr">NEXT_PUBLIC_GTM_ID</span></b><span>שלושה ערכי <span class="ltr">SITE_URL</span> לפי טבלת סעיף 0, ומזהה ה-GTM על שלושת הפרויקטים. <span class="ltr">NEXT_PUBLIC_*</span> נצרב בזמן build — מחייב redeploy.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>Redeploy לשלושת האתרים</b><span><span class="ltr">npx vercel deploy --prod --yes</span> מה-worktree למנעולן; plumbing/handyman דרך clone+link כמתועד ב-<span class="ltr">memory.md</span> — או auto-deploy אם ה-GitHub App אושר.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>Google Search Console — Domain property אחת</b><span>אימות TXT אחד ב-DNS מכסה את ה-root וכל הסאבים. הגשת שלושת ה-sitemaps.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>בדיקת קצה-לקצה (סעיף 5)</b><span>טופס → Supabase → דשבורד; GTM Preview; sitemap/robots/OG על הדומיין החדש.</span></div></div>
+      <div class="task"><input type="checkbox"><div><b>עדכון 3 קבועי הטלפון כשהוואטסאפ העסקי נפתח</b><span><span class="ltr">OWNER_PHONE_INTL / OWNER_PHONE_DISPLAY / OWNER_PHONE_HREF</span> ב-<span class="ltr">lib/siteConfig.ts</span> — שינוי קוד יחיד בכל התוכנית.</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(239,68,68,.15); color:var(--danger);">4</div><h2>שער הקמפיינים — מה חוסם עליית מדיה</h2></div>
+    <div class="card card-danger">
+      <ul>
+        <li><b>ארבעה תנאים, כולם חובה:</b> דומיין חי ✕ טופס שומר בפועל ל-Supabase של ניסן ✕ GTM יורה (<span class="ltr">lead_form_submit</span> + קליקי טלפון/וואטסאפ) ✕ מספר וואטסאפ עסקי באתר.</li>
+        <li>רק אז בונים קמפיינים — הקופי, מילות המפתח והמבנה כבר מוכנים: <span class="ltr">docs/campaign-packages.md</span> + <span class="ltr">docs/google-ads-market-and-abc-plan.md</span>. תקציב מדיה מתוכנן ~2,500 ₪/חודש.</li>
+        <li><b>Search בלבד</b> — LSA (Local Services Ads) לא זמין בישראל (נבדק ותועד).</li>
+        <li>תזכורות ציות שחלות גם על המודעות: אין הבטחות זמן הגעה, אין "ביטוח", אין "מוסמך" ליד אינסטלציה עד שהתעודה מגיעה.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(212,175,55,.15); color:var(--accent);">5</div><h2>תסריט לסשן לייב — הסדר המומלץ עכשיו</h2></div>
+    <div class="flow">
+      <div class="flow-step"><span class="n">1</span><div><b>במקביל, 10 דקות:</b><p>ניסן קונה דומיין + פותח Supabase ומריץ את ה-SQL · עומרי מאשר את ה-GitHub App.</p></div></div>
+      <div class="flow-step"><span class="n">2</span><div><b>עומרי מחבר דומיינים + מזין מפתחות Supabase</b><p>Domains בשלושת הפרויקטים, DNS אצל הרשם, ופקודות ה-env מסעיף 2. DNS מתפשט תוך דקות עד שעות.</p></div></div>
+      <div class="flow-step"><span class="n">3</span><div><b>קלוד מחווט ופורס</b><p><span class="ltr">SITE_URL</span> ×3 → redeploy ×3 → בדיקת טופס מקצה לקצה מול ה-Supabase של ניסן.</p></div></div>
+      <div class="flow-step"><span class="n">4</span><div><b>ניסן פותח וואטסאפ עסקי + GBP + Google Ads</b><p>אפשר גם אחרי הסשן — אבל האימות של GBP לוקח ימים, אז כמה שיותר מוקדם. כשמגיע <span class="ltr">GTM-XXXXXXX</span> מאדיר, קלוד מזין ופורס שוב.</p></div></div>
+      <div class="flow-step"><span class="n">5</span><div><b>Search Console + תיאום צילומים + רשימת לקוחות לביקורות</b><p>קלוד מגיש sitemaps; ניסן סוגר תאריך עם ללב מדיה ומעביר 10–15 אנשי קשר.</p></div></div>
+      <div class="flow-step"><span class="n">6</span><div><b>כשכל 4 תנאי השער ירוקים → בניית הקמפיינים</b><p>לפי החבילות המוכנות. מרגע זה הכול מדיד: ליד = שורה ב-Supabase + אירוע ב-GTM.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(34,197,94,.15); color:var(--success);">✓</div><h2>אימות סופי לפני הכרזת "באוויר"</h2></div>
+    <div class="card">
+      <ul>
+        <li>שלוש הכתובות החדשות עונות 200 עם הכותרת הנכונה + SSL תקין; כתובות ה-vercel.app ממשיכות לעבוד.</li>
+        <li>שליחת ליד בדיקה בטופס → שורה נקלטת בטבלה ב-Supabase של ניסן → מופיעה בדשבורד <span class="ltr">/leads</span>.</li>
+        <li>GTM Preview: <span class="ltr">lead_form_submit</span> נורה עם <span class="ltr">lead_service + source_page</span>; קליקים על <span class="ltr">tel: / wa.me</span> נתפסים.</li>
+        <li><span class="ltr">sitemap.xml / robots.txt</span> / סכמה / OG מציגים את הדומיין החדש, לא vercel.app.</li>
+        <li>Search Console מזהה את ה-Domain property ואת שלושת ה-sitemaps.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  נבנה 23.7.2026 · מסמכי עומק: <span class="ltr">campaign-launch-guide.html</span> · <span class="ltr">campaign-packages.md</span> · <span class="ltr">google-ads-market-and-abc-plan.md</span> · <span class="ltr">competitor-intelligence.html</span>
+</footer>
+
+</body>
+</html>

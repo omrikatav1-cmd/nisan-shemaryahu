@@ -4,8 +4,14 @@ import { A11Y_BOOTSTRAP_SCRIPT } from "@/lib/a11y-prefs/core";
 import MotionA11yProvider from "@/components/accessibility/MotionA11yProvider";
 import AccessibilityWidget from "@/components/accessibility/AccessibilityWidget";
 import { GTM_ID } from "@/lib/analytics";
-import { SITE_URL } from "@/lib/siteConfig";
+import { SITE_URL, SITE_SERVICE } from "@/lib/siteConfig";
+import { SERVICE_PHOTO } from "@/lib/theme";
 import "./globals.css";
+
+// Each dedicated deployment shares its own trade's hero as the social card;
+// the combined hub (local dev) falls back to the locksmith hero. Swap all to a
+// branded card / Nisan's photo after the shoot.
+const OG_IMAGE = SERVICE_PHOTO[SITE_SERVICE ?? "locksmith"];
 
 const rubik = Rubik({
   subsets: ["hebrew", "latin"],
@@ -25,23 +31,22 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "\u05E0\u05D9\u05E1\u05DF \u05E9\u05DE\u05E8\u05D9\u05D4\u05D5 \u2014 \u05DE\u05E0\u05E2\u05D5\u05DC\u05DF, \u05D0\u05D9\u05E0\u05E1\u05D8\u05DC\u05D8\u05D5\u05E8 \u05D5\u05D4\u05E0\u05D3\u05D9\u05DE\u05DF \u05D1\u05D0\u05D5\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4 \u05D5\u05D4\u05E1\u05D1\u05D9\u05D1\u05D4",
   description:
-    "\u05D1\u05E2\u05DC \u05DE\u05E7\u05E6\u05D5\u05E2 \u05D0\u05D7\u05D3 \u05DC\u05E9\u05DC\u05D5\u05E9\u05D4 \u05EA\u05D7\u05D5\u05DE\u05D9\u05DD: \u05DE\u05E0\u05E2\u05D5\u05DC\u05E0\u05D5\u05EA, \u05D0\u05D9\u05E0\u05E1\u05D8\u05DC\u05E6\u05D9\u05D4 \u05D5\u05D4\u05E0\u05D3\u05D9\u05DE\u05DF. \u05D0\u05D5\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4, \u05D9\u05D4\u05D5\u05D3, \u05E7\u05E8\u05D9\u05EA \u05D0\u05D5\u05E0\u05D5 \u05D5\u05E8\u05D0\u05E9\u05D5\u05DF \u05DC\u05E6\u05D9\u05D5\u05DF. \u05DE\u05D7\u05D9\u05E8 \u05D1\u05E8\u05D5\u05E8 \u05DE\u05E8\u05D0\u05E9. 050-9911241",
+    "\u05D1\u05E2\u05DC \u05DE\u05E7\u05E6\u05D5\u05E2 \u05D0\u05D7\u05D3 \u05DC\u05E9\u05DC\u05D5\u05E9\u05D4 \u05EA\u05D7\u05D5\u05DE\u05D9\u05DD: \u05DE\u05E0\u05E2\u05D5\u05DC\u05E0\u05D5\u05EA, \u05D0\u05D9\u05E0\u05E1\u05D8\u05DC\u05E6\u05D9\u05D4 \u05D5\u05D4\u05E0\u05D3\u05D9\u05DE\u05DF. \u05D0\u05D5\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4, \u05D9\u05D4\u05D5\u05D3, \u05E7\u05E8\u05D9\u05EA \u05D0\u05D5\u05E0\u05D5 \u05D5\u05E8\u05D0\u05E9\u05D5\u05DF \u05DC\u05E6\u05D9\u05D5\u05DF. \u05E2\u05D1\u05D5\u05D3\u05D4 \u05DE\u05E1\u05D5\u05D3\u05E8\u05EA \u05D5\u05E0\u05E7\u05D9\u05D9\u05D4. 050-9911241",
   keywords: ["\u05DE\u05E0\u05E2\u05D5\u05DC\u05DF \u05D0\u05D5\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4", "\u05D0\u05D9\u05E0\u05E1\u05D8\u05DC\u05D8\u05D5\u05E8 \u05D0\u05D5\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4", "\u05D4\u05E0\u05D3\u05D9\u05DE\u05DF \u05D0\u05D5\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4", "\u05E0\u05D9\u05E1\u05DF \u05E9\u05DE\u05E8\u05D9\u05D4\u05D5"],
   openGraph: {
     title: "\u05E0\u05D9\u05E1\u05DF \u05E9\u05DE\u05E8\u05D9\u05D4\u05D5 \u2014 \u05DE\u05E0\u05E2\u05D5\u05DC\u05DF, \u05D0\u05D9\u05E0\u05E1\u05D8\u05DC\u05D8\u05D5\u05E8 \u05D5\u05D4\u05E0\u05D3\u05D9\u05DE\u05DF",
-    description: "\u05D1\u05E2\u05DC \u05DE\u05E7\u05E6\u05D5\u05E2 \u05D0\u05D7\u05D3 \u05DC\u05E9\u05DC\u05D5\u05E9\u05D4 \u05EA\u05D7\u05D5\u05DE\u05D9\u05DD, \u05D1\u05D0\u05D5\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4 \u05D5\u05D4\u05E1\u05D1\u05D9\u05D1\u05D4. \u05DE\u05D7\u05D9\u05E8 \u05D1\u05E8\u05D5\u05E8 \u05DE\u05E8\u05D0\u05E9.",
+    description: "\u05D1\u05E2\u05DC \u05DE\u05E7\u05E6\u05D5\u05E2 \u05D0\u05D7\u05D3 \u05DC\u05E9\u05DC\u05D5\u05E9\u05D4 \u05EA\u05D7\u05D5\u05DE\u05D9\u05DD, \u05D1\u05D0\u05D5\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4 \u05D5\u05D4\u05E1\u05D1\u05D9\u05D1\u05D4. \u05E2\u05D1\u05D5\u05D3\u05D4 \u05DE\u05E1\u05D5\u05D3\u05E8\u05EA \u05D5\u05E0\u05E7\u05D9\u05D9\u05D4.",
     locale: "he_IL",
     type: "website",
     url: SITE_URL,
     siteName: "ניסן שמריהו",
-    // Interim social-share image (stock). Swap to a branded card / Nisan's photo after the shoot.
-    images: [{ url: "/images/hero-locksmith.jpg", width: 1200, height: 630, alt: "ניסן שמריהו — מנעולן, אינסטלטור והנדימן" }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "ניסן שמריהו — מנעולן, אינסטלטור והנדימן" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "ניסן שמריהו — מנעולן, אינסטלטור והנדימן",
-    description: "בעל מקצוע אחד לשלושה תחומים, באור יהודה והסביבה. מחיר ברור מראש.",
-    images: ["/images/hero-locksmith.jpg"],
+    description: "בעל מקצוע אחד לשלושה תחומים, באור יהודה והסביבה. עבודה מסודרת ונקייה.",
+    images: [OG_IMAGE],
   },
 };
 

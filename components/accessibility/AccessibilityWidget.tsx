@@ -224,7 +224,7 @@ export default function AccessibilityWidget() {
                     a11yStore.reset();
                     setAnnouncement("כל ההגדרות אופסו");
                   }}
-                  className="inline-flex items-center gap-1.5 text-sm font-bold text-[#C23B3B]"
+                  className="inline-flex items-center gap-1.5 text-sm font-bold text-[#14395E]"
                 >
                   <RotateCcw size={16} aria-hidden />
                   איפוס הגדרות

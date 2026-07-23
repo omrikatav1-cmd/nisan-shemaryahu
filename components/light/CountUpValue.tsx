@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 
 // Purely numeric values ("1,000+", "11") animate 0→target on first view;
-// non-numeric values ("24/6", "250₪+") render as-is. Shared by LightStats
+// non-numeric values ("24/6", "מוסמך") render as-is. Shared by LightStats
 // (page-body counter section) and the hero mini stats row.
 export default function CountUpValue({ value, className }: { value: string; className?: string }) {
   const match = value.match(/^([\d,]+)(\+?)$/);

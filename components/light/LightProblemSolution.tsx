@@ -7,6 +7,12 @@ import type { ProblemSolution, ServiceKey } from "@/lib/serviceContent";
 import { SERVICE_PHOTO } from "@/lib/theme";
 import { OWNER_PHONE_DISPLAY, OWNER_PHONE_HREF } from "@/lib/siteConfig";
 
+const SERVICE_PHOTO_ALT: Record<ServiceKey, string> = {
+  locksmith: "ניסן שמריהו — מנעולן באור יהודה, בעבודה",
+  plumbing: "ניסן שמריהו — אינסטלטור באור יהודה, בעבודה",
+  handyman: "ניסן שמריהו — הנדימן באור יהודה, בעבודה",
+};
+
 export default function LightProblemSolution({ problem, serviceKey }: { problem: ProblemSolution; serviceKey: ServiceKey }) {
 
   return (
@@ -43,7 +49,7 @@ export default function LightProblemSolution({ problem, serviceKey }: { problem:
           className="relative aspect-[4/3] rounded-2xl overflow-hidden"
           style={{ boxShadow: "0 20px 50px rgba(20,57,94,0.28)" }}
         >
-          <Image src={SERVICE_PHOTO[serviceKey]} alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          <Image src={SERVICE_PHOTO[serviceKey]} alt={SERVICE_PHOTO_ALT[serviceKey]} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
         </motion.div>
       </div>
     </section>

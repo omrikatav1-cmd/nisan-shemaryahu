@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
 import { SERVICE_LIST } from "@/lib/serviceContent";
 import { CITIES, cityUrl } from "@/lib/cities";
-import { SITE_URL, SITE_SERVICE } from "@/lib/siteConfig";
+import { SITE_URL, SITE_SERVICE, SITE_LAST_MODIFIED } from "@/lib/siteConfig";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [
-    { url: SITE_URL, changeFrequency: "weekly", priority: 1 },
+    { url: SITE_URL, lastModified: SITE_LAST_MODIFIED, changeFrequency: "weekly", priority: 1 },
   ];
 
   // A deployment dedicated to one trade should only ever advertise its own
@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (!SITE_SERVICE) {
       entries.push({
         url: `${SITE_URL}/${service.slug}`,
+        lastModified: SITE_LAST_MODIFIED,
         changeFrequency: "weekly",
         priority: 0.9,
       });
@@ -27,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const city of CITIES) {
       entries.push({
         url: `${SITE_URL}${cityUrl(service.slug, city)}`,
+        lastModified: SITE_LAST_MODIFIED,
         changeFrequency: "monthly",
         priority: 0.7,
       });

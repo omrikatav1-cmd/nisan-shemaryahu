@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { OWNER_PHONE_DISPLAY, OWNER_PHONE_HREF, BRAND_NAME } from "@/lib/siteConfig";
+import { OWNER_PHONE_DISPLAY, OWNER_PHONE_HREF, BRAND_NAME, SITE_URL } from "@/lib/siteConfig";
 
 export const metadata: Metadata = {
   title: `מדיניות פרטיות | ${BRAND_NAME}`,
   description: "מדיניות הפרטיות של אתר ניסן שמריהו — אילו פרטים נאספים בטופס יצירת הקשר ולמה.",
+  alternates: { canonical: `${SITE_URL}/privacy` },
 };
 
 export default function PrivacyPage() {

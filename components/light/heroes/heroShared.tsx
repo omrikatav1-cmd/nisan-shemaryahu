@@ -16,18 +16,20 @@ export const HERO_EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 // contrast, content sits on top in white.
 export function HeroShell({
   image,
+  alt,
   gradient,
   glow,
   children,
 }: {
   image: string;
+  alt: string;
   gradient: string;
   glow: string;
   children: React.ReactNode;
 }) {
   return (
     <section className="hero-dark relative overflow-hidden noise">
-      <Image src={image} alt="" fill priority sizes="100vw" className="object-cover" />
+      <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
       <div className="absolute inset-0" style={{ background: gradient }} />
       <div
         className="absolute inset-0 opacity-70"

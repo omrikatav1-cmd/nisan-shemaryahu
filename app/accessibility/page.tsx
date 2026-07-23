@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { OWNER_PHONE_DISPLAY, OWNER_PHONE_HREF, BRAND_NAME } from "@/lib/siteConfig";
+import { OWNER_PHONE_DISPLAY, OWNER_PHONE_HREF, BRAND_NAME, SITE_URL } from "@/lib/siteConfig";
 
 export const metadata: Metadata = {
   title: `הצהרת נגישות | ${BRAND_NAME}`,
   description: "הצהרת נגישות לאתר ניסן שמריהו, בהתאם לתקן הישראלי 5568.",
+  alternates: { canonical: `${SITE_URL}/accessibility` },
 };
 
 export default function AccessibilityPage() {

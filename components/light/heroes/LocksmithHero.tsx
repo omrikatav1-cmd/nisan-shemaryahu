@@ -13,6 +13,7 @@ export default function LocksmithHero({ service, cityName }: { service: ServiceC
   return (
     <HeroShell
       image={SERVICE_PHOTO.locksmith}
+      alt={`ניסן שמריהו — מנעולן מוסמך${cityName ? ` ב${cityName}` : " באור יהודה והסביבה"}`}
       gradient="linear-gradient(135deg, rgba(31,45,61,0.88) 0%, rgba(17,26,36,0.92) 55%, rgba(10,20,32,0.95) 100%)"
       glow="radial-gradient(circle at 78% 18%, rgba(192,57,43,0.35), transparent 60%)"
     >

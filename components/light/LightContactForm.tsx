@@ -125,8 +125,11 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
-                  {/* Honeypot — real users never see or fill this field. */}
-                  <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+                  {/* Honeypot — real users never see or fill this field.
+                      sr-only (clip), NOT -left-[9999px]: in RTL a leftward offset
+                      is the scroll direction and stretched every page to ~11,000px
+                      of horizontal scroll. */}
+                  <div aria-hidden="true" className="sr-only">
                     <label htmlFor="lf-website">אתר</label>
                     <input
                       id="lf-website" name="website" type="text" tabIndex={-1} autoComplete="off"
@@ -135,7 +138,7 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="lf-name" className="text-sm font-semibold">שם מלא <span className="text-l-danger">*</span></label>
+                    <label htmlFor="lf-name" className="text-sm font-semibold">שם מלא <span className="text-l-accent-dim">*</span></label>
                     <input
                       ref={nameRef} id="lf-name" type="text" autoComplete="name" disabled={formState === "loading"}
                       value={name} onChange={(e) => setName(e.target.value)} onBlur={() => handleBlur("name")}
@@ -145,7 +148,7 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="lf-phone" className="text-sm font-semibold">טלפון <span className="text-l-danger">*</span></label>
+                    <label htmlFor="lf-phone" className="text-sm font-semibold">טלפון <span className="text-l-accent-dim">*</span></label>
                     <input
                       id="lf-phone" type="tel" inputMode="tel" dir="ltr" disabled={formState === "loading"}
                       value={phone} onChange={(e) => /^[\d\s-]*$/.test(e.target.value) && setPhone(e.target.value)}
@@ -155,7 +158,7 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="lf-issue" className="text-sm font-semibold">מה צריך? <span className="text-l-danger">*</span></label>
+                    <label htmlFor="lf-issue" className="text-sm font-semibold">מה צריך? <span className="text-l-accent-dim">*</span></label>
                     <select
                       id="lf-issue" disabled={formState === "loading"} value={issue}
                       onChange={(e) => setIssue(e.target.value)} onBlur={() => handleBlur("issue")}
@@ -180,7 +183,7 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
                       <span>
                         קראתי ואני מאשר/ת את{" "}
                         <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline text-l-primary">מדיניות הפרטיות</a>
-                        <span className="text-l-danger"> *</span>
+                        <span className="text-l-accent-dim"> *</span>
                       </span>
                     </label>
                     {touched.consent && fieldErrors.consent && <p className="text-l-danger text-xs">{fieldErrors.consent}</p>}
