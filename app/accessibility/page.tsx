@@ -39,7 +39,7 @@ export default function AccessibilityPage() {
         טלפון: <a href={OWNER_PHONE_HREF} className="underline" dir="ltr">{OWNER_PHONE_DISPLAY}</a>
       </p>
 
-      <p className="mt-8 text-sm text-gray-500">תאריך עדכון ההצהרה: 19.7.2026</p>
+      <p className="mt-8 text-sm text-gray-500">תאריך עדכון ההצהרה: 24.7.2026</p>
     </main>
   );
 }
