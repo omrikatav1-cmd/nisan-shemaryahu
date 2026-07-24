@@ -2,8 +2,9 @@
 
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Send, AlertCircle, Loader2, Phone, MapPin } from "lucide-react";
+import { Send, AlertCircle, Loader2, Phone, MapPin, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 import AnimatedCheckmark from "@/components/ui/AnimatedCheckmark";
 import LightSectionHeader from "@/components/light/LightSectionHeader";
 import type { ServiceConfig } from "@/lib/serviceContent";
@@ -190,9 +191,22 @@ export default function LightContactForm({ service, city }: { service: ServiceCo
                   </div>
 
                   {formState === "error" && errorMsg && (
-                    <div className="flex items-center gap-2 bg-l-danger/8 border border-l-danger/25 rounded-[0.625rem] px-4 py-3">
-                      <AlertCircle size={16} className="text-l-danger flex-shrink-0" />
-                      <p className="text-l-danger text-sm">{errorMsg}</p>
+                    <div className="flex flex-col gap-3 bg-l-danger/8 border border-l-danger/25 rounded-[0.625rem] px-4 py-3">
+                      <div className="flex items-center gap-2">
+                        <AlertCircle size={16} className="text-l-danger flex-shrink-0" />
+                        <p className="text-l-danger text-sm">{errorMsg}</p>
+                      </div>
+                      {/* Fallback so a lead is never lost if the API is down — sends the
+                          details straight to Nisan's WhatsApp instead of a dead end. */}
+                      <a
+                        href={getWhatsAppUrl(name.trim(), issue.trim(), service.whatsappIssueLabel)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 bg-l-accent hover:bg-l-accent-dim text-white font-black px-5 py-3 rounded-[0.625rem] min-h-[48px] cta-glow-accent"
+                      >
+                        <MessageCircle size={18} />
+                        המשך בוואטסאפ עם ניסן
+                      </a>
                     </div>
                   )}
 
