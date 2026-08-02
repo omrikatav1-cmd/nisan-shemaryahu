@@ -1,0 +1,4 @@
+﻿Campaign,Campaign Type,Campaign Status,Budget,Budget Type,Bid Strategy Type,Networks,Languages,Location,Location Target Type,Ad Schedule,Campaign Start Date
+NS-SRCH-Locksmith,Search,Paused,28,Daily,Maximize clicks,Google search,Hebrew;English,אור יהודה;יהוד;קרית אונו;אזור;סביון;גני תקווה;לוד;פתח תקווה;ראשון לציון;חולון;בת ים;רמת גן,Presence,Sun-Fri 00:00-23:59,
+NS-SRCH-Plumbing,Search,Paused,28,Daily,Maximize clicks,Google search,Hebrew;English,אור יהודה;יהוד;קרית אונו;אזור;סביון;גני תקווה;לוד;פתח תקווה;ראשון לציון;חולון;בת ים;רמת גן,Presence,Sun-Fri 00:00-23:59,
+NS-SRCH-Handyman,Search,Paused,28,Daily,Maximize clicks,Google search,Hebrew;English,אור יהודה;יהוד;קרית אונו;אזור;סביון;גני תקווה;לוד;פתח תקווה;ראשון לציון;חולון;בת ים;רמת גן,Presence,Sun-Fri 00:00-23:59,

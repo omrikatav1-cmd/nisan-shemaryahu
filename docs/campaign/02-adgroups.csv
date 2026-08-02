@@ -1,0 +1,10 @@
+﻿Campaign,Ad Group,Status,Default max. CPC,Ad group type
+NS-SRCH-Locksmith,Core-Intent,Enabled,18,Standard
+NS-SRCH-Locksmith,Geo-Heartland,Enabled,18,Standard
+NS-SRCH-Locksmith,Geo-Extended,Enabled,18,Standard
+NS-SRCH-Plumbing,Core-Intent,Enabled,15,Standard
+NS-SRCH-Plumbing,Geo-Heartland,Enabled,15,Standard
+NS-SRCH-Plumbing,Geo-Extended,Enabled,15,Standard
+NS-SRCH-Handyman,Core-Intent,Enabled,10,Standard
+NS-SRCH-Handyman,Geo-Heartland,Enabled,10,Standard
+NS-SRCH-Handyman,Geo-Extended,Enabled,10,Standard
