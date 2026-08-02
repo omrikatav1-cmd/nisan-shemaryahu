@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ניסן שמריהו — מדריך העלאת הקמפיין לאוויר</title>
+<style>
+  :root{
+    --bg:#0f1419; --surface:#1a2129; --surface-2:#212a34; --border:#2c3742;
+    --text:#eef2f6; --text-2:#b7c2cd; --muted:#7d8b98;
+    --brand:#2f9e6f; --brand-dim:#247a56; --accent:#e8a33d; --danger:#e5604d;
+    --good:#3fb680; --print:#111;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:'Assistant','Segoe UI',system-ui,sans-serif;
+    line-height:1.7;font-size:16px;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 100px}
+  header.hero{
+    background:radial-gradient(120% 140% at 85% -10%,rgba(47,158,111,.28),transparent 55%),
+               linear-gradient(160deg,#131a21,#0c1116);
+    border-bottom:1px solid var(--border);padding:56px 20px 44px;margin-bottom:8px;
+  }
+  header.hero .wrap{padding-bottom:0}
+  .kicker{color:var(--brand);font-weight:700;letter-spacing:.04em;font-size:.82rem;text-transform:uppercase;margin:0 0 10px}
+  h1{font-size:2.6rem;line-height:1.12;margin:0 0 12px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:var(--text-2);font-size:1.12rem;max-width:640px;margin:0}
+  .meta{margin-top:22px;display:flex;gap:8px;flex-wrap:wrap}
+  .tag{background:var(--surface-2);border:1px solid var(--border);color:var(--text-2);
+    font-size:.78rem;padding:5px 11px;border-radius:99px}
+  h2{font-size:1.5rem;margin:52px 0 4px;padding-top:18px;border-top:1px solid var(--border);font-weight:800;letter-spacing:-.01em}
+  h2 .n{color:var(--brand);font-variant-numeric:tabular-nums;margin-inline-end:10px}
+  h3{font-size:1.12rem;margin:26px 0 8px;font-weight:700;color:#fff}
+  p{margin:10px 0}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{background:#0b0f13;border:1px solid var(--border);border-radius:5px;padding:2px 6px;font-size:.86em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#ffd9a3;direction:ltr;display:inline-block}
+  pre{background:#0b0f13;border:1px solid var(--border);border-radius:10px;padding:16px;overflow-x:auto;
+    direction:ltr;text-align:left;font-size:.82rem;line-height:1.55}
+  pre code{background:none;border:none;padding:0;color:#d8e0e8}
+  ul,ol{margin:10px 0;padding-inline-start:24px}
+  li{margin:6px 0}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:16px 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:680px){.grid{grid-template-columns:1fr}h1{font-size:2rem}}
+  .callout{border-inline-start:3px solid var(--accent);background:linear-gradient(90deg,rgba(232,163,61,.09),transparent);
+    padding:14px 18px;border-radius:0 10px 10px 0;margin:16px 0}
+  .callout.warn{border-color:var(--danger);background:linear-gradient(90deg,rgba(229,96,77,.10),transparent)}
+  .callout.ok{border-color:var(--good);background:linear-gradient(90deg,rgba(63,182,128,.10),transparent)}
+  .callout .lbl{font-weight:800;font-size:.8rem;letter-spacing:.03em;text-transform:uppercase;display:block;margin-bottom:4px}
+  .callout.warn .lbl{color:var(--danger)} .callout.ok .lbl{color:var(--good)} .callout .lbl{color:var(--accent)}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.9rem}
+  th,td{border:1px solid var(--border);padding:9px 11px;text-align:right;vertical-align:top}
+  th{background:var(--surface-2);font-weight:700;color:#fff}
+  tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  .steps{counter-reset:s;list-style:none;padding:0}
+  .steps>li{position:relative;padding:2px 46px 16px 0;margin:0}
+  .steps>li::before{counter-increment:s;content:counter(s);position:absolute;right:0;top:0;
+    width:32px;height:32px;background:var(--brand);color:#04120c;border-radius:50%;
+    display:grid;place-items:center;font-weight:800;font-size:.9rem}
+  .steps>li:not(:last-child)::after{content:"";position:absolute;right:15px;top:34px;bottom:2px;width:2px;background:var(--border)}
+  .toc{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:8px 22px;margin:26px 0 0;column-count:2;column-gap:30px}
+  @media(max-width:680px){.toc{column-count:1}}
+  .toc a{display:block;padding:6px 0;color:var(--text-2);font-size:.94rem;border-bottom:1px solid rgba(255,255,255,.04)}
+  .toc a:hover{color:var(--brand)}
+  .pill{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:99px;vertical-align:middle}
+  .pill.who-omri{background:rgba(232,163,61,.16);color:var(--accent);border:1px solid rgba(232,163,61,.3)}
+  .pill.who-nisan{background:rgba(47,158,111,.16);color:var(--brand);border:1px solid rgba(47,158,111,.3)}
+  .pill.who-adir{background:rgba(120,150,220,.16);color:#93a9e6;border:1px solid rgba(120,150,220,.3)}
+  .pill.done{background:rgba(63,182,128,.16);color:var(--good);border:1px solid rgba(63,182,128,.3)}
+  .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+  .src{font-size:.85rem;color:var(--text-2)}
+  .src li{margin:4px 0}
+  strong{color:#fff}
+  @media print{
+    body{background:#fff;color:var(--print);font-size:12px}
+    header.hero{background:#f4f6f8}
+    h1,.callout .lbl,strong,th,h3{color:#111}
+    .card,.callout,pre,code,table th{background:#f6f8fa!important}
+    code,pre{color:#333}
+    a{color:#111}.toc{display:none}
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">ניסן שמריהו · 3 משפכים · אור יהודה והסביבה</p>
+    <h1>מדריך העלאת הקמפיין לאוויר</h1>
+    <p class="sub">כל מה שצריך כדי לעבור מ"האתר בנוי" ל"הקמפיין רץ ומודד לידים" — לפי הסדר, מי עושה מה, ומה חוסם מה. בנוי על 3 המשפכים החיים: מנעולן, אינסטלטור, הנדימן.</p>
+    <div class="meta">
+      <span class="tag">עודכן 21.7.2026</span>
+      <span class="tag">פלטפורמה: Google Ads (Search)</span>
+      <span class="tag">תקציב: ~2,500 ₪/חודש</span>
+      <span class="tag">מבוסס מחקר מקורות מצוטטים</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<div class="callout ok">
+  <span class="lbl">שורה תחתונה — למה זה חוסם עד שסוגרים</span>
+  אסור להתחיל לשלם על קליקים לפני שהמדידה עומדת. בלי מדידה, כסף נשרף בלי לדעת אם קמפיין מביא לידים בכלל. הרצף למטה בנוי כך ששלושת התנאים החוסמים (Supabase, מדידה, חשבון Ads) מוכנים <em>לפני</em> הקליק הראשון.
+</div>
+
+<nav class="toc">
+  <a href="#who">מקרא: מי עושה מה</a>
+  <a href="#sequence">0 · רצף ההעלאה (המפה)</a>
+  <a href="#buy">1 · מה קונים (עומרי דרך האשראי של ניסן)</a>
+  <a href="#supabase">2 · Supabase — חשבון ניסן</a>
+  <a href="#domain">3 · דומיין + וואטסאפ עסקי</a>
+  <a href="#ga">4 · GA4 + GTM + חשבון Google Ads</a>
+  <a href="#tracking">5 · חיבור המרות (הקוד כבר מוכן)</a>
+  <a href="#structure">6 · מבנה הקמפיינים</a>
+  <a href="#copy">7 · קופי מוכן להדבקה</a>
+  <a href="#golive">8 · צ'ק-ליסט יום העלייה</a>
+  <a href="#optimize">9 · אחרי ההעלאה — אופטימיזציה</a>
+  <a href="#compliance">10 · קווים אדומים (ציות)</a>
+  <a href="#benchmarks">נספח: בנצ'מרקים ומקורות</a>
+</nav>
+
+<h2 id="who"><span class="n">·</span>מקרא — מי עושה מה</h2>
+<p>לאורך המדריך כל שלב מסומן באחראי:</p>
+<p>
+  <span class="pill who-omri">עומרי</span> רכישות + הקמה טכנית &nbsp;·&nbsp;
+  <span class="pill who-nisan">ניסן</span> חשבונות על שמו + אימות זהות &nbsp;·&nbsp;
+  <span class="pill who-adir">אדיר</span> הרצת הקמפיין בפועל &nbsp;·&nbsp;
+  <span class="pill done">מוכן</span> כבר בוצע בקוד
+</p>
+<div class="callout warn">
+  <span class="lbl">כלל אשראי — חשוב</span>
+  עומרי קונה עבור ניסן דרך האשראי של ניסן. <strong>אני (קלוד) לא מזין פרטי אשראי בשום מקום</strong> — הרכישות עצמן מתבצעות ידנית על ידך מול הספק. חשבון Google Ads וחשבון Supabase נפתחים <strong>על שם ניסן / מייל של ניסן</strong> כדי שהנכסים יהיו שלו, גם אם עומרי מזין את פרטי התשלום בהסכמתו.
+</div>
+
+<h2 id="sequence"><span class="n">0</span>רצף ההעלאה — המפה בגדול</h2>
+<p>שני מסלולים רצים <strong>במקביל</strong> ואז מתאחדים. אף אחד מהם לא תלוי בשני עד שלב 6:</p>
+<div class="grid">
+  <div class="card">
+    <h3>מסלול א' — מדידה</h3>
+    <ol style="padding-inline-start:20px;margin:0">
+      <li>Supabase (חשבון ניסן) → הרצת ה-SQL → 3 מפתחות ב-Vercel</li>
+      <li>GA4 property + GTM container חדשים</li>
+      <li>הדבקת <code>GTM-XXXXXXX</code> ב-Vercel + דיפלוי</li>
+      <li>3 יעדי המרה: טלפון · וואטסאפ · טופס</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>מסלול ב' — נכסים</h3>
+    <ol style="padding-inline-start:20px;margin:0">
+      <li>דומיין <code>.co.il</code> + חיבור ל-Vercel</li>
+      <li>מספר וואטסאפ עסקי → עדכון 3 קבועים בקוד</li>
+      <li>חשבון Google Ads על שם ניסן</li>
+      <li>אימות עסק (billing + זהות)</li>
+    </ol>
+  </div>
+</div>
+<div class="callout">
+  <span class="lbl">נקודת האיחוד</span>
+  רק כששני המסלולים ירוקים — Supabase שומר לידים <em>וגם</em> יעדי ההמרה מדווחים — <strong>אז</strong> אדיר מדליק את הקמפיינים (שלב 8). לא לפני.
+</div>
+
+<h2 id="buy"><span class="n">1</span>מה קונים — עומרי דרך האשראי של ניסן</h2>
+<table>
+  <tr><th>פריט</th><th>עלות משוערת</th><th>נפתח על שם</th><th>הכרחי לפני קליק?</th></tr>
+  <tr><td>דומיין <code>.co.il</code> (המלצה: <code>nisan-shemaryahu.co.il</code>)</td><td>~40–70 ₪/שנה</td><td>ניסן</td><td>מומלץ מאוד (מקצועי)</td></tr>
+  <tr><td>Supabase</td><td>חינם (תוכנית Free מספיקה)</td><td>ניסן</td><td>כן — חוסם</td></tr>
+  <tr><td>GA4 + GTM</td><td>חינם</td><td>ניסן</td><td>כן — חוסם</td></tr>
+  <tr><td>Google Ads — תקציב מדיה</td><td>~2,500 ₪/חודש</td><td>ניסן</td><td>זה הקמפיין עצמו</td></tr>
+  <tr><td>וואטסאפ עסקי (WhatsApp Business)</td><td>חינם</td><td>ניסן</td><td>לפני שהקמפיין <em>רץ</em>, לא לפני הבנייה</td></tr>
+  <tr><td>Vercel (אירוח)</td><td>חינם (Hobby)</td><td>קיים</td><td><span class="pill done">מוכן</span></td></tr>
+</table>
+<p>סה"כ הוצאה קבועה מעבר למדיה: פחות מ-100 ₪ בשנה (רק הדומיין). כל השאר חינמי. עיקר התקציב = ~2,500 ₪/חודש למדיה.</p>
+
+<h2 id="supabase"><span class="n">2</span>Supabase — על חשבון ניסן <span class="pill who-nisan">ניסן</span> <span class="pill who-omri">עומרי</span></h2>
+<p>הקוד כבר יודע לשמור לידים — חסר רק פרויקט אמיתי שניסן הבעלים שלו. <strong>הטבלה, ה-RLS וה-SQL כבר מוכנים בקובץ <code>docs/supabase-setup.sql</code>.</strong></p>
+<ol class="steps">
+  <li>ניסן נכנס ל-<a href="https://supabase.com">supabase.com</a> ופותח חשבון (Sign up with Google — במייל של ניסן). זה <strong>לא</strong> על חשבון עומרי — החלטה מפורשת.</li>
+  <li>New project → שם: <code>nisan-leads</code>, אזור: <em>Frankfurt (eu-central-1)</em> (הקרוב לישראל), סיסמת DB חזקה (לשמור).</li>
+  <li>בפרויקט → <strong>SQL Editor</strong> → מדביקים את כל התוכן של <code>docs/supabase-setup.sql</code> → Run. זה יוצר את טבלת <code>leads</code> עם RLS ומדיניות "הוספה בלבד לאנונימי".</li>
+  <li>Settings → API → מעתיקים 3 ערכים:
+    <ul>
+      <li><code>Project URL</code> ו-<code>anon public key</code> — לא סודיים, אפשר לשלוח בצ'אט.</li>
+      <li><code>service_role key</code> — <strong>סוד</strong>. מזינים אותו <em>ישירות ב-Vercel Dashboard בלבד</em>, לא שולחים בצ'אט ולא שמים ב-git.</li>
+    </ul>
+  </li>
+  <li>ב-<strong>Vercel → Project → Settings → Environment Variables</strong> מזינים (Production):
+<pre><code>NEXT_PUBLIC_SUPABASE_URL      = https://xxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY = eyJhbGciOi...
+SUPABASE_SERVICE_ROLE_KEY     = eyJhbGciOi...   (סוד)</code></pre>
+    <code>LEADS_DASHBOARD_PASSWORD</code> כבר מוגדר. </li>
+  <li><strong>Redeploy</strong> ב-Vercel (משתני <code>NEXT_PUBLIC_*</code> נטמעים בזמן build — שינוי בלוח לא מספיק בלי דיפלוי מחדש).</li>
+  <li>בדיקה: שולחים טופס דמה באתר → נכנסים ל-<code>/leads</code> (עם הסיסמה) → הליד מופיע. אם כן — מסלול המדידה חצי סגור.</li>
+</ol>
+<div class="callout ok"><span class="lbl">מה כבר עובד אוטומטית</span>כל ליד נשמר עם <code>service</code> (מנעולן/אינסטלטור/הנדימן) ו-<code>source_page</code> (איזו עיר) — כך משווים בין 3 הקמפיינים ובין הערים לפי ליד אמיתי, בלי עבודת קוד נוספת.</div>
+
+<h2 id="domain"><span class="n">3</span>דומיין + וואטסאפ עסקי <span class="pill who-omri">עומרי</span></h2>
+<h3>דומיין</h3>
+<ol class="steps">
+  <li>קונים <code>nisan-shemaryahu.co.il</code> אצל רשם ישראלי (למשל domain the net / gandi) על שם ניסן.</li>
+  <li>Vercel → Project → Settings → Domains → Add → מזינים את הדומיין → מגדירים את רשומות ה-DNS לפי ההוראות של Vercel אצל הרשם.</li>
+  <li>מעדכנים את <code>SITE_URL</code> במקום אחד — <code>lib/siteConfig.ts</code> (כל שאר הקבצים מייבאים ממנו) → דיפלוי.</li>
+</ol>
+<div class="callout"><span class="lbl">לא חוסם טכנית</span>הקמפיין <em>יכול</em> לרוץ על <code>nisan-shemaryahu.vercel.app</code>, אבל דומיין אמיתי מעלה אמון ו-Quality Score. מומלץ לפני תנועה בתשלום.</div>
+<h3>וואטסאפ עסקי</h3>
+<p>האתר עדיין שולח למספר האישי של ניסן. פותחים WhatsApp Business (חינם) ואז מעדכנים בקוד <strong>3 קבועים</strong> ב-<code>lib/siteConfig.ts</code>: <code>OWNER_PHONE_INTL</code>, <code>OWNER_PHONE_DISPLAY</code>, <code>OWNER_PHONE_HREF</code> → דיפלוי. לעשות זאת לפני שהקמפיין <em>רץ</em>, לא לפני שבונים אותו.</p>
+
+<h2 id="ga"><span class="n">4</span>GA4 + GTM + חשבון Google Ads <span class="pill who-nisan">ניסן</span> <span class="pill who-adir">אדיר</span></h2>
+<p>סדר נכון: <strong>GA4 → GTM → Google Ads</strong>. כולם חינם, כולם על מייל של ניסן.</p>
+<ol class="steps">
+  <li><strong>GA4:</strong> <a href="https://analytics.google.com">analytics.google.com</a> → Admin → Create Property → שם <code>Nisan Shemaryahu</code>, אזור זמן ישראל, מטבע ILS → יוצרים Web data stream לכתובת האתר → מעתיקים את ה-<code>Measurement ID</code> (<code>G-XXXXXXX</code>).</li>
+  <li><strong>GTM:</strong> <a href="https://tagmanager.google.com">tagmanager.google.com</a> → Create Container (Web) → מעתיקים את מזהה ה-container (<code>GTM-XXXXXXX</code>).</li>
+  <li>מזינים ב-Vercel: <code>NEXT_PUBLIC_GTM_ID = GTM-XXXXXXX</code> → <strong>Redeploy</strong>. (הקוד מזריק את GTM אוטומטית ברגע שהמשתנה קיים — ר' שלב 5.)</li>
+  <li><strong>Google Ads:</strong> <a href="https://ads.google.com">ads.google.com</a> → פותחים חשבון על מייל ניסן → מדלגים על "Smart campaign" ועוברים ל-<em>Expert Mode</em> → מגדירים billing (כאן עומרי מזין את פרטי האשראי של ניסן, בהסכמתו) → אימות עסק.</li>
+  <li>מקשרים: ב-Google Ads → Admin → Linked accounts → מקשרים את GA4 ואת Google Ads (וגם GA4 ↔ Google Ads דו-כיווני).</li>
+</ol>
+<div class="callout warn"><span class="lbl">Local Services Ads — לא רלוונטי בישראל</span>נכון ליולי 2026, <strong>LSA (המודעות עם "Google Guaranteed") לא זמינות בישראל</strong>. מתעלמים מכל הצעה של גוגל לפתוח LSA — עובדים עם <strong>Search קלאסי</strong> בלבד.</div>
+
+<h2 id="tracking"><span class="n">5</span>חיבור המרות — הקוד כבר מוכן <span class="pill done">קוד מוכן</span> <span class="pill who-adir">אדיר</span></h2>
+<p>הארכיטקטורה: <strong>container אחד של GTM</strong> מנהל הכל (GA4 + המרות Ads + טריגרים על קליקים). זה אומר שאדיר יכול להוסיף/לשנות תגיות <em>בלי שינוי קוד ובלי דיפלוי</em>. מה שהקוד עושה כבר:</p>
+<ul>
+  <li>טוען את GTM ב-<code>&lt;head&gt;</code> ברגע ש-<code>NEXT_PUBLIC_GTM_ID</code> קיים (אחרת — כלום, אפס עומס).</li>
+  <li>שולח <code>dataLayer</code> event בשם <code>lead_form_submit</code> בכל שליחת טופס מוצלחת, עם <code>lead_service</code> ו-<code>source_page</code>.</li>
+  <li>כל כפתורי הטלפון הם <code>&lt;a href="tel:..."&gt;</code> וכל כפתורי הוואטסאפ הם <code>&lt;a href="https://wa.me/..."&gt;</code> — כך שטריגר קליק אחד ב-GTM תופס את כולם, בכל הקומפוננטות, בלי קוד נוסף.</li>
+</ul>
+<h3>מה אדיר מגדיר בתוך GTM (3 המרות)</h3>
+<table>
+  <tr><th>המרה</th><th>טריגר ב-GTM</th><th>איך</th></tr>
+  <tr><td>קליק טלפון</td><td>Click – Just Links, <code>Click URL</code> starts with <code>tel:</code></td><td>→ GA4 event <code>call_click</code></td></tr>
+  <tr><td>קליק וואטסאפ</td><td>Click – Just Links, <code>Click URL</code> contains <code>wa.me</code></td><td>→ GA4 event <code>whatsapp_click</code></td></tr>
+  <tr><td>שליחת טופס</td><td>Custom Event = <code>lead_form_submit</code> (כבר נשלח מהקוד)</td><td>→ GA4 event <code>generate_lead</code></td></tr>
+</table>
+<ol class="steps">
+  <li>ב-GTM מוסיפים תגית <strong>Google Tag</strong> (GA4 config) עם ה-<code>G-XXXXXXX</code> → Trigger: All Pages. (זה מפעיל GA4.)</li>
+  <li>לכל אחת מ-3 ההמרות: יוצרים <strong>GA4 Event tag</strong> עם הטריגר המתאים מהטבלה. את הפרמטרים <code>lead_service</code>/<code>source_page</code> מושכים דרך Data Layer Variable ומצרפים ל-event הטופס.</li>
+  <li>ב-GA4 → Admin → Events → מסמנים את שלושת ה-events כ-<strong>Key Event</strong>.</li>
+  <li>ב-Google Ads → Goals → Conversions → New → <strong>Import → GA4 → Key Events</strong> → מייבאים את שלושתם כ-3 פעולות המרה נפרדות.</li>
+  <li>מדליקים <strong>Enhanced Conversions for Leads</strong> ו-<strong>Consent Mode v2</strong> (חובה ב-2026, ולפי ציות פרטיות — ר' widget הנגישות/פרטיות שכבר באתר).</li>
+  <li>בודקים ב-<strong>GTM Preview</strong> + <strong>Google Tag Assistant</strong>: קליק טלפון, קליק וואטסאפ, שליחת טופס — כל אחד צריך להופיע. ב-Google Ads ההמרה מופיעה תוך ~3 שעות.</li>
+</ol>
+<div class="callout ok"><span class="lbl">למה 3 המרות נפרדות ולא אחת</span>כי כל קמפיין (מנעולן/אינסטלטור/הנדימן) צריך לדעת אם הליד שלו הגיע. עם <code>lead_service</code> + <code>source_page</code> שכבר נשלחים, אפשר לראות איזה קמפיין <em>ואיזו עיר</em> מביאים את הליד הזול ביותר — לא רק איזה קליק.</div>
+
+<h2 id="structure"><span class="n">6</span>מבנה הקמפיינים <span class="pill who-adir">אדיר</span></h2>
+<p>מבנה מומלץ לתקציב קטן (מבוסס LocaliQ / WordStream / Optmyzr — ר' מקורות): <strong>קמפיין אחד לכל שירות</strong>, מפוצל שווה, רץ במקביל מהיום הראשון.</p>
+<table>
+  <tr><th>קמפיין</th><th>עמוד נחיתה</th><th>תקציב</th><th>קבוצות מודעות</th></tr>
+  <tr><td>A · מנעולנות</td><td><code>/מנעולן</code></td><td>~833 ₪/ח'</td><td>מנעולן+עיר · פריצת דלת · חירום נעילה</td></tr>
+  <tr><td>B · אינסטלציה</td><td><code>/אינסטלטור</code></td><td>~833 ₪/ח'</td><td>אינסטלטור+עיר · סתימה · חירום צנרת</td></tr>
+  <tr><td>C · הנדימן</td><td><code>/הנדימן</code></td><td>~834 ₪/ח'</td><td>הנדימן+עיר · תיקונים · החלפת ברז</td></tr>
+</table>
+<h3>הגדרות משותפות ל-3 הקמפיינים</h3>
+<ul>
+  <li><strong>סוג:</strong> Search בלבד. לכבות "Search partners" ו-"Display network" בהתחלה (בזבוז תקציב).</li>
+  <li><strong>גיאו:</strong> רדיוס אור יהודה + הערים ברשימה (<code>SERVICE_AREA_CITIES</code>) — <strong>Presence</strong> (נמצאים באזור), לא Interest. <strong>לא</strong> תל אביב.</li>
+  <li><strong>Match types:</strong> מתחילים ב-<em>Phrase</em> לגילוי + <em>Exact</em> על מילות הכוונה הגבוהה ("מנעולן אור יהודה", "נעלתי את עצמי בחוץ"). Broad רק אחרי שיש דאטה.</li>
+  <li><strong>מילות שלילה</strong> (רשימה משותפת, 50+ מונחים): חינם, בעצמי, DIY, איך ל, מדריך, קורס, לימודי, שכר, דרושים, משכורת, + כל ערי תל אביב. לעדכן שבועית מדו"ח מונחי החיפוש.</li>
+  <li><strong>Bidding:</strong> <em>Manual CPC</em> או <em>Maximize Clicks</em> בהתחלה (התקציב קטן מדי ל-Smart Bidding) → מעבר ל-<em>Target CPA (60₪)</em> רק אחרי 15+ המרות בכל קמפיין <em>בנפרד</em>.</li>
+  <li><strong>Ad assets:</strong> Sitelinks (שירותים/אזור/צור קשר), Callouts (מחיר שקוף / מקומי / 24/6), Call asset (מספר העסק), Location.</li>
+  <li><strong>תזמון:</strong> זמינות 24/6 — לכבות מודעות ביום המנוחה השבועי (לתאם עם ניסן).</li>
+</ul>
+<div class="callout"><span class="lbl">מציאות התחרות</span>על מילות המפתח הגנריות מתחרים בעיקר <strong>אגרגטורים</strong> (pro.co.il, easy.co.il, midrag, b144) שקונים לידים — לא "ניסן אחר". לכן Quality Score והתאמת דף-הנחיתה הם מה שמכריע אם ניסן מרוויח או מפסיד את המכרז. 3 דפי הנחיתה כבר בנויים בדיוק לזה.</div>
+
+<h2 id="copy"><span class="n">7</span>קופי מוכן להדבקה <span class="pill done">מאומת ציות</span></h2>
+<p>הקופי המלא, המפוצל A/B/C, נמצא ב-<code>docs/google-ads-market-and-abc-plan.md</code>. תמצית מוכנה להדבקה (RSA — עד 15 כותרות + 4 תיאורים לכל קבוצה):</p>
+<div class="grid">
+  <div class="card"><h3>מנעולן</h3>
+    <strong>כותרות:</strong>
+    <ul style="font-size:.9rem">
+      <li>מנעולן ב[עיר], מחיר סגור</li>
+      <li>ננעלתם בחוץ? ניסן בדרך</li>
+      <li>מחיר סגור מראש בטלפון</li>
+      <li>מנעולן מוסמך + אישור משטרה</li>
+      <li>פריצת דלת בלי לשבור</li>
+      <li>זמין 24/6 לתקלות נעילה</li>
+    </ul>
+    <strong>תיאור:</strong> <span style="font-size:.9rem">פריצת דלתות בלי לשבור. מוסמך ומאושר משטרה. המחיר נסגר בטלפון לפני שיוצאים — בלי הפתעות.</span>
+  </div>
+  <div class="card"><h3>אינסטלטור</h3>
+    <strong>כותרות:</strong>
+    <ul style="font-size:.9rem">
+      <li>אינסטלטור ב[עיר] — 350₪</li>
+      <li>סתימה או נזילה? ניסן פותר</li>
+      <li>קריאה 350₪ — מתקזזת מהעבודה</li>
+      <li>טיפול חירום — התקשרו עכשיו</li>
+      <li>אינסטלטור מנוסה, אזורי</li>
+    </ul>
+    <strong>תיאור:</strong> <span style="font-size:.9rem">ביקור אבחון 350₪, מתקזז במלואו אם ממשיכים לתיקון. תקלת חירום לא מחכה לבוקר — ניסן מטפל.</span>
+    <div class="callout warn" style="margin-top:10px"><span class="lbl">אסור בקמפיין הזה</span>"מוסמך" / "רישיון" / "מורשה" — התעודה עוד לא בידי ניסן. גם "FLIR/מצלמה תרמית" לא מאושר.</div>
+  </div>
+  <div class="card"><h3>הנדימן</h3>
+    <strong>כותרות:</strong>
+    <ul style="font-size:.9rem">
+      <li>הנדימן ב[עיר] — איש אחד</li>
+      <li>החלפת ברזים — הצעה בטלפון</li>
+      <li>תיקון קטן? איש אחד לכל הבית</li>
+      <li>ניסן שמריהו — ידיים של זהב</li>
+    </ul>
+    <strong>תיאור:</strong> <span style="font-size:.9rem">במקום לתאם 3 בעלי מקצוע — מתקשרים לאחד. מחיר לפי היקף העבודה, לא לפי ביקור.</span>
+  </div>
+  <div class="card" style="border-color:var(--danger)"><h3 style="color:var(--danger)">שים לב — כלל-על</h3>
+    <ul style="font-size:.9rem">
+      <li><strong>אין הבטחת זמן הגעה</strong> ("עד שעתיים") באף מודעה. הוסר מהכל.</li>
+      <li>כל מחיר <strong>כולל מע"מ</strong> (חוק הגנת הצרכן).</li>
+      <li>אין "אחריות בכתב" ואין ביקורות מומצאות.</li>
+      <li>זמינות <strong>24/6</strong>, לא 24/7.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="golive"><span class="n">8</span>צ'ק-ליסט יום העלייה לאוויר</h2>
+<p>לא ללחוץ "Enable" על שום קמפיין עד שכל השורות מסומנות:</p>
+<table>
+  <tr><th>#</th><th>בדיקה</th><th>אחראי</th></tr>
+  <tr><td>1</td><td>טופס דמה נשמר ב-Supabase ומופיע ב-<code>/leads</code></td><td>עומרי</td></tr>
+  <tr><td>2</td><td><code>NEXT_PUBLIC_GTM_ID</code> מוגדר ב-Vercel + דיפלוי בוצע</td><td>עומרי</td></tr>
+  <tr><td>3</td><td>3 יעדי המרה מיובאים ב-Google Ads ומראים "Recording" / "No recent conversions" (לא "Inactive")</td><td>אדיר</td></tr>
+  <tr><td>4</td><td>GTM Preview: קליק טלפון + וואטסאפ + טופס — כולם יורים</td><td>אדיר</td></tr>
+  <tr><td>5</td><td>מספר הוואטסאפ באתר = המספר העסקי (לא האישי)</td><td>עומרי</td></tr>
+  <tr><td>6</td><td>גיאו = Presence, אזור אור יהודה, בלי ת"א</td><td>אדיר</td></tr>
+  <tr><td>7</td><td>רשימת מילות שלילה מחוברת לכל 3 הקמפיינים</td><td>אדיר</td></tr>
+  <tr><td>8</td><td>Search partners + Display כבויים</td><td>אדיר</td></tr>
+  <tr><td>9</td><td>תקציב יומי מוגדר (~28 ₪/יום לקמפיין) + billing פעיל</td><td>אדיר</td></tr>
+  <tr><td>10</td><td>כל דף נחיתה נטען מהיר ומראה את הטלפון/וואטסאפ הנכון</td><td>עומרי</td></tr>
+</table>
+<div class="callout ok"><span class="lbl">ואז — מדליקים</span>מפעילים את 3 הקמפיינים <strong>באותו יום, במקביל, תקציב שווה</strong>. בלי לנחש מראש מי "הכי טוב" — הדאטה תגיד.</div>
+
+<h2 id="optimize"><span class="n">9</span>אחרי ההעלאה — מה עושים ומתי</h2>
+<h3>שבוע 1–2 (שלב הלמידה)</h3>
+<ul>
+  <li><strong>לא נוגעים כמעט.</strong> Smart Bidding/המערכת לומדת. שינויים מוקדמים מאפסים למידה.</li>
+  <li>כל 2–3 ימים: דו"ח מונחי חיפוש → מוסיפים שלילות (חוסמים בזבוז).</li>
+  <li>בודקים שהמרות באמת נרשמות (לא רק קליקים).</li>
+</ul>
+<h3>מדדים שעוקבים אחריהם (KPIs)</h3>
+<table>
+  <tr><th>מדד</th><th>מה טוב</th><th>הערה</th></tr>
+  <tr><td>CTR</td><td>&gt; 5% בחיפוש מקומי</td><td>נמוך = כותרת/מילה לא רלוונטית</td></tr>
+  <tr><td>CPL (עלות לליד)</td><td>≤ 60 ₪ להתחלה</td><td>הסף שנקבע ב-brief</td></tr>
+  <tr><td>שיעור המרה קליק→ליד</td><td>5%–10%</td><td>בנצ'מרק שירותי בית ~10%</td></tr>
+  <tr><td>Quality Score</td><td>7+</td><td>מוזיל CPC ישירות</td></tr>
+</table>
+<p>לא עוקבים אחרי ROAS בשלב הזה — אין עדיין מדידת ערך-עסקה.</p>
+<h3>כלל ההכרעה</h3>
+<div class="callout"><span class="lbl">15 המרות לפני החלטה</span>לא מכריזים "מנצח" בין וריאנטים/קמפיינים לפני <strong>15+ המרות</strong> לכל אחד. <strong>בכנות:</strong> בתקציב הזה (~80 קליקים/חודש לקמפיין), מובהקות מלאה עשויה לקחת יותר מחודש. לתקצב לפי זה — לא לצפות תוצאה תוך שבוע. אחרי 15+ המרות בקמפיין: מעבר ל-Target CPA ותקצוב-מחדש לטובת מה שמביא לידים זולים.</div>
+
+<h2 id="compliance"><span class="n">10</span>קווים אדומים — ציות</h2>
+<div class="callout warn"><span class="lbl">חובה לוודא בכל מודעה ובכל דף</span>
+<ul style="margin:6px 0">
+  <li><strong>אין הבטחת זמן הגעה</strong> ("עד שעתיים"/"תוך X דקות") — הוסר מכל האתר וכל הקופי. לא להחזיר עד שניסן נותן מספר מדיד שהוא באמת עומד בו.</li>
+  <li><strong>אינסטלציה:</strong> אסור "מוסמך"/"רישיון"/"מורשה" — התעודה מגיעה בעוד ~חודשיים.</li>
+  <li><strong>מנעולן:</strong> "מוסמך + אישור משטרה" — מאומת, מותר.</li>
+  <li>כל מחיר <strong>כולל מע"מ</strong> (חוק הגנת הצרכן תשמ"א-1981).</li>
+  <li>אין "אחריות בכתב", אין אזכור מילואים, אין ביקורות מומצאות בשום פורמט שנראה כמו ביקורת גוגל אמיתית.</li>
+  <li><strong>כותרות עם [עיר]:</strong> תמיד לבדוק את אורך הכותרת אחרי החלפת <code>[עיר]</code> בשם העיר <em>הארוך ביותר</em> ברשימה — "ראשון לציון" (11 תווים) — לא רק עם ה-placeholder עצמו. כותרת שנראית תקינה עם <code>[עיר]</code> יכולה לחרוג מ-30 תווים ברגע שמציבים עיר ארוכה בפועל.</li>
+</ul>
+</div>
+
+<h2 id="benchmarks">נספח — בנצ'מרקים ומקורות</h2>
+<p>אומדנים לענף שירותי הבית (רובם ארה"ב — יש להתאים לישראל; CPC ישראלי מקומי בד"כ 5–30 ₪):</p>
+<table>
+  <tr><th>מדד</th><th>שירותי בית</th><th>ממוצע כל הענפים</th></tr>
+  <tr><td>CPC ממוצע (ארה"ב 2025)</td><td>~$7.85 · אינסטלציה $3–$10 · חירום גבוה יותר</td><td>—</td></tr>
+  <tr><td>CPC ישראל (מקומי)</td><td>~5–30 ₪ (תלוי מקצוע/תחרות)</td><td>—</td></tr>
+  <tr><td>שיעור המרה</td><td>~10.2% (חירום/כוונה מקומית — הגבוה בענפים)</td><td>~6.6%</td></tr>
+</table>
+<p class="src"><strong>מקורות ורשויות שנבדקו למדריך זה:</strong></p>
+<ul class="src">
+  <li><a href="https://localiq.com/blog/home-services-search-advertising-benchmarks/">LocaliQ — 2025 Home Services Search Benchmarks</a></li>
+  <li><a href="https://www.wordstream.com/blog/2025-google-ads-benchmarks">WordStream — Google Ads Benchmarks 2025</a></li>
+  <li><a href="https://support.google.com/google-ads/answer/1722022">Google Ads Help — About conversion measurement</a></li>
+  <li><a href="https://ppchero.com/google-ads-tracking-in-2026-the-5-things-every-advertiser-needs-to-get-right/">PPC Hero — Google Ads Tracking in 2026</a></li>
+  <li><a href="https://www.optmyzr.com/blog/negative-keywords/">Optmyzr — Negative Keywords 2026</a></li>
+  <li><a href="https://www.stackmatix.com/blog/google-ads-keyword-match-types-guide">Stackmatix — Match Types 2026</a></li>
+  <li><a href="https://www.groas.com/post/google-ads-for-local-businesses-how-to-compete-against-bigger-budgets-in-2026">GRO.as — Local Businesses vs Bigger Budgets 2026</a></li>
+  <li><a href="https://stape.io/blog/google-ads-conversion-tracking">Stape — Google Ads Conversion Tracking 2026 (GTM)</a></li>
+  <li><a href="https://martech.zone/track-tel-clicks-in-google-analytics-events-google-tag-manager/">Martech Zone — Track tel: clicks as Key Events (GTM)</a></li>
+  <li><a href="https://boei.help/blog/track-whatsapp-clicks-google-tag-manager/">Boei — Track WhatsApp (wa.me) clicks in GTM & GA4</a></li>
+  <li><a href="https://support.google.com/localservices/answer/7549347">Google — Local Services Ads overview (אימות אי-זמינות בישראל)</a></li>
+  <li><a href="https://www.searchenginejournal.com/google-is-bringing-local-services-ads-into-google-ads/582816/">Search Engine Journal — LSA moving into Google Ads</a></li>
+  <li><a href="https://www.nevo.co.il/law_html/law00/70305.htm">חוק הגנת הצרכן, תשמ"א-1981 (מחיר כולל מע"מ, הגדרת פרסומת)</a></li>
+  <li><a href="https://www.measuremarketing.pro/post/google-ads-conversion-tracking-best-practices-in-2026">Measure Marketing Pro — Conversion Tracking Best Practices 2026</a></li>
+  <li><a href="https://leadsbridge.com/blog/google-ads-campaign-structure/">LeadsBridge — Google Ads Campaign Structure 2026</a></li>
+</ul>
+<p class="src">מסמכי פנים משלימים בפרויקט: <code>docs/google-ads-market-and-abc-plan.md</code> (קופי A/B/C מלא), <code>docs/campaign-packages.md</code> (מילות מפתח/שלילה/הגדרות), <code>docs/analytics-readiness-audit.md</code> (שרשרת תלויות), <code>docs/seo-competitive-audit.md</code> (נוף מתחרים).</p>
+
+<div class="foot">
+  <p>ניסן שמריהו · מדריך העלאת קמפיין · נבנה על ידי עומרי כתב. כל האומדנים הכספיים הם הערכה — לאמת ב-Keyword Planner (חינם) לפני הרצה. אין ייעוץ פיננסי/משפטי מחייב.</p>
+</div>
+
+</div>
+</body>
+</html>

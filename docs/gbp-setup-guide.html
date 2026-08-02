@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ניסן שמריהו — מדריך הקמת כרטיס עסק בגוגל (Google Business Profile)</title>
+<style>
+  :root{
+    --bg:#0f1419; --surface:#1a2129; --surface-2:#212a34; --border:#2c3742;
+    --text:#eef2f6; --text-2:#b7c2cd; --muted:#7d8b98;
+    --brand:#2f9e6f; --brand-dim:#247a56; --accent:#e8a33d; --danger:#e5604d;
+    --good:#3fb680; --print:#111;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:'Assistant','Segoe UI',system-ui,sans-serif;
+    line-height:1.7;font-size:16px;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 100px}
+  header.hero{
+    background:radial-gradient(120% 140% at 85% -10%,rgba(47,158,111,.28),transparent 55%),
+               linear-gradient(160deg,#131a21,#0c1116);
+    border-bottom:1px solid var(--border);padding:56px 20px 44px;margin-bottom:8px;
+  }
+  header.hero .wrap{padding-bottom:0}
+  .kicker{color:var(--brand);font-weight:700;letter-spacing:.04em;font-size:.82rem;text-transform:uppercase;margin:0 0 10px}
+  h1{font-size:2.6rem;line-height:1.12;margin:0 0 12px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:var(--text-2);font-size:1.12rem;max-width:660px;margin:0}
+  .meta{margin-top:22px;display:flex;gap:8px;flex-wrap:wrap}
+  .tag{background:var(--surface-2);border:1px solid var(--border);color:var(--text-2);
+    font-size:.78rem;padding:5px 11px;border-radius:99px}
+  h2{font-size:1.5rem;margin:52px 0 4px;padding-top:18px;border-top:1px solid var(--border);font-weight:800;letter-spacing:-.01em}
+  h2 .n{color:var(--brand);font-variant-numeric:tabular-nums;margin-inline-end:10px}
+  h3{font-size:1.12rem;margin:26px 0 8px;font-weight:700;color:#fff}
+  p{margin:10px 0}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{background:#0b0f13;border:1px solid var(--border);border-radius:5px;padding:2px 6px;font-size:.86em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#ffd9a3;direction:ltr;display:inline-block}
+  .copy{background:#0b0f13;border:1px dashed var(--brand-dim);border-radius:10px;padding:14px 16px;margin:10px 0;
+    position:relative}
+  .copy .clbl{position:absolute;inset-inline-start:14px;top:-10px;background:var(--bg);padding:0 8px;
+    font-size:.7rem;font-weight:700;color:var(--brand);letter-spacing:.03em;text-transform:uppercase}
+  .copy p{margin:6px 0}
+  ul,ol{margin:10px 0;padding-inline-start:24px}
+  li{margin:6px 0}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:16px 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:680px){.grid{grid-template-columns:1fr}h1{font-size:2rem}}
+  .callout{border-inline-start:3px solid var(--accent);background:linear-gradient(90deg,rgba(232,163,61,.09),transparent);
+    padding:14px 18px;border-radius:0 10px 10px 0;margin:16px 0}
+  .callout.warn{border-color:var(--danger);background:linear-gradient(90deg,rgba(229,96,77,.10),transparent)}
+  .callout.ok{border-color:var(--good);background:linear-gradient(90deg,rgba(63,182,128,.10),transparent)}
+  .callout .lbl{font-weight:800;font-size:.8rem;letter-spacing:.03em;text-transform:uppercase;display:block;margin-bottom:4px}
+  .callout.warn .lbl{color:var(--danger)} .callout.ok .lbl{color:var(--good)} .callout .lbl{color:var(--accent)}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.9rem}
+  th,td{border:1px solid var(--border);padding:9px 11px;text-align:right;vertical-align:top}
+  th{background:var(--surface-2);font-weight:700;color:#fff}
+  tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  .steps{counter-reset:s;list-style:none;padding:0}
+  .steps>li{position:relative;padding:2px 46px 16px 0;margin:0}
+  .steps>li::before{counter-increment:s;content:counter(s);position:absolute;right:0;top:0;
+    width:32px;height:32px;background:var(--brand);color:#04120c;border-radius:50%;
+    display:grid;place-items:center;font-weight:800;font-size:.9rem}
+  .steps>li:not(:last-child)::after{content:"";position:absolute;right:15px;top:34px;bottom:2px;width:2px;background:var(--border)}
+  .toc{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:8px 22px;margin:26px 0 0;column-count:2;column-gap:30px}
+  @media(max-width:680px){.toc{column-count:1}}
+  .toc a{display:block;padding:6px 0;color:var(--text-2);font-size:.94rem;border-bottom:1px solid rgba(255,255,255,.04)}
+  .toc a:hover{color:var(--brand)}
+  .pill{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:99px;vertical-align:middle}
+  .pill.who-omri{background:rgba(232,163,61,.16);color:var(--accent);border:1px solid rgba(232,163,61,.3)}
+  .pill.who-nisan{background:rgba(47,158,111,.16);color:var(--brand);border:1px solid rgba(47,158,111,.3)}
+  .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+  strong{color:#fff}
+  @media print{
+    body{background:#fff;color:var(--print);font-size:12px}
+    header.hero{background:#f4f6f8}
+    h1,.callout .lbl,strong,th,h3{color:#111}
+    .card,.callout,table th,.copy{background:#f6f8fa!important}
+    .copy{border-color:#bbb}
+    code{color:#333;background:#eee}
+    a{color:#111}.toc{display:none}
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">ניסן שמריהו · כרטיס עסק בגוגל · אור יהודה והסביבה</p>
+    <h1>הקמת כרטיס עסק בגוגל</h1>
+    <p class="sub">כל השדות מוכנים להעתקה, לפי הסדר, מי עושה מה, ומה חוסם מה. פרופיל אחד לשלושת המקצועות — הבית של הביקורות האמיתיות ושל הופעה במפות ובחיפוש המקומי.</p>
+    <div class="meta">
+      <span class="tag">נוצר 23.7.2026</span>
+      <span class="tag">פלטפורמה: Google Business Profile</span>
+      <span class="tag">פרופיל אחד · Service-Area Business</span>
+      <span class="tag">תואם אילוצי התוכן של האתר</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<div class="callout ok">
+  <span class="lbl">שורה תחתונה</span>
+  כרטיס עסק בגוגל הוא הדבר החינמי בעל התשואה הגבוהה ביותר למנעולן/אינסטלטור/הנדימן מקומי — הוא זה שמופיע במפות ובתוצאות "ליד לוקיישן", והוא הבית היחיד של ביקורות גוגל אמיתיות. בונים אותו <em>פעם אחת</em>, נכון, ולא נוגעים בו אחר כך אלא כדי להוסיף ביקורות ותמונות.
+</div>
+
+<nav class="toc" aria-label="תוכן העניינים">
+  <a href="#decision">0 · ההחלטה: פרופיל אחד, לא שלושה</a>
+  <a href="#who">1 · מי עושה מה</a>
+  <a href="#fields">2 · השדות — מוכנים להעתקה</a>
+  <a href="#services">3 · רשימת שירותים לכל קטגוריה</a>
+  <a href="#verify">4 · אימות מול גוגל (חשוב למנעולן)</a>
+  <a href="#photos">5 · Shot-list תמונות לצילום</a>
+  <a href="#reviews">6 · בקשת ביקורות — תבניות</a>
+  <a href="#forbidden">7 · מה אסור לכתוב</a>
+  <a href="#code">8 · חיבור הפרופיל לאתרים (קוד)</a>
+</nav>
+
+<h2 id="decision"><span class="n">0</span>ההחלטה: פרופיל אחד, לא שלושה</h2>
+<p>יש פיתוי להקים שלושה פרופילים — אחד לכל מקצוע — כמו שלושת האתרים. <strong>אסור.</strong> עסק אחד, אדם אחד, טלפון אחד וכתובת אחת = פרופיל אחד. שלושה כרטיסים על אותו שם וטלפון הם "duplicate listings" לפי מדיניות גוגל, ומסכנים <em>השעיה של כולם</em>, כולל אובדן ביקורות.</p>
+<div class="grid">
+  <div class="card">
+    <h3>איך פותרים את שלושת המקצועות בפרופיל אחד</h3>
+    <ul>
+      <li><strong>קטגוריה ראשית:</strong> מנעולן — ה־wedge החזק ביותר (אישור משטרה מול פתיונות של המתחרים, לפי מחקר המתחרים).</li>
+      <li><strong>קטגוריות משניות:</strong> אינסטלטור, הנדימן / איש תחזוקה.</li>
+      <li><strong>רשימת שירותים</strong> מפורטת לכל קטגוריה (סעיף 3) — כאן נכנס כל התוכן של שלושת המקצועות.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Service-Area Business (SAB)</h3>
+    <ul>
+      <li>ניסן מגיע ללקוח — לא הלקוח אליו. לכן זה עסק <strong>מבוסס אזור שירות</strong>.</li>
+      <li>בהקמה: מזינים את הכתובת לאימות, אבל מסמנים <strong>"אני מספק שירות ללקוחות בכתובת שלהם"</strong> ומסתירים את הכתובת מהתצוגה.</li>
+      <li>אזור השירות = רשימת הערים בסעיף 2 (אור יהודה + ~15 ק"מ, בלי תל אביב).</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="who"><span class="n">1</span>מי עושה מה</h2>
+<table>
+  <tr><th>שלב</th><th>פעולה</th><th>מי</th></tr>
+  <tr><td>1</td><td>חשבון Google על שם ניסן (לא של עומרי) + כניסה ל־<code>business.google.com</code></td><td><span class="pill who-nisan">ניסן</span></td></tr>
+  <tr><td>2</td><td>יצירת הפרופיל — הדבקת השדות מסעיף 2 ו־3</td><td><span class="pill who-omri">עומרי</span> <span class="pill who-nisan">ניסן</span></td></tr>
+  <tr><td>3</td><td>אימות מול גוגל (טלפון / וידאו — גוגל בוחרת). ראו סעיף 4</td><td><span class="pill who-nisan">ניסן</span></td></tr>
+  <tr><td>4</td><td>צילום עם ללב מדיה לפי ה־Shot-list (סעיף 5) → העלאה</td><td><span class="pill who-nisan">ניסן</span></td></tr>
+  <tr><td>5</td><td>הפקת קישור ביקורת + שליחת בקשות ל־10–15 לקוחות עבר (סעיף 6)</td><td><span class="pill who-nisan">ניסן</span></td></tr>
+  <tr><td>6</td><td>חיבור הפרופיל לאתרים בקוד (<code>sameAs</code>) אחרי שהוא חי</td><td><span class="pill who-omri">עומרי / קלוד</span></td></tr>
+</table>
+
+<h2 id="fields"><span class="n">2</span>השדות — מוכנים להעתקה</h2>
+
+<h3>שם העסק</h3>
+<div class="copy"><span class="clbl">להעתקה — שם בדיוק כך</span>
+<p>ניסן שמריהו</p></div>
+<div class="callout warn"><span class="lbl">אזהרה</span>
+אין להוסיף מילות מפתח לשם ("ניסן שמריהו מנעולן אינסטלטור") — זו הפרה מפורשת של הנחיות גוגל ועילה נפוצה להשעיה או השהיית ביקורות. השם = השם האמיתי בלבד. את מילות המפתח קולטים דרך הקטגוריות והשירותים.</div>
+
+<h3>קטגוריות</h3>
+<table>
+  <tr><th>סוג</th><th>קטגוריה בגוגל</th></tr>
+  <tr><td>ראשית</td><td>מנעולן (Locksmith)</td></tr>
+  <tr><td>משנית</td><td>אינסטלטור / שרברב (Plumber)</td></tr>
+  <tr><td>משנית</td><td>איש תחזוקה / הנדימן (Handyman)</td></tr>
+</table>
+
+<h3>טלפון</h3>
+<div class="copy"><span class="clbl">להעתקה</span>
+<p dir="ltr" style="text-align:right">050-9911241</p></div>
+<div class="callout"><span class="lbl">לזכור</span>
+זה המספר האישי של ניסן, כמו באתר. כשייפתח וואטסאפ עסקי — מעדכנים גם כאן וגם ב־3 הקבועים ב־<code>lib/siteConfig.ts</code>. שמספר הטלפון בכרטיס יהיה זהה למספר באתר ובכל מקום אחר (עקביות NAP) — זה גורם דירוג מקומי.</div>
+
+<h3>כתובת (לאימות בלבד — מוסתרת בתצוגה)</h3>
+<div class="copy"><span class="clbl">להעתקה</span>
+<p>יוסף חיים 15, אור יהודה, ישראל</p></div>
+
+<h3>אזור שירות</h3>
+<div class="copy"><span class="clbl">להעתקה — להזין כל עיר בשדה "אזור שירות"</span>
+<p>אור יהודה · יהוד · קרית אונו · סביון · אזור · גני תקווה · לוד · פתח תקווה · ראשון לציון · חולון · בת ים · רמת גן</p></div>
+<p class="src" style="color:var(--muted);font-size:.85rem">זהה בדיוק לרשימת הערים שיש להן עמוד באתר (<code>lib/cities.ts</code>). ללא תל אביב, במכוון.</p>
+
+<h3>שעות פעילות</h3>
+<p>ניסן זמין 24/6 עם יום מנוחה אחד בשבוע. בגוגל אין "24/6", אז מגדירים 24 שעות בכל יום פעיל, ויום המנוחה = סגור. <strong>יש לוודא עם ניסן איזה יום הוא יום המנוחה</strong> לפני ההזנה (להלן הנחת ברירת מחדל — שבת; לעדכן אם שונה):</p>
+<table>
+  <tr><th>יום</th><th>שעות</th></tr>
+  <tr><td>ראשון–חמישי</td><td>פתוח 24 שעות</td></tr>
+  <tr><td>שישי</td><td>פתוח 24 שעות</td></tr>
+  <tr><td>שבת</td><td>סגור <span style="color:var(--muted)">(יום המנוחה — לאישור עם ניסן)</span></td></tr>
+</table>
+
+<h3>תיאור העסק</h3>
+<p>עד 750 תווים. תואם קומפליאנס — בלי הבטחת זמן הגעה, בלי ביטוח, בלי "מוסמך" לצד אינסטלציה, בלי אחריות בכתב.</p>
+<div class="copy"><span class="clbl">להעתקה — תיאור העסק</span>
+<p>ניסן שמריהו הוא בעל מקצוע אחד לשלושה תחומים באור יהודה והסביבה: מנעולנות, אינסטלציה והנדימן. כמנעולן מוסמך עם אישור משטרה — פורץ דלתות בלי נזק, מחליף צילינדרים ומתקין מנעולי ביטחון ורב-בריח. באינסטלציה — פותח סתימות, מטפל בנזילות ובצנרת, מתקן דודי שמש וברזים, ומגיע גם לתקלות חירום כמו הצפות ופיצוצי צנרת. כהנדימן — הרכבות ותליות, צביעה, עבודות גבס והחלפת ברזים, כל הרשימה בביקור אחד. עובד נקי ומסודר, מאבחן במקום ומסביר מראש מה צריך. זמין 24/6. אור יהודה, יהוד, קרית אונו, ראשון לציון והסביבה.</p></div>
+<p class="src" style="color:var(--muted);font-size:.85rem">≈690 תווים. "מוסמך" מופיע רק לצד מנעולנות. אם/כשתגיע תעודת האינסטלציה — אפשר להוסיף "מוסמך" גם שם (מתאים ל־<code>COMPLIANCE.plumbingCertified</code> באתר).</p>
+
+<h3>אתר</h3>
+<div class="copy"><span class="clbl">להעתקה — עד שנקנה דומיין</span>
+<p dir="ltr" style="text-align:right">https://nisan-shemaryahu.vercel.app</p></div>
+<p class="src" style="color:var(--muted);font-size:.85rem">כשייקנה הדומיין <code>.co.il</code> — מעדכנים כאן ובאתר. אפשר גם לקשר ישירות לכרטיס הביקור: <code>/card</code>.</p>
+
+<h2 id="services"><span class="n">3</span>רשימת שירותים לכל קטגוריה</h2>
+<p>ב־GBP אפשר להוסיף "שירותים" מותאמים תחת כל קטגוריה. זה נכס SEO אמיתי — כל שירות הוא ביטוי שהעסק יכול להופיע עליו. להזין את כולם:</p>
+<div class="grid">
+  <div class="card">
+    <h3>מנעולנות</h3>
+    <ul>
+      <li>פריצת דלתות (נעילה בחוץ)</li>
+      <li>החלפת צילינדרים ומנעולים</li>
+      <li>התקנת מנעולי ביטחון ורב-בריח</li>
+      <li>פריצת רכב</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>אינסטלציה</h3>
+    <ul>
+      <li>פתיחת סתימות</li>
+      <li>תיקון והחלפת צנרת</li>
+      <li>דודי שמש וחשמל</li>
+      <li>ברזים, ניאגרות וכלים סניטריים</li>
+      <li>טיפול בהצפות ופיצוצי צנרת (חירום)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>הנדימן</h3>
+    <ul>
+      <li>החלפת ברזים</li>
+      <li>צביעה</li>
+      <li>הרכבות ותליות</li>
+      <li>עבודות גבס ותיקונים קטנים</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>מאפיינים (Attributes)</h3>
+    <ul>
+      <li>מספק שירות באזור הלקוח ✓</li>
+      <li>שירותי חירום ✓</li>
+      <li>בעל עסק קטן / עצמאי ✓</li>
+      <li>אל תסמנו מה שלא אומת — אין ביטוח, אין אחריות בכתב.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="verify"><span class="n">4</span>אימות מול גוגל — קריטי למנעולן</h2>
+<div class="callout warn"><span class="lbl">שימו לב מראש</span>
+גוגל מפעילה אימות מחמיר במיוחד על קטגוריות מנעולן ואינסטלטור (היסטוריה של הונאות בתחום). סביר שיידרש <strong>אימות וידאו</strong> — לא רק קוד ב־SMS. אל תיבהלו, זה תקין; פשוט צריך להתכונן.</div>
+<p>אם גוגל מבקשת אימות וידאו, יצטרכו להסריט קליפ רציף אחד (בלי חיתוכים) שמראה:</p>
+<ul>
+  <li><strong>שהעסק אמיתי:</strong> רכב העבודה, כלי המנעולן/אינסטלציה, ארגז הכלים.</li>
+  <li><strong>הוכחת עיסוק:</strong> תעודת המנעולן ואישור המשטרה מול המצלמה.</li>
+  <li><strong>מיקום:</strong> נסיעה/הליכה קצרה באזור אור יהודה, או שלט/כלים בתוך הרכב.</li>
+</ul>
+<p>מה להכין לפני שמתחילים את האימות: תעודת מנעולן, אישור משטרה, רכב עם הכלים, וטלפון טעון. אותם נכסים משמשים גם לצילום התמונות (סעיף הבא) — אפשר לתאם יום אחד לכל.</p>
+
+<h2 id="photos"><span class="n">5</span>Shot-list תמונות — לצילום עם ללב מדיה</h2>
+<p>אותו צילום משרת שלושה יעדים: כרטיס העסק בגוגל, גיבורי האתרים (מחליף את הסטוק), ותמונת הפורטרט לכרטיס הביקור הדיגיטלי. לצלם פעם אחת, נכון:</p>
+<table>
+  <tr><th>הצילום</th><th>למה משמש</th></tr>
+  <tr><td>פורטרט של ניסן — נקי, אור טבעי, חצי גוף</td><td>תמונת פרופיל ב־GBP + מונוגרמה/פורטרט בכרטיס הביקור</td></tr>
+  <tr><td>ניסן ליד/מול רכב העבודה</td><td>תמונת שער ב־GBP + אלמנט אמון באתרים</td></tr>
+  <tr><td>קלוז-אפ של ארגז/קיר הכלים</td><td>גלריית GBP — מסמן מקצועיות ומצוידות</td></tr>
+  <tr><td>ניסן בעבודה: פורץ מנעול / מחליף צילינדר</td><td>גיבור עמוד המנעולן + גלריית GBP</td></tr>
+  <tr><td>ניסן בעבודה: תיקון צנרת / פתיחת סתימה</td><td>גיבור עמוד האינסטלציה + גלריית GBP</td></tr>
+  <tr><td>ניסן בעבודה: הרכבה / צביעה / תלייה</td><td>גיבור עמוד ההנדימן + גלריית GBP</td></tr>
+  <tr><td>לפני/אחרי של עבודה אמיתית (2–3 זוגות)</td><td>גלריית GBP — הסוג שהכי משכנע לקוחות</td></tr>
+</table>
+<div class="callout"><span class="lbl">טיפ דירוג</span>
+פרופילים עם 10+ תמונות אמיתיות מקבלים משמעותית יותר צפיות ופניות. תמונות אמיתיות של ניסן > כל תמונת סטוק. עד לצילום — לא מעלים סטוק לפרופיל, משאירים ריק.</div>
+
+<h2 id="reviews"><span class="n">6</span>בקשת ביקורות — תבניות מוכנות</h2>
+<div class="callout ok"><span class="lbl">חוק ברזל</span>
+ביקורות אמיתיות בלבד, מלקוחות אמיתיים. לעולם לא לכתוב ביקורת בשם לקוח, לא לתמרץ בתשלום, ולא לבקש רק "5 כוכבים". מבקשים חוויה כנה — גוגל מזהה ומעניש ביקורות מפוברקות.</div>
+<p>אחרי שהפרופיל אושר, גוגל מייצרת קישור קצר לכתיבת ביקורת (בפאנל הניהול: "בקש ביקורות" → קישור). מדביקים אותו במקום <code>[קישור]</code> למטה ושולחים בוואטסאפ ל־10–15 לקוחות מרוצים מהעבר.</p>
+
+<h3>נוסח א — אחרי עבודה טרייה</h3>
+<div class="copy"><span class="clbl">להעתקה לוואטסאפ</span>
+<p>היי [שם], מדבר ניסן — שמח שהצלחתי לעזור עם [העבודה]. אם אתה מרוצה, יעזור לי מאוד אם תוכל לכתוב שתי מילים בגוגל — לוקח דקה וזה עוזר לאנשים אחרים באזור למצוא אותי: [קישור]. תודה רבה!</p></div>
+
+<h3>נוסח ב — ללקוח ותיק</h3>
+<div class="copy"><span class="clbl">להעתקה לוואטסאפ</span>
+<p>היי [שם], מה שלומך? פתחתי עכשיו כרטיס עסק בגוגל, ואשמח מאוד אם תוכל לכתוב לי חוות דעת קצרה על העבודה שעשיתי אצלך. זה הדבר הכי משמעותי לעסק קטן כמו שלי: [קישור]. מעריך את זה המון.</p></div>
+<p class="src" style="color:var(--muted);font-size:.85rem">להחליף <code>[שם]</code> ו־<code>[העבודה]</code> בכל הודעה — הודעה אישית מקבלת הרבה יותר תגובות מהעתק-הדבק גנרי. לפזר על פני כמה ימים, לא הכל בבת אחת.</p>
+
+<h2 id="forbidden"><span class="n">7</span>מה אסור לכתוב — בכל שדה</h2>
+<p>אותם אילוצי התוכן של האתר חלים על הפרופיל. אכיפה: לפני פרסום, לוודא שאף שדה לא מכיל:</p>
+<table>
+  <tr><th>אסור</th><th>למה</th></tr>
+  <tr><td>הבטחת זמן הגעה ("עד שעתיים", "מגיע מהר")</td><td>הנחיית ניסן/עומרי — לא מבטיחים זמן</td></tr>
+  <tr><td>"ביטוח" / "עבודה מבוטחת"</td><td>לא קיים — אסור לטעון</td></tr>
+  <tr><td>"מוסמך" / "רישיון" / "מורשה" לצד אינסטלציה</td><td>תעודת האינסטלציה עוד לא בידיים (<code>COMPLIANCE.plumbingCertified=false</code>)</td></tr>
+  <tr><td>"אחריות בכתב"</td><td>אין אחריות בכתב רשמית</td></tr>
+  <tr><td>מילות מפתח בשם העסק</td><td>הפרת מדיניות גוגל → סיכון השעיה</td></tr>
+  <tr><td>ביקורות מפוברקות בכל צורה</td><td>אסור מוחלט, בכל פורמט</td></tr>
+</table>
+<div class="callout ok"><span class="lbl">מה כן — הבידול האמיתי</span>
+מנעולן <strong>מוסמך עם אישור משטרה</strong> (זה אמיתי ומאומת) · <strong>אבחון וטיפול במקום</strong> · <strong>עבודה נקייה ומסודרת</strong> · <strong>זמין 24/6</strong> · <strong>בעל מקצוע אחד לשלושה תחומים</strong>. אלה הבידולים שמופיעים באתר — משתמשים בהם גם כאן.</div>
+
+<h2 id="code"><span class="n">8</span>חיבור הפרופיל לאתרים (קוד — אחרי שהוא חי)</h2>
+<p>ברגע שיש כתובת URL לפרופיל, מוסיפים אותה כ־<code>sameAs</code> בסכמות ה־<code>LocalBusiness</code> באתר — כך גוגל מקשרת בוודאות בין 3 האתרים לבין הכרטיס האחד, ומחזקת את שניהם. שינוי קטן:</p>
+<ul>
+  <li>קבוע חדש <code>GOOGLE_BUSINESS_PROFILE_URL</code> ב־<code>lib/siteConfig.ts</code>.</li>
+  <li>הוספת <code>sameAs: [GOOGLE_BUSINESS_PROFILE_URL]</code> ב־<code>localBusinessSchema</code> ו־<code>buildHomeSchema</code> ב־<code>lib/schema.ts</code>.</li>
+  <li>Deploy (מתוך ה־worktree, לפי משמעת הדיפלוי הרגילה).</li>
+</ul>
+<p class="src" style="color:var(--muted);font-size:.85rem">זה החלק היחיד שדורש קוד — קלוד מבצע ברגע שהקישור קיים. עד אז אין מה לגעת.</p>
+
+<div class="foot">
+  ניסן שמריהו · מדריך הקמת כרטיס עסק בגוגל · נוצר 23.7.2026 · תואם אילוצי התוכן ב־<code>lib/siteConfig.ts</code> ומחקר המתחרים ב־<code>docs/competitor-intelligence.html</code>.
+</div>
+
+</div>
+</body>
+</html>

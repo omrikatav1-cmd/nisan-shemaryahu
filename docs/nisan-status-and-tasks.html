@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ניסן שמריהו — סטטוס ומשימות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --space:#020617; --surface:#0d1a2d;
+    --primary:#3B82F6; --primary-glow:rgba(59,130,246,.25);
+    --accent:#D4AF37; --accent-glow:rgba(212,175,55,.2);
+    --danger:#EF4444; --success:#22C55E; --warn:#F59E0B;
+    --text:#F1F5F9; --text-2:#CBD5E1; --text-muted:#8b98ac;
+    --border:rgba(255,255,255,.08); --border-bright:rgba(255,255,255,.16);
+    --font-heading:'Rubik',sans-serif; --font-body:'Assistant',sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  body{margin:0; background:var(--space); color:var(--text); font-family:var(--font-body); font-weight:300;
+    direction:rtl; -webkit-font-smoothing:antialiased; line-height:1.65;}
+  h1,h2,h3{font-family:var(--font-heading); font-weight:800; margin:0;}
+  .ltr{direction:ltr; unicode-bidi:isolate; display:inline-block;}
+  main{max-width:920px; margin:0 auto; padding:3rem 1.5rem 5rem;}
+  header{max-width:920px; margin:0 auto; padding:3rem 1.5rem 1.5rem;}
+  .eyebrow{display:inline-flex; font-size:.78rem; font-weight:700; color:var(--accent);
+    background:rgba(212,175,55,.08); border:1px solid rgba(212,175,55,.3); padding:.4rem 1rem;
+    border-radius:999px; margin-bottom:1.2rem;}
+  h1{font-size:clamp(1.9rem,4vw,2.6rem); margin-bottom:.6rem;}
+  .sub{color:var(--text-2); font-size:1.05rem; max-width:680px;}
+  section{margin-top:3rem;}
+  .sec-head{display:flex; align-items:center; gap:.8rem; margin-bottom:1.2rem;}
+  .sec-num{width:2.4rem; height:2.4rem; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-heading); font-weight:800; font-size:1.05rem; flex-shrink:0;}
+  section h2{font-size:1.5rem;}
+  section h2 .badge{vertical-align:middle;}
+  .card{background:rgba(13,26,45,.55); border:1px solid var(--border); border-radius:1.1rem; padding:1.5rem; backdrop-filter:blur(14px);}
+  .card + .card{margin-top:1rem;}
+  .card-success{border-color:rgba(34,197,94,.28); box-shadow:0 8px 28px rgba(34,197,94,.12);}
+  .card-danger{border-color:rgba(239,68,68,.3); box-shadow:0 8px 28px rgba(239,68,68,.14);}
+  .card-primary{border-color:rgba(59,130,246,.25); box-shadow:0 8px 28px var(--primary-glow);}
+  .card-warn{border-color:rgba(245,158,11,.32); box-shadow:0 8px 28px rgba(245,158,11,.12);}
+  .card ul{margin:0; padding-inline-start:1.2rem; color:var(--text-2); font-size:.94rem;}
+  .card li{margin-bottom:.5rem;}
+  .task{display:flex; align-items:flex-start; gap:.7rem; padding:.7rem 0; border-top:1px solid var(--border);}
+  .task:first-child{border-top:none;}
+  .task input{width:1.15rem; height:1.15rem; accent-color:var(--danger); margin-top:.2rem; flex-shrink:0;}
+  .task input:checked{accent-color:var(--success);}
+  .task b{color:var(--text); display:block; margin-bottom:.15rem;}
+  .task span{color:var(--text-2); font-size:.88rem;}
+  .badge{display:inline-block; font-size:.72rem; font-weight:700; padding:.25rem .65rem; border-radius:999px; margin-inline-start:.4rem;}
+  .b-done{color:var(--success); background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.3);}
+  .b-open{color:var(--text-muted); background:rgba(255,255,255,.04); border:1px solid var(--border-bright);}
+  .b-blocked{color:var(--danger); background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.3);}
+  a.link{color:var(--accent); text-decoration:underline;}
+  .sessions{display:grid; grid-template-columns:1fr 1fr; gap:1rem;}
+  @media(max-width:680px){.sessions{grid-template-columns:1fr;}}
+  .sess-card{background:rgba(13,26,45,.55); border:1px solid var(--border); border-radius:1rem; padding:1.2rem;}
+  .sess-card .n{display:inline-flex; width:1.6rem; height:1.6rem; border-radius:50%; background:rgba(212,175,55,.15); color:var(--accent);
+    font-family:var(--font-heading); font-weight:800; font-size:.82rem; align-items:center; justify-content:center; margin-inline-end:.5rem;}
+  .sess-card b{font-size:1rem;}
+  .sess-card p{color:var(--text-2); font-size:.86rem; margin:.5rem 0 0;}
+  .sess-card code{background:rgba(255,255,255,.06); padding:.1rem .4rem; border-radius:5px; font-size:.78rem; direction:ltr; display:inline-block; margin-top:.5rem;}
+  footer{max-width:920px; margin:0 auto; padding:2rem 1.5rem 3rem; color:var(--text-muted); font-size:.85rem; text-align:center; border-top:1px solid var(--border);}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">סיכום פעולה · עומרי כתב · 19.7.2026 · עדכון סבב עריכה חי + דיבאג מקיף</span>
+  <h1>ניסן שמריהו — איפה אנחנו עומדים</h1>
+  <p class="sub">שלושת הדפים חיים בפרודקשן. הלילה עברו סבב תיקונים מול ניסן + דיבאג מלא של הקוד, ה-Vercel וה-Supabase. זו הרשימה המלאה של מה שנשאר עד שאדיר יכול להתחיל להריץ קמפיינים. לפירוט המקורי המלא — <span class="ltr">docs/nisan-full-brief.html</span>; לחבילת הקמפיינים המוכנה — <span class="ltr">docs/campaign-packages.md</span>; לניתוח למה 3 אתרים נפרדים — <span class="ltr">docs/service-separation-tradeoffs.html</span>.</p>
+</header>
+
+<main>
+
+  <section>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(34,197,94,.15); color:var(--success);">✓</div><h2>מה בוצע — כולל הלילה</h2></div>
+    <div class="card card-success">
+      <ul>
+        <li><b>שלושת דפי הנחיתה חיים בפרודקשן</b> — <span class="ltr">/locksmith /plumbing /handyman</span>, עיצוב בהיר, זהות ויזואלית נפרדת לכל שירות, ~36 עמודי עיר, לוגו לכל שירות</li>
+        <li><b>סבב תיקונים חי עם ניסן (הלילה)</b> — כותרת Hero חדשה בהנדימן ("הרשימה רק מתארכת? ניסן מגיע וסוגר את כולה"), הוסר "עד שעתיים"/"ביטוח מלא" מהמשפך (לא רלוונטי לעבודה מתוזמנת), בידול חדש סביב מחיר-לפי-היקף</li>
+        <li><b>מערכת עיצוב בסגנון ביו-ישראל</b> — כותרות סקשן עם pill-badge וכניסה מדורגת (scroll-reveal), מוני count-up בסטטיסטיקות, על כל הסקשנים בשלושת הדפים</li>
+        <li><b>3 סבבי ביקורת אנושיות (humanization) על כל הקופי</b> — הוסרו דפוסי AI (מקפים חוזרים, שלשות מלאכותיות, חזרתיות בין-דפית, ערבובי גוף/זמן) משלושת המשפכים, בלי לשנות מחיר/תעודה/שעות</li>
+        <li><b>דיבאג מלא הלילה</b> — <span class="ltr">npm run build</span>, <span class="ltr">tsc --noEmit</span>, <span class="ltr">eslint</span>: אפס שגיאות. אפס שגיאות runtime בפרודקשן (7 ימים אחרונים, נבדק ב-Vercel).</li>
+        <li><b><span class="ltr">LEADS_DASHBOARD_PASSWORD</span> הוגדר בפרודקשן</b> — לוח הלידים ב-<span class="ltr">/leads</span> כבר לא חסום (503), רק דורש התחברות. הסיסמה נשלחה בנפרד, לא בקובץ הזה.</li>
+        <li><b>תפריט נגישות מלא (IS 5568) חי באתר</b> — ניגודיות, גודל טקסט, ריווח שורות, פונט קריא, הדגשת קישורים/כותרות, עצירת אנימציות, מקש Alt+A, עם דף <span class="ltr">/accessibility</span> (הצהרת נגישות). נבדק ידנית מקצה לקצה — לא ביקורת מקצועית של מורשה נגישות (ר' הצהרה)</li>
+        <li><b>טופס הלידים מוגן</b> — honeypot שקוף (בוט שממלא אותו מקבל "הצלחה" מזויפת בלי לגעת ב-DB) + checkbox הסכמת פרטיות חובה, נאכף גם בצד השרת. דף <span class="ltr">/privacy</span> חדש</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><div class="sec-num" style="background:rgba(239,68,68,.15); color:var(--danger);">!</div><h2>משימות שניסן/עומרי חייבים לבצע</h2></div>
+    <div class="card card-danger">
+      <div class="task"><input type="checkbox" disabled><div><b>לפתוח וואטסאפ עסקי</b><span>יהיה המספר הראשי של כל הקמפיין. כרגע האתר עדיין שולח לכל ה-CTA-ים למספר האישי (<span class="ltr">lib/siteConfig.ts</span>) — בלי זה לידים ימשיכו לזרום למספר הלא-נכון</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>למסור רשימת 10–15 לקוחות עבר (שם + טלפון)</b><span>כדי להתחיל לבקש מהם ביקורת אמיתית בגוגל — יש agent ייעודי לזה (Review Engine), אבל בלי הרשימה אין ביקורות אמיתיות באתר</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>לתאם יום צילום עם ללב מדיה</b><span>תמונות פנים, רכב, ציוד, וידאו קצר — זה מקור התמונות האמיתי המתוכנן. תמונות AI הן פלייסהולדר זמני-להמחשה בלבד עד אז (ר' פער #5 למטה — כרגע גם זה חסום זמנית)</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>לשלוח תעודת מנעולן + אישור משטרה</b><span>לאימות בכרטיס גוגל ובאתר (כבר מוצג באתר כמאושר — צריך תיעוד רשמי בצד לגיבוי)</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>לעדכן ברגע שתעודת האינסטלטור מגיעה</b><span>עד אז — לא מוצג "מוסמך"/"רישיון"/"מורשה" ליד אינסטלציה, בשום מקום, כולל בקמפיין (חסום מראש ב-<span class="ltr">docs/campaign-packages.md</span>)</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>לאשר את שם המותג / רעיון הלוגו / הדומיין הסופיים</b><span>לפני שרוכשים דומיין ומעלים לוגו לאוויר</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>למסור מספר שנות ותק מדויק</b><span>לא יוצג מספר עד שיימסר</span></div></div>
+    </div>
+  </section>
+
+  <section id="infra">
+    <div class="sec-head"><div class="sec-num" style="background:var(--primary-glow); color:var(--primary);">▲</div><h2>תשתית — לפני תנועה בתשלום</h2></div>
+    <div class="card card-primary">
+      <div class="task"><input type="checkbox" checked disabled><div><b>לוח לידים מוגן בסיסמה</b><span><span class="ltr">LEADS_DASHBOARD_PASSWORD</span> מוגדר ב-Vercel production — בוצע הלילה</span></div></div>
+      <div class="task"><input type="checkbox" checked disabled><div><b>Build/lint/typecheck/runtime נקיים</b><span>נבדק הלילה על כל שלושת הדפים — אפס שגיאות</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>חשבון Supabase משלו לניסן</b><span>הוחלט הלילה: <b>לא</b> על החשבון/ריפו של עומרי (עלות $10/חודש קבועה, וכדי שהתשתית תהיה בבעלות ניסן). כרגע <span class="ltr">.env.local</span> מכיל ערך placeholder בלבד — <b>אין פרויקט Supabase אמיתי מחובר, טופס הלידים לא שומר כלום בפועל</b>. שלבים: (1) ניסן פותח חשבון Supabase חינמי, (2) יוצר פרויקט, (3) מריץ את ה-SQL המתועד ב-<span class="ltr">lib/supabase.ts</span> ליצירת טבלת <span class="ltr">leads</span>, (4) מוסר את ה-URL וה-anon key (לא סודיים, אפשר בצ'אט/כאן) כדי שאחבר אותם ב-Vercel — את ה-<span class="ltr">service_role key</span> (סוד אמיתי) יש להזין <b>ישירות ב-Vercel Dashboard</b>, לעולם לא בצ'אט</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>רכישת דומיין אמיתי</b><span>המלצה: <span class="ltr">nisan-shemaryahu.co.il</span>. בלעדיו האתר נשאר על <span class="ltr">vercel.app</span> — עובד, אבל לא מקצועי לקמפיין. מחייב עדכון ב-3 קבצים (<span class="ltr">lib/schema.ts</span>, <span class="ltr">app/sitemap.ts</span>, <span class="ltr">app/robots.ts</span>)</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>מספר וואטסאפ עסקי סופי בקוד</b><span>ברגע שנפתח (משימה למעלה) — עדכון ב-<span class="ltr">lib/siteConfig.ts</span> לפני שהאתר מקבל תנועה בתשלום</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>אישור תוכן סופי</b><span>שם עסק, כתובת, שעות, מחירים, ותק — לוודא עם ניסן שהכל מדויק לפני שהתנועה בתשלום מתחילה לזרום</span></div></div>
+    </div>
+  </section>
+
+  <section id="gaps">
+    <div class="sec-head"><div class="sec-num" style="background:rgba(245,158,11,.15); color:var(--warn);">◆</div><h2>פערים שהתגלו בדיבאג הלילה</h2></div>
+    <div class="card card-warn">
+      <div class="task"><input type="checkbox" disabled><div><b>1 · אין שום מדידת המרות (GA4 / GTM / Google Ads conversion)</b><span>אפס תגי מדידה בקוד כרגע. אדיר לא יכול להריץ קמפיינים בלי זה — זה גם בראש רשימת הדרישות שלו ב-<span class="ltr">docs/campaign-packages.md</span>. ביו-ישראל (המודל) רץ בפועל על Google Ads conversion + GTM, לא על GA4 — אותה גישה מומלצת כאן</span></div></div>
+      <div class="task"><input type="checkbox" checked disabled><div><b>2 · טופס הלידים חשוף לספאם — נסגר</b><span>honeypot + checkbox הסכמת פרטיות נוספו ונאכפים גם בצד השרת. reCAPTCHA לא נוסף (דורש חשבון Google reCAPTCHA — לא חוסם כרגע, honeypot+rate-limit נותנים הגנה סבירה בשלב הזה)</span></div></div>
+      <div class="task"><input type="checkbox" checked disabled><div><b>3 · אין תפריט/ווידג'ט נגישות — נסגר</b><span>תפריט נגישות מלא + דף הצהרת נגישות חיים באתר. עדיין לא עבר ביקורת מקצועית של מורשה נגישות שירות מוסמך — מומלץ בהמשך, לא חוסם</span></div></div>
+      <div class="task"><input type="checkbox" checked disabled><div><b>4 · תמונות בהירו — נסגר (זמנית)</b><span>Higgsfield נגמר לו הקרדיט, אז במקום פלייסהולדר גרדיאנט בלבד — נמצאו ונטמעו תמונות אמיתיות ומורשות שימוש חופשי מסחרי (Pexels/Pixabay, ללא צורך בקרדיט) בכל שלושת ה-Hero-ים ובפאנל הבעיה/פתרון. אלו תמונות סטוק גנריות, <b>לא</b> תמונות של ניסן עצמו — להחליף בתמונות האמיתיות ברגע שיום הצילום עם ללב מדיה קורה</span></div></div>
+      <div class="task"><input type="checkbox" disabled><div><b>5 · היגיינת Git</b><span>לא חוסם, עדיפות נמוכה: הפרודקשן בפועל רץ מ-branch <span class="ltr">claude/elegant-sammet-10972f</span>, לא מ-<span class="ltr">main</span> (שעדיין מכיל את האתר הישן). כדאי למזג בשלב נוח כדי שלא יהיה בלבול לסשן הבא</span></div></div>
+    </div>
+  </section>
+
+  <section id="opinion">
+    <div class="sec-head"><div class="sec-num" style="background:rgba(59,130,246,.15); color:var(--primary);">○</div><h2>דעה: פיצול לשלושה אתרים נפרדים</h2></div>
+    <div class="card">
+      <p style="color:var(--text-2); margin:0 0 .8rem;">זו לא החלטה חדשה — כבר קיים דוח החלטה מפורט ב-<span class="ltr">docs/service-separation-tradeoffs.html</span> (8.7.2026) שממליץ באופן חד-משמעי על הפרדה מוחלטת. אחרי שראיתי את זה בנוי וחי הלילה — אני מסכים איתו, עם ניואנס תפעולי אחד:</p>
+      <p style="color:var(--text-2); margin:0 0 .8rem;"><b style="color:var(--text);">ההפרדה נכונה.</b> Quality Score זול יותר, SEO ממוקד, מדידה נקייה לפי <span class="ltr">service</span>+<span class="ltr">source_page</span> שכבר נשלחים מהאתר, ותחושת מומחות ללקוח שנוחת מקמפיין ספציפי. הקוד כבר תומך בזה נקי: תוכן מקובץ אחד (<span class="ltr">serviceContent.ts</span>), עמודי עיר אוטומטיים, טלפון/וואטסאפ משותפים עם לוגו ניטרלי — בדיוק כפי שתוכנן.</p>
+      <p style="color:var(--text-2); margin:0;"><b style="color:var(--text);">הניואנס:</b> תקציב הקמפיין הכולל (2,500 ₪/חודש, מפוצל שווה-בשווה לפי <span class="ltr">docs/campaign-packages.md</span>) מפוצל דק מאוד בין 3 קמפיינים — כל אחד מקבל ~833 ₪, שזה מעט מדי כדי להגיע ל-15 המרות מהר (הסף שנקבע ל-Target CPA). זה בסדר לפי התכנון (2-3 שבועות מבחן מקביל לפני אופטימיזציה), אבל כדאי לוודא שהציפיות מנוהלות: התוצאות הראשוניות מכל קמפיין יהיו "רועשות" (מדגם קטן) לפני שיהיה אפשר להסיק מסקנות אמינות על איזה שירות באמת הכי משתלם.</p>
+    </div>
+  </section>
+
+  <section id="sessions">
+    <div class="sec-head"><div class="sec-num" style="background:rgba(212,175,55,.15); color:var(--accent);">▤</div><h2>תפריט סשנים לפתיחה</h2></div>
+    <p class="sub" style="margin-bottom:1.2rem;">כל כרטיס = סשן נפרד שאפשר לפתוח בנפרד, עם ההקשר הדרוש לו בלבד.</p>
+    <div class="sessions">
+      <div class="sess-card"><b><span class="n">1</span>וואטסאפ עסקי</b><p>פתיחת המספר, עדכון <span class="ltr">lib/siteConfig.ts</span>, בדיקת זרימת ליד מקצה לקצה בכל 3 הדפים</p></div>
+      <div class="sess-card"><b><span class="n">2</span>Supabase של ניסן</b><p>פתיחת חשבון, יצירת פרויקט, הרצת ה-SQL מ-<span class="ltr">lib/supabase.ts</span>, חיבור משתני סביבה ב-Vercel</p></div>
+      <div class="sess-card"><b><span class="n">3</span>דומיין</b><p>רכישת <span class="ltr">nisan-shemaryahu.co.il</span>, חיבור ל-Vercel, עדכון SITE_URL בשלושה קבצים</p></div>
+      <div class="sess-card"><b><span class="n">4</span>תמונות אמיתיות</b><p>קליטת תמונות מיום הצילום עם ללב מדיה, או תמונות AI זמניות ברגע שהקרדיט מתאפס</p></div>
+      <div class="sess-card"><b><span class="n">5</span>ביקורות גוגל</b><p>קבלת רשימת 10-15 לקוחות מניסן, שליחת בקשות ביקורת (Review Engine agent כבר קיים לזה)</p></div>
+      <div class="sess-card"><b><span class="n">6</span>מדידה והמרות</b><p>הקמת GA4/GTM/Google Ads conversion tracking בקוד + בחשבונות בפועל, לפני שאדיר מתחיל</p></div>
+      <div class="sess-card"><b><span class="n">7</span>אבטחת טופס — שלב 2</b><p>honeypot והסכמת פרטיות כבר חיים. נותר: חשבון Google reCAPTCHA אם ספאם יהפוך לבעיה בפועל</p></div>
+      <div class="sess-card"><b><span class="n">8</span>ביקורת נגישות מקצועית</b><p>הווידג'ט חי, אך מומלץ אימות ע"י מורשה נגישות שירות מוסמך לכיסוי מלא</p></div>
+      <div class="sess-card"><b><span class="n">9</span>השוואת קמפיינים</b><p>מסירת <span class="ltr">docs/campaign-packages.md</span> לאדיר, אחרי שכל התלויות למעלה נסגרו</p></div>
+      <div class="sess-card"><b><span class="n">10</span>היגיינת Git</b><p>מיזוג <span class="ltr">claude/elegant-sammet-10972f</span> ל-<span class="ltr">main</span> כדי לסגור את הפער בין הענפים</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  מסמך עבודה פנימי · עומרי כתב · מבוסס docs/nisan-full-brief.html + docs/campaign-packages.md + docs/service-separation-tradeoffs.html באותו ריפו · עודכן 19.7.2026
+</footer>
+
+</body>
+</html>

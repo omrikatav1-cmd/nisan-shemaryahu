@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
+import { isValidIsraeliPhone } from "@/lib/validation";
 
 // --- Rate Limiting ---
 
@@ -45,19 +46,12 @@ function isRateLimited(ip: string): { limited: boolean; retryAfterSeconds: numbe
 
 // --- Validation & Sanitization ---
 
-const ISRAELI_PHONE_REGEX = /^(05[0-9]\d{7}|(\+972)5[0-9]\d{7})$/;
-
 function stripHtmlTags(input: string): string {
   return input.replace(/<[^>]*>/g, "");
 }
 
 function sanitize(input: string): string {
   return stripHtmlTags(input.trim());
-}
-
-function isValidIsraeliPhone(phone: string): boolean {
-  const normalized = phone.replace(/[-\s]/g, "");
-  return ISRAELI_PHONE_REGEX.test(normalized);
 }
 
 // --- Error Responses ---
@@ -97,7 +91,26 @@ export async function POST(request: NextRequest) {
       return errorResponse("validation_error", "גוף הבקשה אינו תקין.", 400);
     }
 
-    const { name: rawName, phone: rawPhone, issue: rawIssue } = body as Record<string, unknown>;
+    const {
+      name: rawName,
+      phone: rawPhone,
+      issue: rawIssue,
+      service: rawService,
+      source_page: rawSourcePage,
+      website: honeypot,
+      consent,
+    } = body as Record<string, unknown>;
+
+    // Honeypot: a real user never fills this hidden field. Bots that
+    // autofill every input do — return a fake success so they get no signal
+    // about what tripped, but never touch the database.
+    if (typeof honeypot === "string" && honeypot.trim() !== "") {
+      return NextResponse.json({ success: true, whatsappUrl: getWhatsAppUrl("", "") });
+    }
+
+    if (consent !== true) {
+      return errorResponse("validation_error", "יש לאשר את מדיניות הפרטיות כדי לשלוח את הטופס.", 400);
+    }
 
     if (typeof rawName !== "string" || typeof rawPhone !== "string" || typeof rawIssue !== "string") {
       return errorResponse("validation_error", "שדות חסרים: שם, טלפון ותיאור הבעיה הם שדות חובה.", 400);
@@ -106,6 +119,9 @@ export async function POST(request: NextRequest) {
     const name = sanitize(rawName);
     const phone = sanitize(rawPhone);
     const issue = sanitize(rawIssue);
+    // Optional — tags which of the 3 parallel campaigns/pages produced the lead.
+    const service = typeof rawService === "string" ? sanitize(rawService).slice(0, 50) : null;
+    const sourcePage = typeof rawSourcePage === "string" ? sanitize(rawSourcePage).slice(0, 100) : null;
 
     if (!name || !phone || !issue) {
       return errorResponse("validation_error", "שדות חסרים: שם, טלפון ותיאור הבעיה הם שדות חובה.", 400);
@@ -119,9 +135,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { data, error } = await getSupabase()
+    const { error } = await getSupabase()
       .from("leads")
-      .insert([{ name, phone, issue, status: "new" }])
+      .insert([{ name, phone, issue, status: "new", service, source_page: sourcePage }])
       .select()
       .single();
 
@@ -131,7 +147,7 @@ export async function POST(request: NextRequest) {
       return errorResponse("server_error", "שגיאה בשמירת הפנייה. נסה שוב.", 500);
     }
 
-    const whatsappUrl = getWhatsAppUrl(name, issue);
+    const whatsappUrl = getWhatsAppUrl(name, issue, service ?? undefined);
 
     return NextResponse.json({
       success: true,

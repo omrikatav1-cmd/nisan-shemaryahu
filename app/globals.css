@@ -22,6 +22,23 @@
   --color-border:         rgba(255, 255, 255, 0.08);
   --color-border-bright:  rgba(255, 255, 255, 0.15);
 
+  /* ── Light palette — used only on the 3 new service landing pages
+       (app/מנעולן, app/אינסטלטור, app/הנדימן). The dark palette above
+       stays untouched so the existing homepage never changes. ────── */
+  --color-l-bg:           #F7F4EE;
+  --color-l-surface:      #FFFFFF;
+  --color-l-primary:      #14395E;
+  --color-l-primary-dim:  #0C2740;
+  --color-l-accent:       #C97A2B;
+  --color-l-accent-dim:   #A35F1C;
+  --color-l-danger:       #C23B3B;
+  --color-l-success:      #1F7A4D;
+  --color-l-text:         #1A2433;
+  --color-l-text-2:       #435164;
+  --color-l-text-muted:   #5A6675; /* darkened from #7A8697 — that shade measured ~3.4:1 against the page background, below WCAG AA's 4.5:1 for normal text; this measures ~4.9:1 */
+  --color-l-border:       #E4DFD3;
+  --color-l-border-bright:#D6CFBD;
+
   /* Typography */
   --font-heading: var(--font-rubik),    "Rubik",     sans-serif;
   --font-body:    var(--font-assistant), "Assistant", sans-serif;
@@ -262,10 +279,169 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 800;
 }
 
+/* ─── Light page shell (service landing pages) ──────────────── */
+.light-page {
+  background-color: var(--color-l-bg);
+  color: var(--color-l-text);
+  font-weight: 400;
+  min-height: 100dvh;
+}
+
+.light-page h1, .light-page h2, .light-page h3, .light-page h4 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--color-l-text);
+}
+
+/* Full-bleed dark heroes sit on a rich gradient, not the page background —
+   headings need to stay white instead of inheriting the light-page default. */
+.light-page .hero-dark h1 {
+  color: #fff;
+}
+
+.light-card {
+  background: var(--color-l-surface);
+  border: 1px solid var(--color-l-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 28px rgba(20, 57, 94, 0.08);
+}
+
+/* ─── Premium polish pass — touch response, readable type, section flow ───
+   Anti-slop micro-interactions: things lift when you hover, press when you
+   click, and type never leaves a word stranded. Scoped to the light service
+   pages so the dark homepage is untouched. Honors reduced-motion below. ── */
+
+/* Every interactive element eases its state changes — no instant snaps. */
+.light-page a,
+.light-page button {
+  transition: color .2s ease, background-color .2s ease,
+              box-shadow .25s ease, transform .14s ease, opacity .2s ease;
+}
+/* Physical press feedback — the control dips under your finger. */
+.light-page a[href]:active,
+.light-page button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+/* Cards lift and cast a warmer, deeper shadow on hover/touch. The form card
+   is excluded (:has(form)) so it never jumps while you're filling it in. */
+.light-card {
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1),
+              box-shadow .35s ease, border-color .35s ease;
+  will-change: transform;
+}
+.light-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px rgba(20, 57, 94, 0.16);
+  border-color: var(--color-l-border-bright);
+}
+.light-card:has(form):hover {
+  transform: none;
+  box-shadow: 0 12px 34px rgba(20, 57, 94, 0.12);
+}
+
+/* Readable, human typography — balanced headlines, no orphaned last words. */
+.light-page h1, .light-page h2, .light-page h3 { text-wrap: balance; }
+.light-page p, .light-page li { text-wrap: pretty; }
+.light-page { letter-spacing: -0.006em; }
+
+/* Anchor jumps land softly below the sticky header instead of under it. */
+.light-page [id] { scroll-margin-top: 92px; }
+
+/* A hair of warmth connects stacked sections — soft seam, never a hard rule. */
+.light-page section { position: relative; }
+.light-page section + section::before {
+  content: "";
+  position: absolute;
+  inset-inline: 18%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent,
+    color-mix(in srgb, var(--color-l-accent) 22%, transparent), transparent);
+  pointer-events: none;
+}
+
+/* Call-to-action emphasis — the phone/WhatsApp buttons are the entire point
+   of the page, so they carry a real tinted glow (not a grey drop-shadow) and
+   lift on hover, on top of the press-in feedback already set above. Two
+   variants so "call" (navy) and "WhatsApp" (clay accent) read as distinct
+   actions at a glance. */
+.cta-glow-primary {
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--color-l-primary) 38%, transparent),
+              0 2px 8px color-mix(in srgb, var(--color-l-primary) 22%, transparent);
+}
+.cta-glow-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 38px color-mix(in srgb, var(--color-l-primary) 46%, transparent),
+              0 4px 12px color-mix(in srgb, var(--color-l-primary) 28%, transparent);
+}
+.cta-glow-accent {
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--color-l-accent-dim) 42%, transparent),
+              0 2px 8px color-mix(in srgb, var(--color-l-accent-dim) 26%, transparent);
+}
+.cta-glow-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 38px color-mix(in srgb, var(--color-l-accent-dim) 50%, transparent),
+              0 4px 12px color-mix(in srgb, var(--color-l-accent-dim) 30%, transparent);
+}
+/* translateY(-2px) hover + translateY(1px) active from above would fight on a
+   button that has both — active always wins while pressed, which is correct. */
+.cta-glow-primary:active, .cta-glow-accent:active { transform: translateY(1px); }
+
+/* Focus ring and text selection use the light palette, not the dark-theme blue. */
+.light-page :focus-visible { outline-color: var(--color-l-primary); }
+.light-page ::selection {
+  background: color-mix(in srgb, var(--color-l-accent) 28%, transparent);
+  color: var(--color-l-primary);
+}
+
 /* ─── Reduced motion ────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ─── Accessibility preferences widget (IS 5568 / Regulation 35) ──
+   User-preference toggles only — these rules never touch content DOM,
+   alt text, or ARIA. See lib/a11y-prefs/core.ts for the class source. */
+.a11y-links a {
+  text-decoration: underline !important;
+  font-weight: 600 !important;
+}
+.a11y-contrast-high { filter: contrast(1.35); }
+.a11y-contrast-invert { filter: invert(1) hue-rotate(180deg); }
+.a11y-contrast-mono { filter: grayscale(1) contrast(1.1); }
+.a11y-text-115 { font-size: 115%; }
+.a11y-text-130 { font-size: 130%; }
+.a11y-text-150 { font-size: 150%; }
+.a11y-lines-16 * { line-height: 1.6 !important; }
+.a11y-lines-20 * { line-height: 2 !important; }
+.a11y-readable-font, .a11y-readable-font * {
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif !important;
+}
+.a11y-headings h1, .a11y-headings h2, .a11y-headings h3 {
+  outline: 2px dashed currentColor;
+  outline-offset: 4px;
+}
+.a11y-reduce-motion *, .a11y-reduce-motion *::before, .a11y-reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Counter-invert so the widget itself stays legible under invert/mono. */
+html.a11y-contrast-invert #a11y-widget-trigger,
+html.a11y-contrast-invert #a11y-widget-panel,
+html.a11y-contrast-mono #a11y-widget-trigger,
+html.a11y-contrast-mono #a11y-widget-panel {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+@media print {
+  html[class*="a11y-"] { filter: none !important; }
+  html[class*="a11y-text-"] { font-size: 100% !important; }
+  html[class*="a11y-lines-"] * { line-height: normal !important; }
 }

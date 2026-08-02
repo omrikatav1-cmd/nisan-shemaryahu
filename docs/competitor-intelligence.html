@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ניסן שמריהו — חקר מתחרים ואינטליגנציה תחרותית</title>
+<style>
+  :root{
+    --bg:#0f1419;--surface:#1a2129;--surface-2:#212a34;--border:#2c3742;
+    --text:#eef2f6;--text-2:#b7c2cd;--muted:#7d8b98;
+    --brand:#2f9e6f;--brand-dim:#247a56;--accent:#e8a33d;--danger:#e5604d;--good:#3fb680;
+    --lock:#e8a33d;--plumb:#4d9ee5;--handy:#9d7de5;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Assistant','Segoe UI',system-ui,sans-serif;line-height:1.7;font-size:16px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px 100px}
+  header.hero{background:radial-gradient(120% 140% at 85% -10%,rgba(47,158,111,.28),transparent 55%),linear-gradient(160deg,#131a21,#0c1116);border-bottom:1px solid var(--border);padding:56px 20px 44px;margin-bottom:8px}
+  header.hero .wrap{padding-bottom:0}
+  .kicker{color:var(--brand);font-weight:700;letter-spacing:.04em;font-size:.82rem;text-transform:uppercase;margin:0 0 10px}
+  h1{font-size:2.5rem;line-height:1.12;margin:0 0 12px;font-weight:800;letter-spacing:-.01em}
+  .sub{color:var(--text-2);font-size:1.1rem;max-width:660px;margin:0}
+  .meta{margin-top:22px;display:flex;gap:8px;flex-wrap:wrap}
+  .tag{background:var(--surface-2);border:1px solid var(--border);color:var(--text-2);font-size:.78rem;padding:5px 11px;border-radius:99px}
+  h2{font-size:1.5rem;margin:52px 0 4px;padding-top:18px;border-top:1px solid var(--border);font-weight:800;letter-spacing:-.01em}
+  h2 .n{color:var(--brand);margin-inline-end:10px}
+  h3{font-size:1.15rem;margin:24px 0 8px;font-weight:700;color:#fff}
+  p{margin:10px 0}
+  a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+  code{background:#0b0f13;border:1px solid var(--border);border-radius:5px;padding:2px 6px;font-size:.86em;font-family:ui-monospace,Menlo,monospace;color:#ffd9a3;direction:ltr;display:inline-block}
+  ul,ol{margin:10px 0;padding-inline-start:24px}li{margin:6px 0}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:16px 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:700px){.grid{grid-template-columns:1fr}h1{font-size:2rem}}
+  .callout{border-inline-start:3px solid var(--accent);background:linear-gradient(90deg,rgba(232,163,61,.09),transparent);padding:14px 18px;border-radius:0 10px 10px 0;margin:16px 0}
+  .callout.warn{border-color:var(--danger);background:linear-gradient(90deg,rgba(229,96,77,.10),transparent)}
+  .callout.ok{border-color:var(--good);background:linear-gradient(90deg,rgba(63,182,128,.10),transparent)}
+  .callout .lbl{font-weight:800;font-size:.8rem;letter-spacing:.03em;text-transform:uppercase;display:block;margin-bottom:4px;color:var(--accent)}
+  .callout.warn .lbl{color:var(--danger)}.callout.ok .lbl{color:var(--good)}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem}
+  th,td{border:1px solid var(--border);padding:9px 11px;text-align:right;vertical-align:top}
+  th{background:var(--surface-2);font-weight:700;color:#fff}
+  tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  .niche{border-radius:16px;border:1px solid var(--border);padding:2px 24px 22px;margin:26px 0;background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
+  .niche.lock{border-top:3px solid var(--lock)}
+  .niche.plumb{border-top:3px solid var(--plumb)}
+  .niche.handy{border-top:3px solid var(--handy)}
+  .niche h2{border-top:none;padding-top:20px}
+  .wedge{background:linear-gradient(120deg,rgba(47,158,111,.14),rgba(47,158,111,.03));border:1px solid rgba(47,158,111,.3);border-radius:12px;padding:16px 20px;margin:16px 0}
+  .wedge .lbl{color:var(--brand);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.03em;display:block;margin-bottom:6px}
+  .toc{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:8px 22px;margin:26px 0 0;column-count:2;column-gap:30px}
+  @media(max-width:700px){.toc{column-count:1}}
+  .toc a{display:block;padding:6px 0;color:var(--text-2);font-size:.94rem;border-bottom:1px solid rgba(255,255,255,.04)}
+  .toc a:hover{color:var(--brand)}
+  .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+  .src{font-size:.85rem;color:var(--text-2)}.src li{margin:4px 0}
+  strong{color:#fff}
+  .badge{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:99px;vertical-align:middle}
+  .badge.can{background:rgba(63,182,128,.16);color:var(--good);border:1px solid rgba(63,182,128,.3)}
+  .badge.cant{background:rgba(229,96,77,.16);color:var(--danger);border:1px solid rgba(229,96,77,.3)}
+  @media print{body{background:#fff;color:#111;font-size:12px}h1,strong,th,h3,.callout .lbl{color:#111}.card,.callout,.wedge,table th,code{background:#f6f8fa!important}a{color:#111}.toc{display:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">חקר מתחרים · Google Search · אור יהודה והסביבה</p>
+    <h1>אינטליגנציה תחרותית — 3 הנישות של ניסן</h1>
+    <p class="sub">מי מפרסם, באילו זוויות, באיזה מחיר — ואיפה בדיוק ניסן מנצח. מבוסס מחקר SERP חי, ניתוח אגרגטורים, ותלונות צרכנים מתועדות. כל המלצה כפופה למגבלות הציות של ניסן.</p>
+    <div class="meta">
+      <span class="tag">21.7.2026</span>
+      <span class="tag">3 נישות · Google Search</span>
+      <span class="tag">מחקר חי + בנצ'מרקים</span>
+    </div>
+  </div>
+</header>
+<div class="wrap">
+
+<div class="callout ok">
+  <span class="lbl">התובנה המרכזית — למה ניסן יכול לנצח בלי להתחרות במהירות</span>
+  כל שוק ה-Google Ads בשלוש הנישות בנוי על שלושה מסרים חוזרים: <strong>מהירות</strong> ("15 דקות", "40 דק'"), <strong>פיתיון מחיר</strong> ("מ-₪99") ו<strong>מותג גנרי</strong> ("יצאת צדיק"). כולם נשחקו. במקביל, התלונה הצרכנית מס' 1 בכל שלוש הנישות היא <strong>המחיר שקפץ</strong> וחוסר אמון. הזווית של ניסן — <strong>מחיר סגור מראש + אמון מאומת (משטרה) + מקומיות אמיתית</strong> — פונה בדיוק לפחד הזה, ולא דורשת אף הבטחה שאסור לו לתת.
+</div>
+
+<nav class="toc">
+  <a href="#summary">תקציר מנהלים</a>
+  <a href="#landscape">נוף התחרות — 2 שכבות</a>
+  <a href="#lock">1 · מנעולן — הנישה החזקה</a>
+  <a href="#plumb">2 · אינסטלטור — הנישה הרגישה</a>
+  <a href="#handy">3 · הנדימן — הנישה הפתוחה</a>
+  <a href="#cpc">אומדני CPC ותקציב</a>
+  <a href="#negatives">מילות שלילה — מודיעין</a>
+  <a href="#actions">פעולות עדיפות</a>
+  <a href="#sources">מקורות</a>
+</nav>
+
+<h2 id="summary"><span class="n">·</span>תקציר מנהלים — 3 הטריזים</h2>
+<table>
+  <tr><th>נישה</th><th>מה כולם מפרסמים</th><th>הפחד האמיתי של הלקוח</th><th>הטריז של ניסן</th><th>עוצמה</th></tr>
+  <tr><td><strong>מנעולן</strong></td><td>"₪99 · 15 דקות · יצאת צדיק"</td><td>המחיר יקפוץ / זו כנופיה</td><td>מחיר סגור מראש + מוסמך <strong>ואישור משטרה</strong></td><td style="color:var(--good)">חזק מאוד</td></tr>
+  <tr><td><strong>אינסטלטור</strong></td><td>"מוסמך · אחריות בכתב · מצלמה תרמית · מ-₪150"</td><td>מחיר מופקע / מבריז / בלי חשבונית</td><td>קריאה 350₪ מתקזזת + מחיר מוסכם מראש + חשבונית</td><td style="color:var(--accent)">בינוני — ראה אזהרה</td></tr>
+  <tr><td><strong>הנדימן</strong></td><td>"150₪/שעה · ארצי · פורטל 3 הצעות"</td><td>פורטל אנונימי / מי בכלל יגיע</td><td>איש אחד אחראי, מקומי, לכל הרשימה</td><td style="color:var(--good)">חזק</td></tr>
+</table>
+
+<h2 id="landscape"><span class="n">·</span>נוף התחרות — שתי שכבות</h2>
+<div class="grid">
+  <div class="card">
+    <h3>שכבה 1 · אגרגטורים / פורטלים</h3>
+    <p>pro.co.il, easy.co.il, midrag, b144, zap, t.co.il, care4home, hman. <strong>שולטים בביטויים הגנריים.</strong></p>
+    <ul>
+      <li><strong>midrag:</strong> עמלה 5–10% רק על עבודה שנסגרה (לא על ליד/הופעה). מקסימום 10%.</li>
+      <li><strong>pro / easy:</strong> מוכרים לידים / מציעים "3 הצעות מחיר".</li>
+      <li>מה זה אומר: על "מנעולן אור יהודה" הגנרי מתחרים <em>מכונות לידים</em>, לא ניסן-אחר. Quality Score והתאמת דף-נחיתה מכריעים.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>שכבה 2 · עצמאים / רשתות מנעולנים</h3>
+    <p>manulanfix, welock, lock4you, locksmith247, locksmith-israel, manulan24-7, plumber-rescue, piper, igl-plumber, bigplumber.</p>
+    <ul>
+      <li>רובם <strong>רשתות "יצאת צדיק"</strong> — אותו template של ₪99 + מהירות + 24/7 בכל עיר.</li>
+      <li>נראות עיקרית: SEO + עמודי עיר. חלקם קונים גם Search.</li>
+      <li>נקודת התורפה שלהם: הבטחות מנופחות → פער אמון שניסן ממנף.</li>
+    </ul>
+  </div>
+</div>
+<div class="callout"><span class="lbl">איך ניסן לא נבלע</span>לא מנצחים את האגרגטור על המילה הגנרית במחיר — מנצחים ב-<strong>Quality Score</strong> (דף נחיתה ייעודי לכל שירות, כבר בנוי) וב-<strong>כוונת-רכישה גבוהה</strong> ("נעלתי את עצמי בחוץ", "פיצוץ צנרת חירום") שבה הלקוח רוצה אדם אמיתי, לא פורטל.</div>
+
+<!-- ============ LOCKSMITH ============ -->
+<div class="niche lock">
+<h2 id="lock"><span class="n" style="color:var(--lock)">1</span>מנעולן — הנישה החזקה ביותר</h2>
+
+<h3>מי מפרסם ומה הזווית</h3>
+<table>
+  <tr><th>מתחרה</th><th>זווית / קופי</th><th>מחיר מוצג</th></tr>
+  <tr><td>manulan24-7 / locksmith-chadik</td><td>"יצאת צדיק · עד 15 דקות · 24/7"</td><td>מ-₪99</td></tr>
+  <tr><td>locksmith247</td><td>"יגיע ב-15 דקות · ללא נזק"</td><td>—</td></tr>
+  <tr><td>locksmith365</td><td>"עד 20 דק' הגעה · כל מנעולן נבדק"</td><td>—</td></tr>
+  <tr><td>welock / manulanfix</td><td>"פורץ מומלץ · עם המלצות"</td><td>מ-₪150–200</td></tr>
+  <tr><td>b144 / t.co.il (אגרגטור)</td><td>"15–22 מנעולנים מומלצים"</td><td>רשימות</td></tr>
+</table>
+
+<h3>מציאות המחיר (מה באמת קורה)</h3>
+<p>ה-₪99 הוא <strong>פיתיון</strong>. המחיר האמיתי: ביקור 200–300₪, דלת שנטרקה 280–350₪, נעולה במפתח/פלדלת 380–550₪. הפער בין המודעה למציאות = מקור התלונות.</p>
+
+<div class="callout warn"><span class="lbl">הפחד המתועד</span>"דיווחים על מנעולנים תמימים שנפלו בפח וכך אפשרו לכנופיות לפרוץ ולגנוב — מומלץ לוודא <strong>תעודת יושר</strong>." הפחד הכי גדול של לקוח מנעולן הוא לא המחיר — זה <em>למי אני פותח את הבית</em>.</div>
+
+<div class="wedge">
+  <span class="lbl">הטריז של ניסן</span>
+  ניסן הוא היחיד שיכול לומר בכנות <strong>"מנעולן מוסמך + אישור משטרה"</strong> <span class="badge can">מאומת</span> — זה עונה ישירות על פחד הכנופיה, מה שאף "יצאת צדיק ₪99" לא נוגע בו. משלב את זה עם <strong>"מחיר סגור מראש בטלפון"</strong> (נגד הפיתיון) → מיצוב אנטי-פיתיון שלם.
+  <ul style="margin-top:8px">
+    <li><strong>זווית A (מנצחת):</strong> "מנעולן מוסמך + אישור משטרה — מחיר סגור לפני שיוצאים." <span class="badge can">מותר</span></li>
+    <li><strong>זווית B:</strong> "בלי פיתיון ₪99. המחיר שסיכמנו — זה מה שתשלמו."</li>
+    <li><span class="badge cant">אסור</span> כל הבטחת זמן ("עד שעתיים/דקות") — הוסר. המהירות היא שדה של המתחרים; ניסן לא נלחם שם.</li>
+  </ul>
+</div>
+</div>
+
+<!-- ============ PLUMBER ============ -->
+<div class="niche plumb">
+<h2 id="plumb"><span class="n" style="color:var(--plumb)">2</span>אינסטלטור — הנישה הרגישה</h2>
+
+<h3>מי מפרסם ומה הזווית</h3>
+<table>
+  <tr><th>מתחרה</th><th>זווית / קופי</th><th>מחיר מוצג</th></tr>
+  <tr><td>igl-plumber</td><td>"יצאת צדיק 24/7 · מגיע ב-40 דק"</td><td>—</td></tr>
+  <tr><td>piper</td><td>"מומלץ · הגעה מהירה"</td><td>מ-₪150</td></tr>
+  <tr><td>plumber-rescue</td><td>"מהיר · מחיר נמוך"</td><td>נמוך</td></tr>
+  <tr><td>ronel1 / bigplumber</td><td>"פתיחת סתימות ביוב · יצאת צדיק"</td><td>—</td></tr>
+  <tr><td>pro.co.il (אגרגטור)</td><td>"29 אינסטלטורים שאישרנו" + מחירון</td><td>רשימות</td></tr>
+</table>
+<p>מציאות מחיר: תיקון צנרת חשופה 400–700₪, החלפת סיפון 250–550₪. בשעות חריגות (לילה/שבת/חג) מותר חוקית לגבות 150%+.</p>
+
+<div class="callout warn"><span class="lbl">אזהרה — כאן ניסן חלש יותר</span>
+המתחרים מפרסמים שלושה סיגנלים שניסן <strong>אסור</strong> לו לטעון כרגע: <span class="badge cant">"מוסמך"/"רישיון"</span> (התעודה בעוד ~חודשיים), <span class="badge cant">"אחריות בכתב"</span> (אין), <span class="badge cant">"מצלמה תרמית/FLIR"</span> (לא אושר). כלומר על סיגנלי-האמון הסטנדרטיים ניסן בעמדת נחיתות. <strong>לכן הנישה הזו נלחמת אחרת — על שקיפות, לא על תעודות.</strong></div>
+
+<div class="wedge">
+  <span class="lbl">הטריז של ניסן</span>
+  התלונה מס' 1 על אינסטלטורים (לפי pro.co.il עצמם): <strong>מחיר מופקע · מבריז · בלי חשבונית</strong>. ניסן עונה על כל השלוש:
+  <ul style="margin-top:8px">
+    <li><strong>זווית A (מנצחת):</strong> "קריאת אבחון 350₪ — מתקזזת במלואה מהתיקון." שקיפות מחיר מובנית שרוב המתחרים לא מובילים בה. <span class="badge can">מותר</span></li>
+    <li><strong>זווית B:</strong> "מחיר מוסכם לפני שמתחילים — וחשבונית תמיד." (נגד "מבריז / בלי חשבונית")</li>
+    <li><strong>זווית C:</strong> ניסיון בפועל ("ראיתי כבר הכל בצנרת") — <em>בלי</em> המילה "מוסמך".</li>
+  </ul>
+  <p style="margin:6px 0 0"><strong>המלצה אסטרטגית:</strong> אם התקציב מוגבל — לתת לאינסטלטור נתח קצת קטן יותר בהתחלה עד שהתעודה מגיעה, ואז לפתוח מסרים של "מוסמך" ולהגדיל. הנישה תתחזק פי כמה ברגע שהתעודה ביד.</p>
+</div>
+</div>
+
+<!-- ============ HANDYMAN ============ -->
+<div class="niche handy">
+<h2 id="handy"><span class="n" style="color:var(--handy)">3</span>הנדימן — הנישה הפתוחה</h2>
+
+<h3>מי מפרסם ומה הזווית</h3>
+<table>
+  <tr><th>מתחרה</th><th>מודל</th><th>מחיר מוצג</th></tr>
+  <tr><td>care4home</td><td>פורטל <strong>ארצי</strong>, מחיר אחיד</td><td>150₪/שעה</td></tr>
+  <tr><td>hman (הנדימן פלוס)</td><td>פורטל "עד 3 הצעות מחיר"</td><td>מ-₪199–200</td></tr>
+  <tr><td>pro.co.il / b144</td><td>אגרגטור "13 הנדימנים בפיקוח"</td><td>רשימות</td></tr>
+</table>
+<p>מציאות מחיר: ביקור 150–250₪, שעת עבודה ~150₪. הנישה הכי פחות רוויה בעצמאים אמיתיים — רובה פורטלים.</p>
+
+<div class="callout"><span class="lbl">התובנה</span>ההנדימן הוא נישת <strong>פורטלים</strong>, לא אנשים. care4home ארצי ואנונימי; hman שולח אותך לרולטת "3 הצעות". הלקוח שמחפש הנדימן רוצה <em>אדם אחד שאפשר לסמוך עליו שיבוא</em> — בדיוק מה שפורטל לא נותן.</div>
+
+<div class="wedge">
+  <span class="lbl">הטריז של ניסן</span>
+  <ul>
+    <li><strong>זווית A (מנצחת):</strong> "איש אחד לכל הרשימה — במקום לתאם 3 בעלי מקצוע." חוצה-שירות שאף פורטל לא מציע.</li>
+    <li><strong>זווית B:</strong> מקומיות — "הנדימן <em>מאור יהודה</em>", לא פורטל ארצי. אמון מקומי מנצח מחיר אחיד.</li>
+    <li><strong>זווית C:</strong> שירות ממוקד שניסן ציין כמוביל (החלפת ברזים) — "ברז מטפטף? נקי ומהיר."</li>
+    <li><span class="badge cant">לוודא מול ניסן</span> "בלי דמי ייעוץ" — לא לאמת מולו עדיין; לא להשתמש עד אישור.</li>
+  </ul>
+</div>
+</div>
+
+<h2 id="cpc"><span class="n">·</span>אומדני CPC ותקציב <span style="font-size:.7rem;color:var(--muted)">(הערכה — לאמת ב-Keyword Planner)</span></h2>
+<table>
+  <tr><th>נישה</th><th>אשכול</th><th>CPC משוער (₪)</th><th>תחרות</th></tr>
+  <tr><td>מנעולן</td><td>"מנעולן [עיר]" / "פורץ דלת"</td><td>8–18</td><td>גבוהה (אגרגטורים + רשתות)</td></tr>
+  <tr><td>מנעולן</td><td>"נעלתי את עצמי בחוץ" (כוונה גבוהה)</td><td>10–25</td><td>בינונית (נפח נמוך, המרה גבוהה)</td></tr>
+  <tr><td>אינסטלטור</td><td>"אינסטלטור [עיר]" / "פתיחת סתימה"</td><td>7–15</td><td>גבוהה</td></tr>
+  <tr><td>אינסטלטור</td><td>"פיצוץ צנרת חירום"</td><td>10–22</td><td>בינונית (חירום = CPC גבוה)</td></tr>
+  <tr><td>הנדימן</td><td>"הנדימן [עיר]" / "תיקונים קטנים"</td><td>4–10</td><td>נמוכה יחסית (הזדמנות)</td></tr>
+</table>
+<p>בסיס: CPC מקומי בישראל 5–30₪; שירותי בית/חירום בקצה הגבוה. בתקציב ~833₪/קמפיין ו-CPC ~10₪ → ~80 קליקים/חודש/קמפיין. <strong>ההנדימן נותן הכי הרבה קליקים לשקל</strong> — שקול משקל-יתר קל שם בהתחלה כדי לצבור המרות מהר.</p>
+
+<h2 id="negatives"><span class="n">·</span>מילות שלילה — מודיעין מהמתחרים</h2>
+<p>מעבר לרשימה הבסיסית (חינם/בעצמי/DIY/קורס/דרושים/ת"א), המחקר חושף שלילות ספציפיות לנישה:</p>
+<div class="grid">
+  <div class="card"><h3>מנעולן</h3><code>שכפול מפתח</code> · <code>כספת</code> · <code>מנעול אופניים</code> · <code>סמארט לוק DIY</code> · <code>קורס מנעולנות</code> · <code>רכב/אימובילייזר</code> (אם ניסן לא עושה) · <code>99</code> (מסנן ציידי-פיתיון)</div>
+  <div class="card"><h3>אינסטלטור</h3><code>מוסמך</code>*·<code>קורס אינסטלציה</code>·<code>דוד שמש התקנה</code> (אם לא)·<code>ביוב עירוני</code>·<code>שאיבת ביוב משאית</code>·<code>מחירון</code> (כוונת-מחקר, לא רכישה)<br><span style="font-size:.8rem;color:var(--muted)">*לשלילת חיפושי "אינסטלטור מוסמך" שניסן לא יכול לשרת עדיין</span></div>
+  <div class="card"><h3>הנדימן</h3><code>דרושים</code>·<code>משכורת</code>·<code>קורס</code>·<code>ארצי</code>·<code>שיפוצים גדולים</code>·<code>קבלן</code>·<code>מחירון</code>·<code>חינם</code></div>
+</div>
+
+<h2 id="actions"><span class="n">·</span>פעולות עדיפות</h2>
+<ol>
+  <li><strong>מנעולן = דגל ההנעה.</strong> הנישה החזקה ביותר (טריז אמון ברור + כוונת חירום). להתחיל אגרסיבי כאן.</li>
+  <li><strong>למקד תקציב בכוונה גבוהה</strong> ("נעלתי את עצמי בחוץ", "פיצוץ צנרת") — שם הפורטלים חלשים והלקוח רוצה אדם. Exact match.</li>
+  <li><strong>אינסטלטור — לרסן עד התעודה.</strong> להריץ על שקיפות ("קריאה מתקזזת"), לא על תעודות. להגדיל ברגע שה"מוסמך" חוקי.</li>
+  <li><strong>הנדימן — לקצור זול.</strong> CPC הנמוך ביותר; טריז "איש אחד מקומי" מול פורטלים ארציים. מקור המרות מהיר וזול ללמידה.</li>
+  <li><strong>Quality Score הוא הנשק.</strong> 3 דפי הנחיתה כבר בנויים ייעודית → יתרון QS מובנה מול עמודי-עיר גנריים של רשתות.</li>
+  <li><strong>מודיעין חי:</strong> אחרי פתיחת חשבון Ads → <a href="https://adstransparency.google.com">Google Ads Transparency Center</a> (חיפוש לפי דומיין מתחרה) + <strong>Auction Insights</strong> (impression share מול מי מתחרים בפועל). זה מה שאני לא יכול לראות מבחוץ — רק החשבון החי נותן.</li>
+</ol>
+
+<h2 id="sources"><span class="n">·</span>מקורות</h2>
+<p class="src">מחקר SERP חי (יולי 2026) על "מנעולן/אינסטלטור/הנדימן אור יהודה" + ניתוח אגרגטורים ותלונות צרכנים:</p>
+<ul class="src">
+  <li><a href="https://www.pro.co.il/plumbers/guide/common-complaints-about-plumbers">pro.co.il — תלונות נפוצות על אינסטלטורים</a> (מקור לפחד הצרכני)</li>
+  <li><a href="https://www.pro.co.il/plumbers/or-yehuda">pro.co.il — אינסטלטורים אור יהודה</a></li>
+  <li><a href="https://www.midrag.co.il/Content/Article/1177">midrag — איך זה עובד (מודל עמלה 5–10%)</a></li>
+  <li><a href="https://manulan24-7.co.il/">manulan24-7 — template "יצאת צדיק ₪99 · 15 דקות"</a></li>
+  <li><a href="https://locksmith365.co.il/locksmith-in-or-yehuda/">locksmith365 — "עד 20 דק'" אור יהודה</a></li>
+  <li><a href="https://igl-plumber.co.il/">igl-plumber — "יצאת צדיק 24/7 · 40 דק'"</a></li>
+  <li><a href="https://www.piper.co.il/מחירון-אינסטלציה">piper — מחירון אינסטלציה 2026</a></li>
+  <li><a href="https://care4home.co.il/">care4home — הנדימן ארצי 150₪/שעה</a></li>
+  <li><a href="https://www.hman.co.il/אודות">hman — פורטל "3 הצעות מחיר"</a></li>
+  <li><a href="https://www.b144.co.il/">b144</a> · <a href="https://www.pro.co.il/handymen/or-yehuda">pro.co.il הנדימן אור יהודה</a></li>
+</ul>
+<p class="src">משלים למסמכי הפרויקט: <code>docs/campaign-launch-guide.html</code> (העלאה לאוויר), <code>docs/google-ads-market-and-abc-plan.md</code> (קופי A/B/C), <code>docs/seo-competitive-audit.md</code>.</p>
+
+<div class="foot">
+  <p>אינטליגנציה תחרותית · ניסן שמריהו · נבנה על ידי עומרי כתב. אומדני CPC/מחיר הם הערכות מבוססות-מחקר, לא נתונים מדודים מחשבון חי — לאמת ב-Keyword Planner ו-Auction Insights לפני קבלת החלטות תקציב. כל זווית קופי כפופה למגבלות הציות (אין זמן הגעה, אין "מוסמך" לאינסטלציה עד התעודה, מחירים כולל מע"מ).</p>
+</div>
+
+</div>
+</body>
+</html>
